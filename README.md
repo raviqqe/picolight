@@ -7,10 +7,6 @@
 
 The tiny syntax highlighting library.
 
-## Documentation
-
-[Here](https://raviqqe.com/nanolight).
-
 ## License
 
 [MIT](LICENSE)
