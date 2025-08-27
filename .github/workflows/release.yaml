@@ -7,7 +7,7 @@ on:
 jobs:
   npm:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref != 'refs/heads/main' && 'production' || '' }}
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || '' }}
     permissions:
       contents: read
       id-token: write
