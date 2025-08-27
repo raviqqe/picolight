@@ -1,6 +1,6 @@
 {
-  "name": "nanolight",
-  "version": "0.1.0",
+  "name": "picolight",
+  "version": "0.1.1",
   "description": "The tiny syntax highlighting library",
   "repository": "https://github.com/raviqqe/loscore",
   "license": "MIT",
@@ -15,15 +15,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./async": {
-      "types": "./dist/async.d.ts",
-      "default": "./dist/async.js"
     }
   },
   "scripts": {
     "build": "rslib build",
-    "build:doc": "deno doc --unstable-sloppy-imports --html --name='🕹 Loscore' src/index.ts src/async.ts",
     "lint": "biome ci && knip",
     "test": "vitest --coverage"
   },
@@ -31,10 +26,9 @@
     "@biomejs/biome": "^2.2.2",
     "@raviqqe/biome-config": "^2.0.16",
     "@raviqqe/tsconfig": "^2.0.1",
-    "@rslib/core": "^0.12.2",
+    "@rslib/core": "^0.12.3",
     "@types/node": "^24.3.0",
     "@vitest/coverage-v8": "^3.2.4",
-    "jsr": "^0.13.5",
     "knip": "^5.63.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"

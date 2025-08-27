@@ -7,15 +7,14 @@ on:
 jobs:
   npm:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || '' }}
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
-      - uses: raviqqe/pnpm-publish@v1
-        with:
-          npm_token: ${{ github.ref == 'refs/heads/main' && secrets.NPM_TOKEN || '' }}
+      - run: pnpm publish ${{ github.ref != 'refs/heads/main' && '--dry-run --no-git-checks' || '' }}
   release:
     needs:
       - npm
