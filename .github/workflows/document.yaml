@@ -1,0 +1,28 @@
+name: document
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: document-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - uses: actions/configure-pages@v5
+      - uses: homebrew/actions/setup-homebrew@master
+      - run: brew install deno
+      - run: node --run build:doc
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+      - uses: actions/deploy-pages@v4
+        if: github.ref == 'refs/heads/main'
