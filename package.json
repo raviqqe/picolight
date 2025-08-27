@@ -15,15 +15,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./async": {
-      "types": "./dist/async.d.ts",
-      "default": "./dist/async.js"
     }
   },
   "scripts": {
     "build": "rslib build",
-    "build:doc": "deno doc --unstable-sloppy-imports --html --name='🕹 Loscore' src/index.ts src/async.ts",
     "lint": "biome ci && knip",
     "test": "vitest --coverage"
   },
@@ -34,7 +29,6 @@
     "@rslib/core": "^0.12.2",
     "@types/node": "^24.3.0",
     "@vitest/coverage-v8": "^3.2.4",
-    "jsr": "^0.13.5",
     "knip": "^5.63.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
