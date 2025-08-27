@@ -13,9 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
-      - uses: raviqqe/pnpm-publish@v1
-        with:
-          npm_token: ${{ github.ref == 'refs/heads/main' && secrets.NPM_TOKEN || '' }}
+      - uses: pnpm publish ${{ github.ref != 'refs/heads/main' && '--dry-run --no-git-checks' || '' }}
   release:
     needs:
       - npm
