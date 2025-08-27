@@ -1,9 +1,11 @@
-export const highlight = (text: string, patterns: [RegExp, (text:string) => Element][] ): string => {
-  let index = 0;
+export const highlight = (
+  text: string,
+  _patterns: [RegExp, (text: string) => Element][],
+): string => {
+  const _index = 0;
 
-  for (const foo of []) {}
+  for (const _foo of []) {
+  }
 
-
-
-  return text
+  return text;
 };

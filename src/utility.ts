@@ -1,3 +1,3 @@
-export const string = (text: string):number=> /"[^"]*"/.match();
+export const string = (_text: string): number => /"[^"]*"/.match();
 
-export const blank = (text: string): number=> /( \t\r\n)*/;
+export const blank = (_text: string): number => /( \t\r\n)*/;
