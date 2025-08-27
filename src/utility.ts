@@ -1,8 +1,8 @@
-const extractIndex = (match: RegExpExecArray | null): number =>
-  match ? match.index : 0;
+const result = (match: RegExpExecArray | null): number | null =>
+  match?.index ?? null;
 
-export const string = (text: string): number =>
-  extractIndex(/"[^"]*"/.exec(text));
+export const string = (text: string): number | null =>
+  result(/"[^"]*"/.exec(text));
 
-export const blank = (text: string): number =>
-  extractIndex(/( \t\r\n)*/.exec(text));
+export const blank = (text: string): number | null =>
+  result(/( \t\r\n)*/.exec(text));
