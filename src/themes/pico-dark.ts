@@ -7,6 +7,5 @@ export const picoDark: Theme = [
     [number]: [null, "lightyellow"],
     [punctuation]: [null, "gainsboro"],
     [string]: [null, "lightskyblue"],
-    "": [null, "white"],
   },
 ];
