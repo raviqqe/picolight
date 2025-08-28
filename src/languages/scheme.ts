@@ -1,5 +1,5 @@
 import * as category from "../category.js";
-import type { Language } from "../pattern.js";
+import type { Language } from "../lexer.js";
 import * as pattern from "../pattern.js";
 
 export const scheme: Language = [
