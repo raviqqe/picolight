@@ -1,0 +1,11 @@
+.editor {
+  --me-padding: 1rem;
+
+  background: light-dark(#eee, #111);
+  border: 1px solid light-dark(black, white);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  height: 6rem;
+  max-width: 24rem;
+  overflow: hidden;
+}
