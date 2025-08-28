@@ -1,5 +1,5 @@
-export const number = /^[+-]?[0-9.]+/s;
+export const number = /^[+-]?[0-9.]+/;
 
-export const string = /^"[^"]*"/s;
+export const string = /^"[^"]*"/;
 
-export const parenthesis = /^[[\](){}]/s;
+export const parenthesis = /^[[\](){}]/;
