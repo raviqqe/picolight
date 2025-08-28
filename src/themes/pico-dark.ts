@@ -3,6 +3,7 @@ import { number, string } from "../token.js";
 
 export const picoDark: Theme = {
   [number]: [null, "lightyellow"],
+  [punctuation]: [null, "gainsboro"],
   [string]: [null, "lightskyblue"],
   "": [null, "white"],
 };
