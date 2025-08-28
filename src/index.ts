@@ -5,7 +5,7 @@ export const highlight = (
   text: string,
   language: Language,
   [color, theme]: Theme,
-): HTMLSpanElement => {
+): HTMLElement => {
   const root = document.createElement("span");
   root.style = `color:${color}`;
 
