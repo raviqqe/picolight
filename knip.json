@@ -1,5 +1,5 @@
 {
   "entry": ["src/index.ts"],
-  "ignore": ["src/**/*.test.ts"],
+  "ignore": ["doc/**"],
   "project": ["src/**/*.ts"]
 }
