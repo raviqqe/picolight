@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`highlights code 1`] = `"<span style="color: white;">foo</span>"`;

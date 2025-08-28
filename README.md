@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/picolight?style=flat-square)](https://www.npmjs.com/package/picolight)
 [![License](https://img.shields.io/github/license/raviqqe/picolight.svg?style=flat-square)](LICENSE)
 
-The tiny syntax highlighting library.
+The tiny syntax highlighting library for dynamic input.
 
 ## License
 

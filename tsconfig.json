@@ -1,7 +1,7 @@
 {
   "extends": "@raviqqe/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "incremental": false,
+    "noEmit": true,
     "rootDir": "src"
   },
   "include": ["src"]
