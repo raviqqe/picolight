@@ -3,5 +3,5 @@ import { highlight } from "./index.js";
 import { picoDark } from "./themes/pico-dark.js";
 
 it("highlights code", () => {
-  expect(highlight("foo", [], picoDark).textContent).toMatchSnapshot();
+  expect(highlight("foo", [], picoDark).outerHTML).toMatchSnapshot();
 });
