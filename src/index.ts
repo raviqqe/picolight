@@ -11,11 +11,11 @@ export const highlight = (
       ...patterns,
       [/./, (text) => document.createTextNode(text)] satisfies Pattern,
     ]) {
-      const match = pattern.exec(text);
+      const match = pattern.exec(text)?.[0];
 
       if (match) {
-        fragment.appendChild(convert(text.slice(0, match.index)));
-        text = text.slice(match.index);
+        fragment.appendChild(convert(match));
+        text = text.slice(match.length);
         break;
       }
     }
