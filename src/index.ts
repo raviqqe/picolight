@@ -1,22 +1,25 @@
+export type Pattern = [RegExp, (text: string) => Node];
+
 export const highlight = (
   text: string,
-  patterns: [RegExp, (text: string) => Element][],
-): HTMLElement => {
-  const code = document.createElement("code");
+  patterns: Pattern[],
+): DocumentFragment => {
+  const fragment = document.createDocumentFragment();
 
   while (text) {
-    for (const [pattern, convert] of patterns) {
+    for (const [pattern, convert] of [
+      ...patterns,
+      [/./, (text) => document.createTextNode(text)] satisfies Pattern,
+    ]) {
       const index = pattern.exec(text)?.index;
 
       if (index) {
-        code.appendChild(document.createTextNode(text.slice(0, index)));
+        fragment.appendChild(convert(text.slice(0, index)));
         text = text.slice(index);
         break;
       }
     }
-
-    text = text.slice(index ?? 0);
   }
 
-  return code;
+  return fragment;
 };
