@@ -1,1 +1,4 @@
 includeWorkspaceRoot: true
+packages:
+  - .
+  - doc
