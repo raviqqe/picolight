@@ -1,0 +1,19 @@
+{
+  "name": "@picolight/doc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "tsc && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "picolight": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^4.3.4",
+    "astro": "^5.13.3",
+    "typescript": "^5.9.2"
+  }
+}
