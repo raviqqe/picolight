@@ -1,4 +1,4 @@
-import type { Language, Lexer } from "./lexer.js";
+import type { Language, Lexer } from "./language.js";
 import type { Theme } from "./theme.js";
 
 export const highlight = (
