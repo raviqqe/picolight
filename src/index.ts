@@ -1,4 +1,4 @@
-export type Pattern = [RegExp, (text: string) => Node];
+import type { Pattern } from "./pattern.js";
 
 export const highlight = (
   text: string,
