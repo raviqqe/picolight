@@ -1,5 +1,3 @@
-export const number = /^"[^"]*"/s;
+export type Lexer = [RegExp, string];
 
-export const string = /^"[^"]*"/s;
-
-export const parenthesis = /^[[\](){}]/s;
+export type Language = Lexer[];

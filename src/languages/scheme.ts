@@ -1,8 +1,8 @@
-import { punctuation } from "../category.js";
-import { parenthesis, string } from "../lexer.js";
-import type { Pattern } from "../pattern.js";
+import * as category from "../category.js";
+import { parenthesis, string } from "../pattern.js";
+import type { Language } from "../pattern.js";
 
-export const scheme: Pattern[] = [
-  [string, foo],
-  [parenthesis, punctuation],
+export const scheme: Language = [
+  [string, category.string],
+  [parenthesis, category.punctuation],
 ];
