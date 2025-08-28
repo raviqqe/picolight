@@ -1,5 +1,5 @@
-export const string = /"[^"]*"/;
+export const string = /^"[^"]*"/s;
 
-export const blank = /( \n\r\t)*/;
+export const blank = /^( \n\r\t)*/s;
 
-export const punctuation = /[[\](){}]/;
+export const punctuation = /^[[\](){}]/s;
