@@ -1,8 +1,8 @@
-import * as category from "../category.js";
+import * as token from "../token.js";
 import type { Language } from "../lexer.js";
 import * as pattern from "../pattern.js";
 
 export const scheme: Language = [
-  [pattern.string, category.string],
-  [pattern.parenthesis, category.punctuation],
+  [pattern.string, token.string],
+  [pattern.parenthesis, token.punctuation],
 ];
