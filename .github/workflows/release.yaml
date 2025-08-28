@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
+      - run: pnpm -r build
       - run: pnpm -r publish ${{ github.ref != 'refs/heads/main' && '--dry-run --no-git-checks' || '' }}
   release:
     needs:
