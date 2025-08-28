@@ -1,10 +1,14 @@
 export const highlight = (
   text: string,
-  _patterns: [RegExp, (text: string) => Element][],
+  patterns: [RegExp, (text: string) => Element][],
 ): string => {
-  const _index = 0;
+  for (const [pattern, convert] of patterns) {
+    const index = pattern.exec(text)?.index;
 
-  for (const _foo of []) {
+    if (foo) {
+    }
+
+    text = text.slice(index ?? 0);
   }
 
   return text;
