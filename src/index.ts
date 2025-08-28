@@ -7,7 +7,7 @@ export const highlight = (
   [color, theme]: Theme,
 ): HTMLSpanElement => {
   const root = document.createElement("span");
-  root.style = `color:${color};`;
+  root.style = `color:${color}`;
 
   while (text) {
     for (const [pattern, token] of [...language, [/./, null] satisfies Lexer]) {
@@ -19,12 +19,12 @@ export const highlight = (
 
         if (style) {
           const element = document.createElement(style[0] ?? "span");
-          element.appendChild(node);
 
           if (style[1]) {
-            element.style = `color:${style[1]};`;
+            element.style = `color:${style[1]}`;
           }
 
+          element.appendChild(node);
           node = element;
         }
 
