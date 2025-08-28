@@ -1,4 +1,4 @@
-export const number = /^"[^"]*"/s;
+export const number = /^[+-]?[0-9.]+/s;
 
 export const string = /^"[^"]*"/s;
 
