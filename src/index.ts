@@ -11,7 +11,7 @@ export const highlight = (
       ...patterns,
       [/./, (text) => document.createTextNode(text)] satisfies Pattern,
     ]) {
-      const match =pattern.exec(text);
+      const match = pattern.exec(text);
 
       if (match) {
         fragment.appendChild(convert(text.slice(0, match.index)));
