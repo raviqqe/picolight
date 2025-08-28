@@ -1,8 +1,6 @@
 import type { Language, Lexer } from "./lexer.js";
 import type { Theme } from "./theme.js";
 
-const convertText = (text: string): Node => document.createTextNode(text);
-
 export const highlight = (
   text: string,
   language: Language,
@@ -15,7 +13,17 @@ export const highlight = (
       const match = pattern.exec(text)?.[0];
 
       if (match) {
-        fragment.appendChild(((token && theme[token]) || convertText)(match));
+        const style = (token && theme[token]) || theme[""];
+        let node: Node = document.createTextNode(match);
+
+        if (style) {
+          const element = document.createElement(style[0] ?? "span");
+          element.appendChild(node);
+          element.setAttribute("color", style[1]);
+          node = element;
+        }
+
+        fragment.appendChild(node);
         text = text.slice(match.length);
         break;
       }
