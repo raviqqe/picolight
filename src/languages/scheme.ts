@@ -1,4 +1,4 @@
-import type { Language } from "../lexer.js";
+import type { Language } from "../language.js";
 import * as pattern from "../pattern.js";
 import * as token from "../token.js";
 
