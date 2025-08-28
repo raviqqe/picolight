@@ -5,8 +5,8 @@ export const highlight = (
   text: string,
   language: Language,
   theme: Theme,
-): DocumentFragment => {
-  const fragment = document.createDocumentFragment();
+): HTMLSpanElement => {
+  const root = document.createElement("span");
 
   while (text) {
     for (const [pattern, token] of [...language, [/./, null] satisfies Lexer]) {
@@ -23,12 +23,12 @@ export const highlight = (
           node = element;
         }
 
-        fragment.appendChild(node);
+        root.appendChild(node);
         text = text.slice(match.length);
         break;
       }
     }
   }
 
-  return fragment;
+  return root;
 };
