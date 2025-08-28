@@ -10,4 +10,11 @@ export default defineConfig({
       },
     },
   ],
+  source: {
+    entry: {
+      index: "./src/index.ts",
+      "languages/scheme": "./src/languages/scheme.ts",
+      "themes/pico-dark": "./src/languages/scheme.ts",
+    },
+  },
 });
