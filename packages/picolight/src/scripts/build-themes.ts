@@ -23,9 +23,11 @@ await Promise.all(
     );
     const compiledTheme = parse(
       themeSchema,
-      await import(`tm-themes/themes/${name}.json`, {
-        with: { type: "json" },
-      }),
+      (
+        await import(`tm-themes/themes/${name}.json`, {
+          with: { type: "json" },
+        })
+      ).default,
     ).colors.tokenColors.flatMap(
       ({ scope, settings }): [string, string][] =>
         scope?.flatMap((scope): [string, string][] =>
