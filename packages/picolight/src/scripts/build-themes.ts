@@ -1,14 +1,30 @@
 import { writeFile } from "node:fs/promises";
 import { themes } from "tm-themes";
-import { array, object, optional, parse, string, union } from "valibot";
+import {
+  array,
+  object,
+  optional,
+  parse,
+  pipe,
+  string,
+  transform,
+  union,
+} from "valibot";
 
 const themeSchema = object({
   tokenColors: array(
     object({
-      scope: optional(union([string(), array(string())])),
-      settings: object({
-        foreground: optional(string()),
-      }),
+      scope: pipe(
+        optional(union([string(), array(string())])),
+        transform((value) =>
+          typeof value === "string" ? value.split(" ") : value,
+        ),
+      ),
+      settings: optional(
+        object({
+          foreground: optional(string()),
+        }),
+      ),
     }),
   ),
 });
@@ -30,10 +46,10 @@ await Promise.all(
     ).tokenColors.flatMap(
       ({ scope, settings }): [string, string][] =>
         scope?.flatMap((scope): [string, string][] =>
-          !scope.includes(".") && settings.foreground
+          !scope.includes(".") && settings?.foreground
             ? [[scope, settings.foreground]]
             : [],
-        ) ?? [["", settings.foreground ?? ""]],
+        ) ?? [["", settings?.foreground ?? ""]],
     );
 
     await writeFile(
