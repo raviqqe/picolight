@@ -1,11 +1,11 @@
 import { writeFile } from "node:fs/promises";
 import { themes } from "tm-themes";
-import { array, object, optional, parse, string } from "valibot";
+import { array, object, optional, parse, string, union } from "valibot";
 
 const themeSchema = object({
   tokenColors: array(
     object({
-      scope: optional(array(string())),
+      scope: optional(union([string(), array(string())])),
       settings: object({
         foreground: optional(string()),
       }),
