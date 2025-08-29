@@ -1,0 +1,42 @@
+---
+import "picolight";
+import styles from "./Example.module.css";
+
+const source = `
+(import (scheme base))
+
+(define (fibonacci 10)
+  (if (< x 2)
+    x
+    (+
+      (fibonacci (- x 1))
+      (fibonacci (- x 2)))))
+
+(write-string "Hello, World!")
+`;
+---
+
+<picolight-example data-source={source}>
+  <pre class={styles.main}><code /></pre>
+</picolight-example>
+<script>
+  import { highlight } from "picolight";
+  import { scheme } from "picolight/languages/scheme";
+  import { picoDark } from "picolight/themes/pico-dark";
+
+  customElements.define(
+    "picolight-example",
+    class extends HTMLElement {
+      async connectedCallback(): Promise<void> {
+        const { source = "" } = this.dataset;
+        const code = this.querySelector("code");
+
+        if (!code) {
+          throw new Error("root element missing");
+        }
+
+        code.innerHTML = highlight(source, scheme, picoDark).outerHTML;
+      }
+    },
+  );
+</script>
