@@ -35,7 +35,7 @@ const source = `
           throw new Error("root element missing");
         }
 
-        code.innerHTML = highlight(source, scheme, picoDark).innerHTML;
+        code.innerHTML = highlight(source, scheme, picoDark).outerHTML;
       }
     },
   );
