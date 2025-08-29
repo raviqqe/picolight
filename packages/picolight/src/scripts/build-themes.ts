@@ -7,13 +7,11 @@ await Promise.all(
       /-./g,
       (match) => match?.[1]?.toUpperCase() ?? "",
     );
-    const compiledTheme = Object.fromEntries(
-      (
-        await import(`tm-themes/themes/${name}.json`, {
-          with: { type: "json" },
-        })
-      ).theme,
-    );
+    const compiledTheme = (
+      await import(`tm-themes/themes/${name}.json`, {
+        with: { type: "json" },
+      })
+    ).theme;
 
     await writeFile(
       `src/themes/${name}.ts`,
