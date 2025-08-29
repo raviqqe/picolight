@@ -11,7 +11,15 @@ await Promise.all(
       await import(`tm-themes/themes/${name}.json`, {
         with: { type: "json" },
       })
-    ).theme;
+    ).tokenColors.flatMap(
+      ({ scope, settings }): [string, string][] =>
+        scope
+          ?.map((scope) => [scope, settings.foreground])
+          .filter(
+            ([scope, color]: [string, string | undefined]) =>
+              color && !scope.contains("."),
+          ) ?? [["", settings.foreground]],
+    );
 
     await writeFile(
       `src/themes/${name}.ts`,
