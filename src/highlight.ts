@@ -10,7 +10,10 @@ export const highlight = (
   root.style = `color:${color}`;
 
   while (text) {
-    for (const [pattern, token] of [...language, [/./, null] satisfies Lexer]) {
+    for (const [pattern, token] of [
+      ...language,
+      [/./s, null] satisfies Lexer,
+    ]) {
       const match = pattern.exec(text)?.[0];
 
       if (match) {
