@@ -1,0 +1,40 @@
+{
+  "name": "picolight",
+  "version": "0.1.4",
+  "description": "The tiny syntax highlighting library",
+  "repository": "https://github.com/raviqqe/picolight",
+  "license": "MIT",
+  "publishConfig": {
+    "provenance": true
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./languages/*": {
+      "types": "./dist/languages/*.d.ts",
+      "default": "./dist/languages/*.js"
+    },
+    "./themes/*": {
+      "types": "./dist/themes/*.d.ts",
+      "default": "./dist/themes/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "lint": "knip",
+    "test": "vitest --coverage"
+  },
+  "devDependencies": {
+    "@raviqqe/tsconfig": "^2.0.1",
+    "@types/node": "^24.3.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "jsdom": "^26.1.0",
+    "knip": "^5.63.0",
+    "tsdown": "^0.14.2",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
