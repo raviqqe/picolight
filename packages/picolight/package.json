@@ -23,7 +23,8 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "node --run build:themes && tsdown",
+    "build:themes": "node src/scripts/build-themes.ts",
     "lint": "knip",
     "test": "vitest --coverage"
   },
