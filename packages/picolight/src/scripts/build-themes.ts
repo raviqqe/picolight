@@ -29,6 +29,23 @@ const themeSchema = object({
   ),
 });
 
+const compileTheme = async (name: string) =>
+  parse(
+    themeSchema,
+    (
+      await import(`tm-themes/themes/${name}.json`, {
+        with: { type: "json" },
+      })
+    ).default,
+  ).tokenColors.flatMap(
+    ({ scope, settings }): [string, string][] =>
+      scope?.flatMap((scope): [string, string][] =>
+        !scope.includes(".") && settings?.foreground
+          ? [[scope, settings.foreground]]
+          : [],
+      ) ?? [["", settings?.foreground ?? ""]],
+  );
+
 await Promise.all(
   themes.map(async ({ name }) => {
     const camelName = name.replace(
@@ -36,21 +53,7 @@ await Promise.all(
       (match) => match?.[1]?.toUpperCase() ?? "",
     );
 
-    const compiledTheme = parse(
-      themeSchema,
-      (
-        await import(`tm-themes/themes/${name}.json`, {
-          with: { type: "json" },
-        })
-      ).default,
-    ).tokenColors.flatMap(
-      ({ scope, settings }): [string, string][] =>
-        scope?.flatMap((scope): [string, string][] =>
-          !scope.includes(".") && settings?.foreground
-            ? [[scope, settings.foreground]]
-            : [],
-        ) ?? [["", settings?.foreground ?? ""]],
-    );
+    const compiledTheme = compileTheme(name);
 
     await writeFile(
       `src/themes/${name}.ts`,
