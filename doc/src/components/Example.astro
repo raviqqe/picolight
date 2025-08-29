@@ -4,56 +4,30 @@ import styles from "./Example.module.css";
 ---
 
 <example>
-  <div class={styles.main}></div>
+  <pre class={styles.main}>
+    <code />
+  </pre>
 </example>
 <script>
+  import { highlight } from "picolight";
+  import { scheme } from "picolight/languages/scheme";
+  import { picoDark } from "picolight/themes/pico-dark";
+
   customElements.define(
     "example",
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
-        const { language, theme, darkTheme } = this.dataset;
-
-        if (!language || !theme) {
-          throw new Error("Editor props missing");
-        }
-
-        const div = this.querySelector("div");
-        const textarea = this.querySelector("textarea");
-        const pre = this.querySelector("pre");
         const code = this.querySelector("code");
 
-        if (!div || !textarea || !pre || !code) {
-          throw new Error("Editor elements missing");
+        if (!code) {
+          throw new Error("root element missing");
         }
 
-        await highlighter.loadLanguage(language as BundledLanguage);
-
-        for (const name of [theme, darkTheme]) {
-          if (name) {
-            await highlighter.loadTheme(name as BundledTheme);
-          }
-        }
-
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-        let dark = mediaQuery.matches;
-
-        mediaQuery.addEventListener(
-          "change",
-          (event) => (dark = event.matches),
-        );
-
-        initialize({
-          code,
-          highlight: (text) =>
-            highlighter.codeToHtml(text, {
-              lang: language,
-              structure: "inline",
-              theme: (dark && darkTheme) || theme,
-            }),
-          pre,
-          textarea,
-        });
+        code.innerHTML = highlight(
+          `(write-string "Hello, World!")`,
+          scheme,
+          picoDark,
+        ).innerHTML;
       }
     },
   );
