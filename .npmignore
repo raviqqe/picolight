@@ -1,5 +1,7 @@
+*.config.ts
 *.test.*
 .*
 coverage
+knip.json
 src
 tsconfig.*
