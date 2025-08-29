@@ -1,5 +1,14 @@
-export const number = "number";
-
-export const punctuation = "punctuation";
-
-export const string = "string";
+// From Textmate
+export type Token =
+  | "comment"
+  | "constant"
+  | "entity"
+  | "invalid"
+  | "keyword"
+  | "markup"
+  | "meta"
+  | "punctuation"
+  | "storage"
+  | "string"
+  | "support"
+  | "variable";

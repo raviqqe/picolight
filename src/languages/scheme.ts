@@ -1,9 +1,8 @@
 import type { Language } from "../language.js";
-import * as pattern from "../pattern.js";
-import * as token from "../token.js";
+import { number, parenthesis, string } from "../pattern.js";
 
 export const scheme: Language = [
-  [pattern.number, token.number],
-  [pattern.string, token.string],
-  [pattern.parenthesis, token.punctuation],
+  [number, "constant"],
+  [string, "string"],
+  [parenthesis, "punctuation"],
 ];
