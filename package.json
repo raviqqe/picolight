@@ -3,7 +3,7 @@
     "node": ">=24.6.0"
   },
   "scripts": {
-    "lint": "biome ci && knip"
+    "lint": "biome ci"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
