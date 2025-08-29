@@ -1,9 +1,22 @@
 ---
 import "picolight";
 import styles from "./Example.module.css";
+
+const source = `
+(import (scheme base))
+
+(define (fibonacci 10)
+  (if (< x 2)
+    x
+    (+
+      (fibonacci (- x 1))
+      (fibonacci (- x 2)))))
+
+(write-string "Hello, World!")
+`;
 ---
 
-<picolight-example>
+<picolight-example data-source={source}>
   <pre class={styles.main}><code /></pre>
 </picolight-example>
 <script>
@@ -15,17 +28,14 @@ import styles from "./Example.module.css";
     "picolight-example",
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
+        const { source = "" } = this.dataset;
         const code = this.querySelector("code");
 
         if (!code) {
           throw new Error("root element missing");
         }
 
-        code.innerHTML = highlight(
-          `(write-string "Hello, World!")`,
-          scheme,
-          picoDark,
-        ).innerHTML;
+        code.innerHTML = highlight(source, scheme, picoDark).innerHTML;
       }
     },
   );
