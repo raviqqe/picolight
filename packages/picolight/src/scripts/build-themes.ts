@@ -3,14 +3,16 @@ import { themes } from "tm-themes";
 import { array, object, optional, parse, string } from "valibot";
 
 const themeSchema = object({
-  tokenColors: array(
-    object({
-      scope: optional(array(string())),
-      settings: object({
-        foreground: optional(string()),
+  colors: object({
+    tokenColors: array(
+      object({
+        scope: optional(array(string())),
+        settings: object({
+          foreground: optional(string()),
+        }),
       }),
-    }),
-  ),
+    ),
+  }),
 });
 
 await Promise.all(
@@ -24,7 +26,7 @@ await Promise.all(
       await import(`tm-themes/themes/${name}.json`, {
         with: { type: "json" },
       }),
-    ).tokenColors.flatMap(
+    ).colors.tokenColors.flatMap(
       ({ scope, settings }): [string, string][] =>
         scope?.flatMap((scope): [string, string][] =>
           !scope.includes(".") && settings.foreground
