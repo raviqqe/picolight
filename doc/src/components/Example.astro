@@ -3,16 +3,16 @@ import "picolight";
 import styles from "./Example.module.css";
 ---
 
-<example>
+<picolight-example>
   <pre class={styles.main}><code /></pre>
-</example>
+</picolight-example>
 <script>
   import { highlight } from "picolight";
   import { scheme } from "picolight/languages/scheme";
   import { picoDark } from "picolight/themes/pico-dark";
 
   customElements.define(
-    "example",
+    "picolight-example",
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
         const code = this.querySelector("code");
