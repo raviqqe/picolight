@@ -2,5 +2,6 @@
   border: 0.1rem solid gray;
   border-radius: 0.5rem;
   font-size: 0.9rem;
+  overflow-x: auto;
   padding: 1rem;
 }
