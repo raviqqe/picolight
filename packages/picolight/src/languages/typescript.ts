@@ -33,6 +33,7 @@ export const typescript: Language = {
       ["keyword"],
     ],
     [/^#;/, ["punctuation"]],
-    [/^;[^\n]*\n/s, ["comment"]],
+    [/^\/*([^*]|[*](?!\/))*\//s, ["comment"]],
+    [/^\/\/[^\n]*\n/, ["comment"]],
   ],
 };
