@@ -36,6 +36,7 @@ const themeSchema = object({
               literal("bold"),
               literal("italic"),
               literal("strikethrough"),
+              literal("underline"),
             ]),
           ),
           foreground: optional(string()),
