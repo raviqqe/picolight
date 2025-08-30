@@ -5,6 +5,8 @@ import styles from "./Example.module.css";
 const source = `
 (import (scheme base))
 
+(define xs '(#f #t ()))
+
 (define (fibonacci 10)
   (if (< x 2)
     x
@@ -13,6 +15,8 @@ const source = `
       (fibonacci (- x 2)))))
 
 (write-string "Hello, World!")
+
+(write-string "\\n\\r\\t\\"\\\\")
 `.trim();
 ---
 
