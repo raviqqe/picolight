@@ -57,6 +57,10 @@ export const typescript: Language = {
     ],
     [keyword(["number", "string"], identifierLetter), ["storage"]],
     [keyword(["Promise", "RegExp", "URL"], identifierLetter), ["entity"]],
+    [
+      keyword(["console", "document", "window"], identifierLetter),
+      ["variable"],
+    ],
     [/^\/\*([^*]|\*[^/])*\*\//s, ["comment"]],
     [/^\/\/[^\n]*\n/, ["comment"]],
   ],
