@@ -17,7 +17,7 @@ export const highlight = (
         const style = tokens
           .values()
           .map((token) => theme.tokens[token])
-          .find(Boolean);
+          .next().value;
         let node: Node = document.createTextNode(match);
 
         if (style) {
