@@ -4,7 +4,7 @@ import { keyword, number, parenthesis, string } from "../pattern.js";
 const boolean = /^(#f|#t)/;
 
 // spell-checker: disable
-const keywords = [
+const syntaxes = [
   "*",
   "+",
   "-",
@@ -222,6 +222,18 @@ const keywords = [
   "unquote-splicing",
   "utf8->string",
   "values",
+
+  "when",
+  "with-exception-handler",
+  "write-bytevector",
+  "write-char",
+  "write-string",
+  "write-u8",
+  "zero?",
+];
+// spell-checker: enable
+
+const builtins = [
   "vector",
   "vector->list",
   "vector->string",
@@ -235,18 +247,11 @@ const keywords = [
   "vector-ref",
   "vector-set!",
   "vector?",
-  "when",
-  "with-exception-handler",
-  "write-bytevector",
-  "write-char",
-  "write-string",
-  "write-u8",
-  "zero?",
 ];
-// spell-checker: enable
 
 export const scheme: Language = [
-  [keyword(keywords), "keyword"],
+  [keyword(syntaxes), "keyword"],
+  [keyword(builtins), "variable"],
   [boolean, "constant"],
   [number, "constant"],
   [string, "string"],
