@@ -92,7 +92,11 @@ const compileTheme = async (name: string): Promise<Theme> => {
     });
   }
 
-  return [backgroundColor, foregroundColor, omit(tokens, [""])];
+  return {
+    back: backgroundColor,
+    fore: foregroundColor,
+    tokens: omit(tokens, [""]),
+  };
 };
 
 await Promise.all(
