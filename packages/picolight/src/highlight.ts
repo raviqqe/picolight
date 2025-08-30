@@ -12,7 +12,7 @@ export const highlight = (
   root.style = `color:${theme.fore}`;
 
   while (text) {
-    const [tokens, match] = matchLexers(text, lexers);
+    const [tokens, match] = lex(text, lexers);
 
     const style = tokens
       .values()
@@ -38,10 +38,7 @@ export const highlight = (
   return root;
 };
 
-export const matchLexers = (
-  text: string,
-  lexers: Lexer[],
-): [Token[], string] => {
+export const lex = (text: string, lexers: Lexer[]): [Token[], string] => {
   for (const [pattern, tokens] of lexers) {
     const match = pattern.exec(text)?.[0];
 
