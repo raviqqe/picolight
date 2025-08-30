@@ -34,6 +34,12 @@ describe("string", () => {
     expect(text.match(string)?.[0]).toBe(text);
   });
 
+  it("matches escapes", () => {
+    const text = `"\\n\\r\\t\\"\\\\"`;
+
+    expect(text.match(string)?.[0]).toBe(text);
+  });
+
   it("matches a string to the end", () => {
     const text = `"foo`;
 
