@@ -12,6 +12,7 @@ export const typescript: Language = {
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
+    [/^(,|:|;)/, ["punctuation"]],
     [
       keyword(
         [
@@ -54,7 +55,6 @@ export const typescript: Language = {
       ),
       ["keyword"],
     ],
-    [/^#;/, ["punctuation"]],
     [/^\/*([^*]|[*](?!\/))*\//s, ["comment"]],
     [/^\/\/[^\n]*\n/, ["comment"]],
   ],
