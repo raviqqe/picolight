@@ -5,7 +5,7 @@ const identifierLetter = "[A-Za-z0-9_]";
 
 export const typescript: Language = {
   lexers: [
-    [/^(false|true)(?![A-Za-z0-9])/, ["constant"]],
+    [keyword(["false", "true"], identifierLetter), ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
@@ -16,15 +16,15 @@ export const typescript: Language = {
           "await",
           "const",
           "do",
-          "export",
           "else",
-          "type",
+          "export",
           "for",
           "from",
           "function",
           "if",
           "import",
           "let",
+          "type",
           "var",
           "while",
         ],
