@@ -29,6 +29,7 @@ const source = `
   import { highlight } from "picolight";
   import { scheme } from "picolight/languages/scheme";
   import { githubDark } from "picolight/themes/github-dark";
+  import { githubLight } from "picolight/themes/github-light";
 
   customElements.define(
     "picolight-scheme",
@@ -41,7 +42,19 @@ const source = `
           throw new Error("root element missing");
         }
 
-        code.innerHTML = highlight(source, scheme, githubDark).outerHTML;
+        const update = (dark: boolean): void => {
+          code.innerHTML = highlight(
+            source,
+            scheme,
+            dark ? githubDark : githubLight,
+          ).outerHTML;
+        };
+
+        const query = window.matchMedia("(prefers-color-scheme: dark)");
+
+        update(query.matches);
+
+        query.addEventListener("change", ({ matches }) => update(matches));
       }
     },
   );
