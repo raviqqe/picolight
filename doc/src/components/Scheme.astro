@@ -36,17 +36,18 @@ const source = `
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
         const { source = "" } = this.dataset;
+        const pre = this.querySelector("pre");
         const code = this.querySelector("code");
 
-        if (!code) {
-          throw new Error("root element missing");
+        if (!pre || !code) {
+          throw new Error("root elements missing");
         }
 
         const update = (dark: boolean): void => {
           const theme = dark ? githubDark : githubLight;
 
+          pre.style = `background:${theme.back}`;
           code.innerHTML = highlight(source, scheme, theme).outerHTML;
-          code.style = `background:${theme.back}`;
         };
 
         const query = window.matchMedia("(prefers-color-scheme: dark)");
