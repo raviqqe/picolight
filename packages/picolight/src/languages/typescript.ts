@@ -55,6 +55,7 @@ export const typescript: Language = {
       ),
       ["keyword"],
     ],
+    [keyword(["number", "string"], identifierLetter), ["storage"]],
     [/^\/\*([^*]|\*[^/])*\*\//s, ["comment"]],
     [/^\/\/[^\n]*\n/, ["comment"]],
   ],
