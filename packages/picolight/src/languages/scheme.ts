@@ -1,5 +1,11 @@
 import type { Language } from "../language.js";
-import { keyword, number, parenthesis, string } from "../pattern.js";
+import {
+  identifier,
+  keyword,
+  number,
+  parenthesis,
+  string,
+} from "../pattern.js";
 
 // spell-checker: disable
 const builtins = [
@@ -375,6 +381,7 @@ export const scheme: Language = {
     [parenthesis, ["punctuation"]],
     [keyword(builtins, symbolLetter), ["variable"]],
     [keyword(syntaxes, symbolLetter), ["keyword"]],
+    [identifier(symbolLetter, symbolLetter), []],
     [/^('|`|,|,@|#;)/, ["punctuation"]],
     [/^;[^\n]*\n/, ["comment"]],
   ],

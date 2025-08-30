@@ -8,3 +8,6 @@ export const number = /^[+-]?[0-9.]+/;
 export const string = /^"([^\\"]|\\[nrt\\"])*"/;
 
 export const parenthesis = /^[[\](){}]/;
+
+export const identifier = (head: string, tail: string) =>
+  new RegExp(`^${head}${tail}*`);
