@@ -3,14 +3,14 @@ import type { Theme } from "./theme.js";
 
 export const highlight = (
   text: string,
-  language: Language,
+  { lexers }: Language,
   theme: Theme,
 ): HTMLElement => {
   const root = document.createElement("span");
   root.style = `color:${theme.fore}`;
 
   while (text) {
-    for (const [pattern, tokens] of [...language, [/./s, []] satisfies Lexer]) {
+    for (const [pattern, tokens] of [...lexers, [/./s, []] satisfies Lexer]) {
       const match = pattern.exec(text)?.[0];
 
       if (match) {
