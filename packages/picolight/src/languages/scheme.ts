@@ -309,6 +309,12 @@ const builtins = [
   "current-jiffy",
   "current-second",
   "jiffies-per-second",
+  // (schmee process-context)
+  "command-line",
+  "emergency-exit",
+  "exit",
+  "get-environment-variable",
+  "get-environment-variables",
 ];
 
 const syntaxes = [
