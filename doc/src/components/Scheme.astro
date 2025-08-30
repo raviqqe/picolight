@@ -1,6 +1,6 @@
 ---
 import "picolight";
-import styles from "./Example.module.css";
+import styles from "./Scheme.module.css";
 
 const source = `
 (import (scheme base))
@@ -22,16 +22,16 @@ const source = `
 `.trim();
 ---
 
-<picolight-example data-source={source}>
+<picolight-scheme data-source={source}>
   <pre class={styles.main}><code /></pre>
-</picolight-example>
+</picolight-scheme>
 <script>
   import { highlight } from "picolight";
   import { scheme } from "picolight/languages/scheme";
   import { githubDark } from "picolight/themes/github-dark";
 
   customElements.define(
-    "picolight-example",
+    "picolight-scheme",
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
         const { source = "" } = this.dataset;
