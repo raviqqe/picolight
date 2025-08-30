@@ -7,45 +7,41 @@ export const highlight = (
   { lexers }: Language,
   theme: Theme,
 ): HTMLElement => {
+  lexers = [...lexers, [/./s, []] satisfies Lexer];
   const root = document.createElement("span");
   root.style = `color:${theme.fore}`;
 
   while (text) {
-    for (const [pattern, tokens] of [...lexers, [/./s, []] satisfies Lexer]) {
-      const match = pattern.exec(text)?.[0];
+    const [tokens, match] = matchLexers(text, lexers);
 
-      if (match) {
-        const style = tokens
-          .values()
-          .map((token) => theme.tokens[token])
-          .find(Boolean);
-        let node: Node = document.createTextNode(match);
+    const style = tokens
+      .values()
+      .map((token) => theme.tokens[token])
+      .find(Boolean);
+    let node: Node = document.createTextNode(match);
 
-        if (style) {
-          const element = document.createElement(style[0] ?? "span");
+    if (style) {
+      const element = document.createElement(style[0] ?? "span");
 
-          if (style[1]) {
-            element.style = `color:${style[1]}`;
-          }
-
-          element.appendChild(node);
-          node = element;
-        }
-
-        root.appendChild(node);
-        text = text.slice(match.length);
-        break;
+      if (style[1]) {
+        element.style = `color:${style[1]}`;
       }
+
+      element.appendChild(node);
+      node = element;
     }
+
+    root.appendChild(node);
+    text = text.slice(match.length);
   }
 
   return root;
 };
 
-export const match = (
+export const matchLexers = (
   text: string,
   lexers: Lexer[],
-): [Token[], string] | null => {
+): [Token[], string] => {
   for (const [pattern, tokens] of lexers) {
     const match = pattern.exec(text)?.[0];
 
@@ -54,5 +50,5 @@ export const match = (
     }
   }
 
-  return null;
+  throw new Error("Unreachable");
 };
