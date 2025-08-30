@@ -16,3 +16,9 @@ it("highlights a library syntax", () => {
 it("highlights a keyword", () => {
   expect(highlight("define", scheme, githubDark).outerHTML).toMatchSnapshot();
 });
+
+it("highlights a string with escapes", () => {
+  expect(
+    highlight(`"\\n\\r\\t\\\\\\""`, scheme, githubDark).outerHTML,
+  ).toMatchSnapshot();
+});
