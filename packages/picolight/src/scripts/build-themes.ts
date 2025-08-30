@@ -40,6 +40,7 @@ const themeSchema = object({
                   literal("bold"),
                   literal("italic"),
                   literal("normal"),
+                  literal("regular"),
                   literal("strikethrough"),
                   literal("underline"),
                 ]),
