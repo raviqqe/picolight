@@ -17,6 +17,7 @@ const filteredCharacters = [" ", ".", "*"];
 
 const themeSchema = object({
   colors: object({
+    "editor.foreground": optional(string()),
     foreground: optional(string()),
   }),
   tokenColors: array(
@@ -57,6 +58,13 @@ const compileTheme = async (name: string): Promise<Theme> => {
         ) ?? [["", [null, settings?.foreground ?? ""]]],
     ),
   );
+
+  const defaultColor =
+    tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground ?? "";
+
+  if (!defaultColor) {
+    throw new Error(`Theme ${name} does not have a default foreground color.`);
+  }
 
   return [tokens[""]?.[1] ?? colors.foreground ?? "", omit(tokens, [""])];
 };
