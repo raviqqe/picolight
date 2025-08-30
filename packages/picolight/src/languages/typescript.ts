@@ -5,7 +5,10 @@ const identifierLetter = "[A-Za-z0-9_]";
 
 export const typescript: Language = {
   lexers: [
-    [keyword(["false", "true"], identifierLetter), ["constant"]],
+    [
+      keyword(["false", "null", "true", "undefined"], identifierLetter),
+      ["constant"],
+    ],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
@@ -13,6 +16,22 @@ export const typescript: Language = {
       keyword(
         [
           "async",
+          "class",
+          "try",
+          "catch",
+          "finally",
+          "break",
+          "continue",
+          "return",
+          "with",
+          "switch",
+          "case",
+          "default",
+          "yield",
+          "typeof",
+          "instanceof",
+          "enum",
+          "delete",
           "await",
           "const",
           "do",
@@ -23,6 +42,7 @@ export const typescript: Language = {
           "function",
           "if",
           "import",
+          "interface",
           "let",
           "type",
           "var",
