@@ -1,5 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { string } from "./pattern.js";
+import { string, number } from "./pattern.js";
+
+describe("number", () => {
+  it("matches an integer", () => {
+    const text = "42";
+
+    expect(text.match(number)?.[0]).toBe(text);
+  });
+
+  it("matches a positive sign", () => {
+    const text = "+42";
+
+    expect(text.match(number)?.[0]).toBe(text);
+  });
+
+  it("matches a negative sign", () => {
+    const text = "+42";
+
+    expect(text.match(number)?.[0]).toBe(text);
+  });
+});
 
 describe("string", () => {
   it("matches a string", () => {
