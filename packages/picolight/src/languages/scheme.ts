@@ -367,7 +367,7 @@ const syntaxes = [
 
 export const scheme: Language = [
   [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
-  [number, ["number"]],
+  [number, ["number", "constant"]],
   [string, ["string"]],
   [parenthesis, ["punctuation"]],
   [keyword(builtins), ["variable"]],
