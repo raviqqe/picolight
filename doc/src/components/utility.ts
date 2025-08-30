@@ -7,12 +7,6 @@ export const defineElement = (language: Language) => {
     "picolight-example",
     class extends HTMLElement {
       public async connectedCallback(): Promise<void> {
-        const { source } = this.dataset;
-
-        if (!source) {
-          throw new Error("Props missing");
-        }
-
         const pre = this.querySelector("pre");
         const code = this.querySelector("code");
 
@@ -24,7 +18,11 @@ export const defineElement = (language: Language) => {
           const theme = dark ? githubDark : githubLight;
 
           pre.style = `background:${theme.back}`;
-          code.innerHTML = highlight(source, language, theme).outerHTML;
+          code.innerHTML = highlight(
+            this.dataset.source ?? "",
+            language,
+            theme,
+          ).outerHTML;
         };
 
         const query = window.matchMedia("(prefers-color-scheme: dark)");

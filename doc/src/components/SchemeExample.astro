@@ -23,4 +23,12 @@ const source = `
 `.trim();
 ---
 
-<Example language="scheme" source={source} />
+<picolight-example data-source={source}>
+  <Example />
+</picolight-example>
+<script>
+  import { defineElement } from "./utility.js";
+  import { scheme } from "picolight/languages/scheme";
+
+  defineElement(scheme);
+</script>
