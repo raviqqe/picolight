@@ -4,7 +4,7 @@ import type { Theme } from "./theme.js";
 export const highlight = (
   text: string,
   language: Language,
-  [_backgroundColor, foregroundColor, theme]: Theme,
+  [, foregroundColor, theme]: Theme,
 ): HTMLElement => {
   const root = document.createElement("span");
   root.style = `color:${foregroundColor}`;
