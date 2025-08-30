@@ -2,4 +2,6 @@
 
 exports[`highlights a keyword 1`] = `"<span style="color: rgb(209, 213, 218);"><span style="color: rgb(249, 117, 131);">define</span></span>"`;
 
+exports[`highlights a library syntax 1`] = `"<span style="color: rgb(209, 213, 218);">(<span style="color: rgb(249, 117, 131);">import</span> (scheme base))</span>"`;
+
 exports[`highlights code 1`] = `"<span style="color: rgb(209, 213, 218);">foo</span>"`;
