@@ -1,6 +1,6 @@
 import type { Language, Lexer } from "./language.js";
 import type { Theme } from "./theme.js";
-import { Token } from "./token.js";
+import type { Token } from "./token.js";
 
 export const highlight = (
   text: string,
