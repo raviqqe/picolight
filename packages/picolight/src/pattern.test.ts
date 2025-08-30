@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { number, string } from "./pattern.js";
+import { number, parenthesis, string } from "./pattern.js";
 
 describe("number", () => {
   it("matches an integer", () => {
@@ -51,4 +51,12 @@ describe("string", () => {
 
     expect(text.match(string)?.[0]).toBe(text);
   });
+});
+
+describe("parenthesis", () => {
+  for (const text of "(){}[]") {
+    it(`matches ${text}`, () => {
+      expect(text.match(parenthesis)?.[0]).toBe(text);
+    });
+  }
 });
