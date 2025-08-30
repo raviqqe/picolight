@@ -39,7 +39,6 @@ code.innerHTML = highlight(
 ## Supported themes
 
 We support [all TextMate themes provided by Shiki](https://shiki.matsu.io/themes).
-However, we use only foreground colors on syntax highlighting.
 
 ## License
 
