@@ -1,7 +1,7 @@
 import type { Language } from "../language.js";
 import { keyword, number, parenthesis, string } from "../pattern.js";
 
-const constants = /^(#f|#t)/;
+const constants = /^(#f|#t|#\\[a-z0-9]+)/;
 
 // spell-checker: disable
 const builtins = [
