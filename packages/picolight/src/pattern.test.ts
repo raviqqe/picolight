@@ -1,8 +1,16 @@
-import { expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { string } from "./pattern.js";
 
-it("matches a string to the end", () => {
-  const text = `"foo`;
+describe("string", () => {
+  it("matches a string", () => {
+    const text = `"foo"`;
 
-  expect(text.match(string)?.[0]).toBe(text);
+    expect(text.match(string)?.[0]).toBe(text);
+  });
+
+  it("matches a string to the end", () => {
+    const text = `"foo`;
+
+    expect(text.match(string)?.[0]).toBe(text);
+  });
 });
