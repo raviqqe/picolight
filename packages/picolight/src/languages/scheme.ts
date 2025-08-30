@@ -365,7 +365,7 @@ const syntaxes = [
 ];
 // spell-checker: enable
 
-const symbolLetter = "[A-Za-z0-9]";
+const symbolLetter = "[A-Za-z0-9-?]";
 
 export const scheme: Language = {
   lexers: [
