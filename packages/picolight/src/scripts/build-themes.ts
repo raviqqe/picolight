@@ -18,6 +18,8 @@ const filteredCharacters = [" ", ".", "*"];
 
 const themeSchema = object({
   colors: object({
+    background: optional(string()),
+    "editor.background": optional(string()),
     "editor.foreground": optional(string()),
     foreground: optional(string()),
   }),
@@ -76,14 +78,25 @@ const compileTheme = async (name: string): Promise<Theme> => {
     ),
   );
 
-  const defaultColor =
-    tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground ?? "";
+  const foregroundColor =
+    tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground;
+  const backgroundColor =
+    tokens[""]?.[1] ?? colors["editor.background"] ?? colors.background;
 
-  if (!defaultColor) {
-    throw new Error(`No default color for ${name}`);
+  if (!foregroundColor || !backgroundColor) {
+    throw new Error(`Default color missing for ${name}`, {
+      cause: {
+        backgroundColor,
+        foregroundColor,
+      },
+    });
   }
 
-  return [tokens[""]?.[1] ?? colors.foreground ?? "", omit(tokens, [""])];
+  return {
+    back: backgroundColor,
+    fore: foregroundColor,
+    tokens: omit(tokens, [""]),
+  };
 };
 
 await Promise.all(

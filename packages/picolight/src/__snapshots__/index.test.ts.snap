@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`highlights a keyword 1`] = `"<span style="color: rgb(209, 213, 218);"><span style="color: rgb(249, 117, 131);">define</span></span>"`;
+exports[`highlights a keyword 1`] = `"<span style="color: rgb(225, 228, 232);"><span style="color: rgb(249, 117, 131);">define</span></span>"`;
 
-exports[`highlights a library syntax 1`] = `"<span style="color: rgb(209, 213, 218);">(<span style="color: rgb(249, 117, 131);">import</span> (<span style="color: rgb(255, 171, 112);">scheme</span> base))</span>"`;
+exports[`highlights a library syntax 1`] = `"<span style="color: rgb(225, 228, 232);">(<span style="color: rgb(249, 117, 131);">import</span> (<span style="color: rgb(255, 171, 112);">scheme</span> base))</span>"`;
 
-exports[`highlights a string with escapes 1`] = `"<span style="color: rgb(209, 213, 218);"><span style="color: rgb(158, 203, 255);">"\\n\\r\\t\\\\\\""</span></span>"`;
+exports[`highlights a string with escapes 1`] = `"<span style="color: rgb(225, 228, 232);"><span style="color: rgb(158, 203, 255);">"\\n\\r\\t\\\\\\""</span></span>"`;
 
-exports[`highlights code 1`] = `"<span style="color: rgb(209, 213, 218);">foo</span>"`;
+exports[`highlights code 1`] = `"<span style="color: rgb(225, 228, 232);">foo</span>"`;
