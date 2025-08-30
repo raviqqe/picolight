@@ -32,6 +32,7 @@
     "@raviqqe/tsconfig": "^2.0.1",
     "@types/node": "^24.3.0",
     "@vitest/coverage-v8": "^3.2.4",
+    "es-toolkit": "^1.39.10",
     "jsdom": "^26.1.0",
     "knip": "^5.63.0",
     "tm-themes": "^1.10.9",

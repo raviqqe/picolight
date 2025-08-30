@@ -1,4 +1,5 @@
 import { writeFile } from "node:fs/promises";
+import { omit } from "es-toolkit";
 import { themes } from "tm-themes";
 import {
   array,
@@ -10,6 +11,7 @@ import {
   transform,
   union,
 } from "valibot";
+import type { Theme } from "../theme.js";
 
 const themeSchema = object({
   tokenColors: array(
@@ -29,22 +31,27 @@ const themeSchema = object({
   ),
 });
 
-const compileTheme = async (name: string) =>
-  parse(
-    themeSchema,
-    (
-      await import(`tm-themes/themes/${name}.json`, {
-        with: { type: "json" },
-      })
-    ).default,
-  ).tokenColors.flatMap(
-    ({ scope, settings }): [string, string][] =>
-      scope?.flatMap((scope): [string, string][] =>
-        !scope.includes(".") && settings?.foreground
-          ? [[scope, settings.foreground]]
-          : [],
-      ) ?? [["", settings?.foreground ?? ""]],
+const compileTheme = async (name: string): Promise<Theme> => {
+  const theme = Object.fromEntries(
+    parse(
+      themeSchema,
+      (
+        await import(`tm-themes/themes/${name}.json`, {
+          with: { type: "json" },
+        })
+      ).default,
+    ).tokenColors.flatMap(
+      ({ scope, settings }): [string, string][] =>
+        scope?.flatMap((scope): [string, string][] =>
+          !scope.includes(".") && settings?.foreground
+            ? [[scope, settings.foreground]]
+            : [],
+        ) ?? [["", settings?.foreground ?? ""]],
+    ),
   );
+
+  return [theme[""] ?? "", omit(theme, [""])];
+};
 
 await Promise.all(
   themes.map(async ({ name }) => {

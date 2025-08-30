@@ -42,6 +42,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.0)(jiti@2.5.1)(jsdom@26.1.0))
+      es-toolkit:
+        specifier: ^1.39.10
+        version: 1.39.10
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
@@ -1237,6 +1240,9 @@ packages:
 
   es-module-lexer@1.7.0:
     resolution: {integrity: sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==}
+
+  es-toolkit@1.39.10:
+    resolution: {integrity: sha512-E0iGnTtbDhkeczB0T+mxmoVlT4YNweEKBLq7oaU4p11mecdsZpNWOglI4895Vh4usbQ+LsJiuLuI2L0Vdmfm2w==}
 
   esast-util-from-estree@2.0.0:
     resolution: {integrity: sha512-4CyanoAudUSBAn5K13H4JhsMH6L9ZP7XbLVe/dKybkxMO7eDyLsT8UHl9TRNrU2Gr9nz+FovfSIjuXWJ81uVwQ==}
@@ -3713,6 +3719,8 @@ snapshots:
   entities@6.0.1: {}
 
   es-module-lexer@1.7.0: {}
+
+  es-toolkit@1.39.10: {}
 
   esast-util-from-estree@2.0.0:
     dependencies:
