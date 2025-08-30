@@ -1,6 +1,6 @@
-export const keyword = (keywords: string[]) =>
+export const keyword = (keywords: string[], terminal: string) =>
   new RegExp(
-    `^(${keywords.map((RegExp as unknown as { escape: (text: string) => string }).escape).join("|")})`,
+    `^(${keywords.map((RegExp as unknown as { escape: (text: string) => string }).escape).join("|")})(?!${terminal})`,
   );
 
 export const number = /^[+-]?[0-9.]+/;
