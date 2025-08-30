@@ -6,6 +6,8 @@
 
 The tiny syntax highlighting library for dynamic input.
 
+Its core library has only 0.5 KB JavaScript!
+
 ## Supported languages
 
 - [Scheme](https://scheme.org)
