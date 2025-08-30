@@ -3,6 +3,7 @@ import { omit } from "es-toolkit";
 import { themes } from "tm-themes";
 import {
   array,
+  literal,
   object,
   optional,
   parse,
@@ -30,6 +31,13 @@ const themeSchema = object({
       ),
       settings: optional(
         object({
+          fontStyle: optional(
+            union([
+              literal("bold"),
+              literal("italic"),
+              literal("strikethrough"),
+            ]),
+          ),
           foreground: optional(string()),
         }),
       ),
