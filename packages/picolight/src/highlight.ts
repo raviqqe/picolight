@@ -14,7 +14,10 @@ export const highlight = (
       const match = pattern.exec(text)?.[0];
 
       if (match) {
-        const style = tokens.find((token) => theme[token]);
+        const style = tokens
+          .values()
+          .map((token) => theme[token])
+          .find(Boolean);
         let node: Node = document.createTextNode(match);
 
         if (style) {
