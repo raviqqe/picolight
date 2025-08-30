@@ -1,29 +1,10 @@
 ---
 import styles from "./Example.module.css";
 
-const source = `
-(import (scheme base))
-
-; This is a comment.
-
-(define xs '(#f #t ()))
-
-(define ys '(import export import-export))
-
-(define (fibonacci 10)
-  (if (< x 2)
-    x
-    (+
-      (fibonacci (- x 1))
-      (fibonacci (- x 2)))))
-
-(write-string "Hello, World!")
-
-(write-string "\\n\\r\\t\\"\\\\")
-`.trim();
+const { language, source } = Astro.props;
 ---
 
-<picolight-scheme data-source={source}>
+<picolight-scheme data-language={language} data-source={source}>
   <pre class={styles.main}><code /></pre>
 </picolight-scheme>
 <script>
@@ -36,12 +17,17 @@ const source = `
     "picolight-scheme",
     class extends HTMLElement {
       async connectedCallback(): Promise<void> {
-        const { source = "" } = this.dataset;
+        const { language, source } = this.dataset;
+
+        if (!language || !source) {
+          throw new Error("Props missing");
+        }
+
         const pre = this.querySelector("pre");
         const code = this.querySelector("code");
 
         if (!pre || !code) {
-          throw new Error("root elements missing");
+          throw new Error("Root elements missing");
         }
 
         const update = (dark: boolean): void => {
