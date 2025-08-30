@@ -16,6 +16,9 @@ import type { Tag, Theme } from "../theme.js";
 const filteredCharacters = [" ", ".", "*"];
 
 const themeSchema = object({
+  colors: object({
+    foreground: optional(string()),
+  }),
   tokenColors: array(
     object({
       scope: pipe(
@@ -34,15 +37,17 @@ const themeSchema = object({
 });
 
 const compileTheme = async (name: string): Promise<Theme> => {
-  const theme = Object.fromEntries(
-    parse(
-      themeSchema,
-      (
-        await import(`tm-themes/themes/${name}.json`, {
-          with: { type: "json" },
-        })
-      ).default,
-    ).tokenColors.flatMap(
+  const { colors, tokenColors } = parse(
+    themeSchema,
+    (
+      await import(`tm-themes/themes/${name}.json`, {
+        with: { type: "json" },
+      })
+    ).default,
+  );
+
+  const tokens = Object.fromEntries(
+    tokenColors.flatMap(
       ({ scope, settings }) =>
         scope?.flatMap((scope): [string, [Tag, string]][] =>
           !filteredCharacters.some((character) => scope.includes(character)) &&
@@ -53,7 +58,7 @@ const compileTheme = async (name: string): Promise<Theme> => {
     ),
   );
 
-  return [theme[""]?.[1] ?? "", omit(theme, [""])];
+  return [tokens[""]?.[1] ?? colors.foreground ?? "", omit(tokens, [""])];
 };
 
 await Promise.all(
