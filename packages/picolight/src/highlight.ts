@@ -4,10 +4,10 @@ import type { Theme } from "./theme.js";
 export const highlight = (
   text: string,
   language: Language,
-  [color, theme]: Theme,
+  [_backgroundColor, foregroundColor, theme]: Theme,
 ): HTMLElement => {
   const root = document.createElement("span");
-  root.style = `color:${color}`;
+  root.style = `color:${foregroundColor}`;
 
   while (text) {
     for (const [pattern, tokens] of [...language, [/./s, []] satisfies Lexer]) {
