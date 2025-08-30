@@ -1,5 +1,7 @@
 // From Textmate
 export type Token =
+  | "bold"
+  | "brace"
   | "carriage-return"
   | "comment"
   | "constant"
