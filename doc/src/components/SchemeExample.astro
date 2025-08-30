@@ -1,0 +1,26 @@
+---
+import Example from "./Example.astro";
+
+const source = `
+(import (scheme base))
+
+; This is a comment.
+
+(define xs '(#f #t ()))
+
+(define ys '(import export import-export))
+
+(define (fibonacci 10)
+  (if (< x 2)
+    x
+    (+
+      (fibonacci (- x 1))
+      (fibonacci (- x 2)))))
+
+(write-string "Hello, World!")
+
+(write-string "\\n\\r\\t\\"\\\\")
+`.trim();
+---
+
+<Example language="scheme" source={source} />
