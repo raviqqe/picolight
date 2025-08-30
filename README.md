@@ -33,7 +33,8 @@ code.innerHTML = highlight(
 ## Supported languages
 
 - [Scheme](https://scheme.org)
-- Other languages might be coming maybe...
+- [TypeScript](https://www.typescriptlang.org/)
+- Other languages might be coming, maybe...
 
 ## Supported themes
 
