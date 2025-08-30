@@ -221,18 +221,12 @@ const syntaxes = [
   "unquote",
   "unquote-splicing",
   "utf8->string",
-  "values",
   "when",
-  "with-exception-handler",
-  "write-bytevector",
-  "write-char",
-  "write-string",
-  "write-u8",
-  "zero?",
 ];
 // spell-checker: enable
 
 const builtins = [
+  "values",
   "vector",
   "vector->list",
   "vector->string",
@@ -246,6 +240,12 @@ const builtins = [
   "vector-ref",
   "vector-set!",
   "vector?",
+  "with-exception-handler",
+  "write-bytevector",
+  "write-char",
+  "write-string",
+  "write-u8",
+  "zero?",
 ];
 
 export const scheme: Language = [
