@@ -3,6 +3,7 @@ import { keyword, number, parenthesis, string } from "../pattern.js";
 
 const boolean = /^(#f|#t)/;
 
+// spell-checker: disable
 const keywords = [
   "*",
   "+",
@@ -242,6 +243,7 @@ const keywords = [
   "write-u8",
   "zero?",
 ];
+// spell-checker: enable
 
 export const scheme: Language = [
   [keyword(keywords), "keyword"],
