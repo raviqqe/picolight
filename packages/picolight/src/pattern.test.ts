@@ -13,4 +13,10 @@ describe("string", () => {
 
     expect(text.match(string)?.[0]).toBe(text);
   });
+
+  it("matches a multi-line string to the end", () => {
+    const text = '"foo\nbar';
+
+    expect(text.match(string)?.[0]).toBe(text);
+  });
 });
