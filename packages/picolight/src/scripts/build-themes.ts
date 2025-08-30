@@ -19,7 +19,7 @@ const themeSchema = object({
       scope: pipe(
         optional(union([string(), array(string())])),
         transform((value) =>
-          typeof value === "string" ? value.split(" ") : value,
+          typeof value === "string" ? [value] : (value ?? []),
         ),
       ),
       settings: optional(
@@ -41,9 +41,9 @@ const compileTheme = async (name: string): Promise<Theme> => {
         })
       ).default,
     ).tokenColors.flatMap(
-      ({ scope, settings }): [string, [Tag, string]][] =>
-        scope?.flatMap((scope) =>
-          !scope.includes(".") && settings?.foreground
+      ({ scope, settings }) =>
+        scope?.flatMap((scope): [string, [Tag, string]][] =>
+          !scope.includes(".") && !scope.includes(" ") && settings?.foreground
             ? [[scope, [null, settings.foreground]]]
             : [],
         ) ?? [["", [null, settings?.foreground ?? ""]]],
