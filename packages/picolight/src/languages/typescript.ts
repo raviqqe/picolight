@@ -9,10 +9,10 @@ export const typescript: Language = {
       keyword(["false", "null", "true", "undefined"], identifierLetter),
       ["constant"],
     ],
+    [/^(.|,|:|;)/, ["punctuation"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
-    [/^(.|,|:|;)/, ["punctuation"]],
     [
       keyword(
         [
@@ -55,7 +55,7 @@ export const typescript: Language = {
       ),
       ["keyword"],
     ],
-    [/^\/*([^*]|[*](?!\/))*\//s, ["comment"]],
+    [/^\/\*([^*]|[*](?!\/))\*\//s, ["comment"]],
     [/^\/\/[^\n]*\n/, ["comment"]],
   ],
 };
