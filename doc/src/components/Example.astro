@@ -22,7 +22,7 @@ const source = `
 <script>
   import { highlight } from "picolight";
   import { scheme } from "picolight/languages/scheme";
-  import { picoDark } from "picolight/themes/pico-dark";
+  import { githubDark } from "picolight/themes/github-dark";
 
   customElements.define(
     "picolight-example",
@@ -35,7 +35,7 @@ const source = `
           throw new Error("root element missing");
         }
 
-        code.innerHTML = highlight(source, scheme, picoDark).outerHTML;
+        code.innerHTML = highlight(source, scheme, githubDark).outerHTML;
       }
     },
   );
