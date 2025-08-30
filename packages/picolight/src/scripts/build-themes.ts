@@ -58,7 +58,7 @@ await Promise.all(
     await writeFile(
       `src/themes/${name}.ts`,
       [
-        `import { Theme } from "../theme.js";`,
+        `import type { Theme } from "../theme.js";`,
         `export const ${camelName}: Theme = ${JSON.stringify(compiledTheme)}`,
       ].join("\n"),
     );
