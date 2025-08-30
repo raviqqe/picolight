@@ -1,5 +1,6 @@
 import type { Language, Lexer } from "./language.js";
 import type { Theme } from "./theme.js";
+import { Token } from "./token.js";
 
 export const highlight = (
   text: string,
@@ -39,4 +40,19 @@ export const highlight = (
   }
 
   return root;
+};
+
+export const match = (
+  text: string,
+  lexers: Lexer[],
+): [Token[], string] | null => {
+  for (const [pattern, tokens] of lexers) {
+    const match = pattern.exec(text)?.[0];
+
+    if (match) {
+      return [tokens, match];
+    }
+  }
+
+  return null;
 };
