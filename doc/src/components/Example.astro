@@ -7,42 +7,4 @@ const { language, source } = Astro.props;
 <picolight-scheme data-language={language} data-source={source}>
   <pre class={styles.main}><code /></pre>
 </picolight-scheme>
-<script>
-  import { highlight } from "picolight";
-  import { githubDark } from "picolight/themes/github-dark";
-  import { githubLight } from "picolight/themes/github-light";
-
-  customElements.define(
-    "picolight-scheme",
-    class extends HTMLElement {
-      async connectedCallback(): Promise<void> {
-        const { language: languageName, source } = this.dataset;
-        [];
-        if (!languageName || !source) {
-          throw new Error("Props missing");
-        }
-
-        const language = await import(`picolight/languages/${languageName}`);
-        const pre = this.querySelector("pre");
-        const code = this.querySelector("code");
-
-        if (!pre || !code) {
-          throw new Error("Root elements missing");
-        }
-
-        const update = (dark: boolean): void => {
-          const theme = dark ? githubDark : githubLight;
-
-          pre.style = `background:${theme.back}`;
-          code.innerHTML = highlight(source, language, theme).outerHTML;
-        };
-
-        const query = window.matchMedia("(prefers-color-scheme: dark)");
-
-        update(query.matches);
-
-        query.addEventListener("change", ({ matches }) => update(matches));
-      }
-    },
-  );
-</script>
+<script></script>
