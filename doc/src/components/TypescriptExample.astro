@@ -22,12 +22,12 @@ console.log("\\n\\r\\t\\"\\\\");
 `.trim();
 ---
 
-<picolight-example data-source={source}>
+<picolight-typescript data-source={source}>
   <Example />
-</picolight-example>
+</picolight-typescript>
 <script>
   import { defineElement } from "./example.js";
   import { typescript } from "picolight/languages/typescript";
 
-  defineElement(typescript);
+  defineElement("typescript", typescript);
 </script>

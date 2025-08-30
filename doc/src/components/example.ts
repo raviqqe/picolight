@@ -2,9 +2,9 @@ import { highlight, type Language } from "picolight";
 import { githubDark } from "picolight/themes/github-dark";
 import { githubLight } from "picolight/themes/github-light";
 
-export const defineElement = (language: Language) => {
+export const defineElement = (name: string, language: Language) => {
   window.customElements.define(
-    "picolight-example",
+    `picolight-${name}`,
     class extends HTMLElement {
       public async connectedCallback(): Promise<void> {
         const pre = this.querySelector("pre");
