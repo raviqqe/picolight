@@ -208,6 +208,16 @@ const builtins = [
   "write-string",
   "write-u8",
   "zero?",
+  // (scheme read)
+  "read",
+  // (scheme write)
+  "display",
+  "write",
+  "write-shared",
+  "write-simple",
+  // (scheme eval)
+  "environment",
+  "eval",
 ];
 
 const syntaxes = [
