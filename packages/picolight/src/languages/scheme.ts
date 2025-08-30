@@ -365,14 +365,16 @@ const syntaxes = [
 ];
 // spell-checker: enable
 
+const symbolLetter = "[A-Za-z0-9]";
+
 export const scheme: Language = {
   lexers: [
     [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
-    [keyword(builtins), ["variable"]],
-    [keyword(syntaxes), ["keyword"]],
+    [keyword(builtins, symbolLetter), ["variable"]],
+    [keyword(syntaxes, symbolLetter), ["keyword"]],
     [/^#;/, ["punctuation"]],
     [/^;[^\n]*\n/s, ["comment"]],
   ],
