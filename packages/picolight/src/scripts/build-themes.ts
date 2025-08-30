@@ -11,7 +11,7 @@ import {
   transform,
   union,
 } from "valibot";
-import type { Theme } from "../theme.js";
+import type { Tag, Theme } from "../theme.js";
 
 const themeSchema = object({
   tokenColors: array(
@@ -41,16 +41,16 @@ const compileTheme = async (name: string): Promise<Theme> => {
         })
       ).default,
     ).tokenColors.flatMap(
-      ({ scope, settings }): [string, string][] =>
-        scope?.flatMap((scope): [string, string][] =>
+      ({ scope, settings }): [string, [Tag, string]][] =>
+        scope?.flatMap((scope) =>
           !scope.includes(".") && settings?.foreground
-            ? [[scope, settings.foreground]]
+            ? [[scope, [null, settings.foreground]]]
             : [],
-        ) ?? [["", settings?.foreground ?? ""]],
+        ) ?? [["", [null, settings?.foreground ?? ""]]],
     ),
   );
 
-  return [theme[""] ?? "", omit(theme, [""])];
+  return [theme[""]?.[1] ?? "", omit(theme, [""])];
 };
 
 await Promise.all(

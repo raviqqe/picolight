@@ -2,7 +2,9 @@
 export type Token =
   | "comment"
   | "constant"
+  | "delimiter"
   | "entity"
+  | "identifier"
   | "invalid"
   | "keyword"
   | "markup"
