@@ -15,7 +15,7 @@ describe("number", () => {
   });
 
   it("matches a negative sign", () => {
-    const text = "+42";
+    const text = "-42";
 
     expect(text.match(number)?.[0]).toBe(text);
   });
