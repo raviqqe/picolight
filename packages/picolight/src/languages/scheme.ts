@@ -378,7 +378,8 @@ export const scheme: Language = {
   lexers: [
     [surround(/;/, /[^\n]/, /\n/), ["comment"]],
     [surround(/#\|/, /[^|]|\|(?!#)/, /\|#/), ["comment"]],
-    [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
+    // spell-checker: disable-next-line
+    [/^(#f(alse)?|#t(rue)?|#\\[a-z0-9]+)/, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
