@@ -1,6 +1,8 @@
 import type { Language } from "../language.js";
 import { keyword, number, parenthesis, string } from "../pattern.js";
 
+const boolean = /^(#f|#t)/;
+
 const keywords = [
   "*",
   "+",
@@ -243,6 +245,7 @@ const keywords = [
 
 export const scheme: Language = [
   [keyword(keywords), "keyword"],
+  [boolean, "constant"],
   [number, "constant"],
   [string, "string"],
   [parenthesis, "punctuation"],
