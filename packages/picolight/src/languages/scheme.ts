@@ -276,6 +276,10 @@ const builtins = [
   "make-polar",
   "make-rectangular",
   "real-part",
+  // (scheme lazy)
+  "force",
+  "make-promise",
+  "promise?",
   // (scheme read)
   "read",
   // (scheme write)
@@ -286,6 +290,10 @@ const builtins = [
   // (scheme eval)
   "environment",
   "eval",
+  // (scheme repl)
+  "interaction-environment",
+  // (scheme load)
+  "load",
   // (scheme file)
   "call-with-input-file",
   "call-with-output-file",
@@ -338,6 +346,9 @@ const syntaxes = [
   "when",
   // (scheme case-lambda)
   "case-lambda",
+  // (scheme lazy)
+  "delay",
+  "delay-force",
 ];
 // spell-checker: enable
 
