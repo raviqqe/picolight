@@ -1,0 +1,40 @@
+---
+import Example from "./Example.astro";
+
+const source = `
+import { exit } from "node:process";
+
+// This is a line comment.
+
+/**
+ * This is a block comment.
+ */
+
+const xs = [false, true, null, undefined];
+
+function fibonacci(x: number): number {
+  if (x < 2) {
+    return x;
+  } else {
+    return fibonacci(x - 1) + fibonacci(x - 2);
+  }
+}
+
+const foo = (url: URL): Promise<string> =>
+  (await fetch(url)).text();
+
+console.log("Hello, world!");
+
+console.log("\\n\\r\\t\\"\\\\");
+`.trim();
+---
+
+<picolight-typescript data-source={source}>
+  <Example />
+</picolight-typescript>
+<script>
+  import { defineElement } from "./example.js";
+  import { typescript } from "picolight/languages/typescript";
+
+  defineElement("typescript", typescript);
+</script>

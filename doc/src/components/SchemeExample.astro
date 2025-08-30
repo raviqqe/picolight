@@ -1,0 +1,34 @@
+---
+import Example from "./Example.astro";
+
+const source = `
+(import (scheme base))
+
+; This is a comment.
+
+(define xs '(#f #t ()))
+
+(define ys '(import export import-export))
+
+(define (fibonacci x)
+  (if (< x 2)
+    x
+    (+
+      (fibonacci (- x 1))
+      (fibonacci (- x 2)))))
+
+(write-string "Hello, World!")
+
+(write-string "\\n\\r\\t\\"\\\\")
+`.trim();
+---
+
+<picolight-scheme data-source={source}>
+  <Example />
+</picolight-scheme>
+<script>
+  import { defineElement } from "./example.js";
+  import { scheme } from "picolight/languages/scheme";
+
+  defineElement("scheme", scheme);
+</script>
