@@ -375,7 +375,7 @@ export const scheme: Language = {
     [parenthesis, ["punctuation"]],
     [keyword(builtins, symbolLetter), ["variable"]],
     [keyword(syntaxes, symbolLetter), ["keyword"]],
-    [/^#;/, ["punctuation"]],
+    [/^('|`|,|,@|#;)/, ["punctuation"]],
     [/^;[^\n]*\n/, ["comment"]],
   ],
 };
