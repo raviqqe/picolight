@@ -6,3 +6,7 @@ import { githubDark } from "./themes/github-dark.js";
 it("highlights code", () => {
   expect(highlight("foo", scheme, githubDark).outerHTML).toMatchSnapshot();
 });
+
+it("highlights a keyword", () => {
+  expect(highlight("define", scheme, githubDark).outerHTML).toMatchSnapshot();
+});

@@ -318,6 +318,10 @@ const builtins = [
 ];
 
 const syntaxes = [
+  // Library syntax
+  "define-library",
+  "export",
+  "import",
   // (scheme base)
   "...",
   "and",
