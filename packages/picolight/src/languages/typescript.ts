@@ -61,7 +61,7 @@ export const typescript: Language = {
       keyword(["console", "document", "window"], identifierLetter),
       ["variable"],
     ],
-    [surround(/\/\*/, /[^*]|\*(?!\/)/, /\*\//s), ["comment"]],
-    [/^\/\/[^\n]*\n/, ["comment"]],
+    [surround(/\/\*/, /[^*]|\*(?!\/)/, /\*\//), ["comment"]],
+    [surround(/\/\//, /[^\n]/, /\n/), ["comment"]],
   ],
 };
