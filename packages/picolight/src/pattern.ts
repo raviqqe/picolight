@@ -5,6 +5,6 @@ export const keyword = (keywords: string[]) =>
 
 export const number = /^[+-]?[0-9.]+/;
 
-export const string = /^"([^\\"]|\\[nrt\\])*"/;
+export const string = /^"([^\\"]|\\[nrt\\"])*"/;
 
 export const parenthesis = /^[[\](){}]/;
