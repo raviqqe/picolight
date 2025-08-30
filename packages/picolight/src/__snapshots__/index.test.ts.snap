@@ -4,6 +4,8 @@ exports[`highlights a keyword 1`] = `"<span style="color: rgb(225, 228, 232);"><
 
 exports[`highlights a library syntax 1`] = `"<span style="color: rgb(225, 228, 232);">(<span style="color: rgb(249, 117, 131);">import</span> (<span style="color: rgb(255, 171, 112);">scheme</span> base))</span>"`;
 
+exports[`highlights a number 1`] = `"<span style="color: rgb(225, 228, 232);"><span style="color: rgb(121, 184, 255);">42</span></span>"`;
+
 exports[`highlights a string with escapes 1`] = `"<span style="color: rgb(225, 228, 232);"><span style="color: rgb(158, 203, 255);">"\\n\\r\\t\\\\\\""</span></span>"`;
 
 exports[`highlights code 1`] = `"<span style="color: rgb(225, 228, 232);">foo</span>"`;

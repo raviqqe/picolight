@@ -1,5 +1,11 @@
 import type { Language } from "../language.js";
-import { keyword, number, parenthesis, string } from "../pattern.js";
+import {
+  identifier,
+  keyword,
+  number,
+  parenthesis,
+  string,
+} from "../pattern.js";
 
 // spell-checker: disable
 const builtins = [
@@ -365,15 +371,18 @@ const syntaxes = [
 ];
 // spell-checker: enable
 
+const symbolLetter = "[A-Za-z0-9-!?]";
+
 export const scheme: Language = {
   lexers: [
     [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
-    [keyword(builtins), ["variable"]],
-    [keyword(syntaxes), ["keyword"]],
-    [/^#;/, ["punctuation"]],
-    [/^;[^\n]*\n/s, ["comment"]],
+    [keyword(builtins, symbolLetter), ["variable"]],
+    [keyword(syntaxes, symbolLetter), ["keyword"]],
+    [identifier(symbolLetter, symbolLetter), []],
+    [/^('|`|,|,@|#;)/, ["punctuation"]],
+    [/^;[^\n]*\n/, ["comment"]],
   ],
 };

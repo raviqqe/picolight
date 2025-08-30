@@ -13,6 +13,10 @@ it("highlights a library syntax", () => {
   ).toMatchSnapshot();
 });
 
+it("highlights a number", () => {
+  expect(highlight("42", scheme, githubDark).outerHTML).toMatchSnapshot();
+});
+
 it("highlights a keyword", () => {
   expect(highlight("define", scheme, githubDark).outerHTML).toMatchSnapshot();
 });

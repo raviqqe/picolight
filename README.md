@@ -33,12 +33,12 @@ code.innerHTML = highlight(
 ## Supported languages
 
 - [Scheme](https://scheme.org)
-- Other languages might be coming maybe...
+- [TypeScript](https://www.typescriptlang.org/)
+- Other languages might be coming, maybe...
 
 ## Supported themes
 
 We support [all TextMate themes provided by Shiki](https://shiki.matsu.io/themes).
-However, we use only foreground colors on syntax highlighting.
 
 ## License
 
