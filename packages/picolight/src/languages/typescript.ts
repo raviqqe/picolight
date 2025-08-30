@@ -1,7 +1,7 @@
 import type { Language } from "../language.js";
 import { keyword, number, parenthesis, string } from "../pattern.js";
 
-const identifierLetter = "[A-Z-az0-9_]";
+const identifierLetter = "[A-Za-z0-9_]";
 
 export const typescript: Language = {
   lexers: [
