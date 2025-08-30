@@ -83,7 +83,7 @@ const compileTheme = async (name: string): Promise<Theme> => {
   const backgroundColor =
     tokens[""]?.[1] ?? colors["editor.background"] ?? colors.background;
 
-  if (!foregroundColor && !backgroundColor) {
+  if (!foregroundColor || !backgroundColor) {
     throw new Error(`Default color missing for ${name}`, {
       cause: {
         backgroundColor,
