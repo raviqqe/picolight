@@ -10,6 +10,7 @@ export type Token =
   | "markup"
   | "meta"
   | "punctuation"
+  | "source"
   | "storage"
   | "string"
   | "support"
