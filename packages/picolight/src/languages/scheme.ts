@@ -305,6 +305,10 @@ const builtins = [
   "open-output-file",
   "with-input-from-file",
   "with-output-to-file",
+  // (scheme time)
+  "current-jiffy",
+  "current-second",
+  "jiffies-per-second",
 ];
 
 const syntaxes = [
