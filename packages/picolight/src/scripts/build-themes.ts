@@ -45,7 +45,8 @@ const compileTheme = async (name: string): Promise<Theme> => {
     ).tokenColors.flatMap(
       ({ scope, settings }) =>
         scope?.flatMap((scope): [string, [Tag, string]][] =>
-          !scope.includes(".") && !scope.includes(" ") && settings?.foreground
+          !filteredCharacters.some((character) => scope.includes(character)) &&
+          settings?.foreground
             ? [[scope, [null, settings.foreground]]]
             : [],
         ) ?? [["", [null, settings?.foreground ?? ""]]],
