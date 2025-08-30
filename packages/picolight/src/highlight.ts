@@ -47,5 +47,5 @@ export const lex = (text: string, lexers: Lexer[]): [Token[], string] => {
     }
   }
 
-  throw new Error("Unreachable");
+  throw new Error("No match");
 };
