@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { string, number } from "./pattern.js";
+import { number, string } from "./pattern.js";
 
 describe("number", () => {
   it("matches an integer", () => {
