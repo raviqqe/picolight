@@ -42,7 +42,8 @@ const { title, description } = Astro.props.frontmatter;
   }
 
   article {
-    max-width: 42rem;
+    box-sizing: border-box;
+    max-width: min(42rem, 100%);
     padding: 1.5rem;
   }
 </style>
@@ -51,7 +52,5 @@ const { title, description } = Astro.props.frontmatter;
     border-radius: 0.5rem;
     font-size: 0.9rem;
     padding: 1em;
-    white-space:: break-spaces;
-    word-break: break-all;
   }
 </style>
