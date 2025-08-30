@@ -366,12 +366,12 @@ const syntaxes = [
 // spell-checker: enable
 
 export const scheme: Language = [
-  [/^(#f|#t|#\\[a-z0-9]+)/, "constant"],
-  [number, "number"],
-  [string, "string"],
-  [parenthesis, "punctuation"],
-  [keyword(builtins), "variable"],
-  [keyword(syntaxes), "keyword"],
-  [/^#;/, "punctuation"],
-  [/^;[^\n]*\n/s, "comment"],
+  [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
+  [number, ["number", "constant"]],
+  [string, ["string"]],
+  [parenthesis, ["punctuation"]],
+  [keyword(builtins), ["variable"]],
+  [keyword(syntaxes), ["keyword"]],
+  [/^#;/, ["punctuation"]],
+  [/^;[^\n]*\n/s, ["comment"]],
 ];
