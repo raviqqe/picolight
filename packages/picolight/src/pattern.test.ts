@@ -19,6 +19,12 @@ describe("number", () => {
 
     expect(text.match(number)?.[0]).toBe(text);
   });
+
+  it("matches an exponent", () => {
+    const text = "42e42";
+
+    expect(text.match(number)?.[0]).toBe(text);
+  });
 });
 
 describe("string", () => {
