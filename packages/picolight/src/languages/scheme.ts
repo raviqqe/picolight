@@ -222,7 +222,6 @@ const syntaxes = [
   "unquote-splicing",
   "utf8->string",
   "values",
-
   "when",
   "with-exception-handler",
   "write-bytevector",
