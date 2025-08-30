@@ -1,7 +1,7 @@
 import type { Language } from "../language.js";
 import { keyword, number, parenthesis, string } from "../pattern.js";
 
-const boolean = /^(#f|#t)/;
+const constants = /^(#f|#t)/;
 
 // spell-checker: disable
 const builtins = [
@@ -261,8 +261,8 @@ const syntaxes = [
 // spell-checker: enable
 
 export const scheme: Language = [
-  [boolean, "constant"],
-  [number, "constant"],
+  [constants, "constant"],
+  [number, "number"],
   [string, "string"],
   [parenthesis, "punctuation"],
   [keyword(builtins), "variable"],
