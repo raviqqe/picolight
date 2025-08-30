@@ -32,12 +32,19 @@ const themeSchema = object({
       settings: optional(
         object({
           fontStyle: optional(
-            union([
-              literal("bold"),
-              literal("italic"),
-              literal("strikethrough"),
-              literal("underline"),
-            ]),
+            pipe(
+              string(),
+              transform((value) => value.split(" ").filter(Boolean)),
+              array(
+                union([
+                  literal("bold"),
+                  literal("italic"),
+                  literal("normal"),
+                  literal("strikethrough"),
+                  literal("underline"),
+                ]),
+              ),
+            ),
           ),
           foreground: optional(string()),
         }),
