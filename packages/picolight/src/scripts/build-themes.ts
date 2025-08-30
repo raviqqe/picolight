@@ -63,7 +63,7 @@ const compileTheme = async (name: string): Promise<Theme> => {
     tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground ?? "";
 
   if (!defaultColor) {
-    throw new Error(`Theme ${name} does not have a default foreground color.`);
+    throw new Error(`No default color for ${name}`);
   }
 
   return [tokens[""]?.[1] ?? colors.foreground ?? "", omit(tokens, [""])];
