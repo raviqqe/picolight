@@ -53,7 +53,7 @@ await Promise.all(
       (match) => match?.[1]?.toUpperCase() ?? "",
     );
 
-    const compiledTheme = compileTheme(name);
+    const compiledTheme = await compileTheme(name);
 
     await writeFile(
       `src/themes/${name}.ts`,
