@@ -375,6 +375,8 @@ const symbolLetter = "[A-Za-z0-9-!?]";
 
 export const scheme: Language = {
   lexers: [
+    [/^;[^\n]*\n/, ["comment"]],
+    [/^#\|([^|]|\|(?!#))\|#/s, ["comment"]],
     [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
@@ -383,6 +385,5 @@ export const scheme: Language = {
     [keyword(syntaxes, symbolLetter), ["keyword"]],
     [identifier(symbolLetter, symbolLetter), []],
     [/^('|`|,|,@|#;)/, ["punctuation"]],
-    [/^;[^\n]*\n/, ["comment"]],
   ],
 };
