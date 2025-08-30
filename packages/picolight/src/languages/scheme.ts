@@ -3,6 +3,7 @@ import { keyword, number, parenthesis, string } from "../pattern.js";
 
 // spell-checker: disable
 const builtins = [
+  "scheme",
   // (scheme base)
   "*",
   "+",
