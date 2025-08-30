@@ -13,6 +13,8 @@ import {
 } from "valibot";
 import type { Tag, Theme } from "../theme.js";
 
+const filteredCharacters = [" ", ".", "*"];
+
 const themeSchema = object({
   tokenColors: array(
     object({
