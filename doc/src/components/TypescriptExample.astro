@@ -1,0 +1,33 @@
+---
+import Example from "./Example.astro";
+
+const source = `
+import { exit } from "node:process";
+
+// This is a comment.
+
+const xs = [false, true, null];
+
+function fibonacci(x: number): number {
+  if (x < 2) {
+    return x;
+  } else {
+    return fibonacci(x - 1) + fibonacci(x - 2);
+  }
+}
+
+console.log("Hello, world!");
+
+console.log("\\n\\r\\t\\"\\\\");
+`.trim();
+---
+
+<picolight-example data-source={source}>
+  <Example />
+</picolight-example>
+<script>
+  import { defineElement } from "./example.js";
+  import { typescript } from "picolight/languages/typescript";
+
+  defineElement(typescript);
+</script>
