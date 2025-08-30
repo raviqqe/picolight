@@ -43,11 +43,10 @@ const source = `
         }
 
         const update = (dark: boolean): void => {
-          code.innerHTML = highlight(
-            source,
-            scheme,
-            dark ? githubDark : githubLight,
-          ).outerHTML;
+          const theme = dark ? githubDark : githubLight;
+
+          code.innerHTML = highlight(source, scheme, theme).outerHTML;
+          code.style = `background:${theme.back}`;
         };
 
         const query = window.matchMedia("(prefers-color-scheme: dark)");
