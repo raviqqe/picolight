@@ -12,5 +12,5 @@ export const parenthesis = /^[[\](){}]/;
 export const identifier = (head: string, tail: string) =>
   new RegExp(`^${head}${tail}*`);
 
-export const surround = (start: string, middle: string, end: string): RegExp =>
+export const surround = (start: RegExp, middle: RegExp, end: RegExp): RegExp =>
   new RegExp(`^${start}(${middle})*${end}`);

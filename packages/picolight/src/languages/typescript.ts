@@ -1,5 +1,5 @@
 import type { Language } from "../language.js";
-import { keyword, number, parenthesis, string } from "../pattern.js";
+import { keyword, number, parenthesis, string, surround } from "../pattern.js";
 
 const identifierLetter = "[A-Za-z0-9_]";
 
@@ -61,7 +61,7 @@ export const typescript: Language = {
       keyword(["console", "document", "window"], identifierLetter),
       ["variable"],
     ],
-    [/^\/\*([^*]|\*(?!\/))*\*\//s, ["comment"]],
+    [surround(/\/\*/, /[^*]|\*(?!\/)/, /\*\//s), ["comment"]],
     [/^\/\/[^\n]*\n/, ["comment"]],
   ],
 };
