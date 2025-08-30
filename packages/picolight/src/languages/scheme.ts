@@ -5,6 +5,7 @@ import {
   number,
   parenthesis,
   string,
+  surround,
 } from "../pattern.js";
 
 // spell-checker: disable
@@ -375,8 +376,8 @@ const symbolLetter = "[A-Za-z0-9-!?]";
 
 export const scheme: Language = {
   lexers: [
-    [/^;[^\n]*\n/, ["comment"]],
-    [/^#\|([^|]|\|(?!#))*\|#/s, ["comment"]],
+    [surround(/;/, /[^\n]/, /\n/), ["comment"]],
+    [surround(/#\|/, /[^|]|\|(?!#)/, /\|#/), ["comment"]],
     [/^(#f|#t|#\\[a-z0-9]+)/, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
