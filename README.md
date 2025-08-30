@@ -9,6 +9,7 @@ The tiny syntax highlighting library for dynamic input.
 ## Supported languages
 
 - [Scheme](https://scheme.org)
+- Other languages might be coming maybe...
 
 ## Supported themes
 
