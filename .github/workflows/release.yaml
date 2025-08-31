@@ -5,17 +5,18 @@ on:
       - main
   pull_request:
 jobs:
-  npm:
+  release:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'release' || '' }}
     permissions:
       contents: read
       id-token: write
+    environment: ${{ github.ref == 'refs/heads/main' && 'release' || '' }}
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
-      - run: pnpm -r build
-      - run: pnpm -r publish ${{ github.ref != 'refs/heads/main' && '--dry-run --no-git-checks' || '' }}
+      - uses: raviqqe/pnpm-publish@v2
+        with:
+          release: ${{ github.ref == 'refs/heads/main' }}
   release:
     needs:
       - npm
