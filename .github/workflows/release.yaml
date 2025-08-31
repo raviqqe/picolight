@@ -17,10 +17,3 @@ jobs:
       - uses: raviqqe/pnpm-publish@v2
         with:
           release: ${{ github.ref == 'refs/heads/main' }}
-  release:
-    needs:
-      - npm
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - run: for result in ${{ join(needs.*.result, ' ') }}; do [ $result = success ]; done
