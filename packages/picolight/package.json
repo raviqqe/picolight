@@ -36,7 +36,7 @@
     "jsdom": "^27.0.0",
     "knip": "^5.63.1",
     "tm-themes": "^1.10.9",
-    "tsdown": "^0.15.1",
+    "tsdown": "^0.15.2",
     "typescript": "^5.9.2",
     "valibot": "^1.1.0",
     "vitest": "^3.2.4"
