@@ -40,7 +40,7 @@ jobs:
       - run: >
           go tool muffet
           --buffer-size 8192
-          --exclude https://npmjs.com/package/.*
+          --exclude https://www.npmjs.com/package/.*
           http://localhost:4321/picolight/
   document:
     needs:
