@@ -37,7 +37,7 @@
     "knip": "^5.64.1",
     "tm-themes": "^1.10.9",
     "tsdown": "^0.15.6",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "valibot": "^1.1.0",
     "vitest": "^3.2.4"
   }
