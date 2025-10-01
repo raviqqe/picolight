@@ -55,8 +55,8 @@ importers:
         specifier: ^1.10.9
         version: 1.10.9
       tsdown:
-        specifier: ^0.15.5
-        version: 0.15.5(oxc-resolver@11.8.4)(typescript@5.9.2)
+        specifier: ^0.15.6
+        version: 0.15.6(oxc-resolver@11.8.4)(typescript@5.9.2)
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -2161,15 +2161,15 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rolldown-plugin-dts@0.16.9:
-    resolution: {integrity: sha512-65fAQjQAAXW7j2V5/872r++jjjR2/Pur18/PQO/JgfJl3vKxapXO2KU1l5bUdRoFuuryF+23+Hfu0Cw3bhM97g==}
+  rolldown-plugin-dts@0.16.11:
+    resolution: {integrity: sha512-9IQDaPvPqTx3RjG2eQCK5GYZITo203BxKunGI80AGYicu1ySFTUyugicAaTZWRzFWh9DSnzkgNeMNbDWBbSs0w==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       '@ts-macro/tsc': ^0.3.6
       '@typescript/native-preview': '>=7.0.0-dev.20250601.1'
       rolldown: ^1.0.0-beta.9
       typescript: ^5.0.0
-      vue-tsc: ~3.0.3
+      vue-tsc: ~3.1.0
     peerDependenciesMeta:
       '@ts-macro/tsc':
         optional: true
@@ -2383,8 +2383,8 @@ packages:
       typescript:
         optional: true
 
-  tsdown@0.15.5:
-    resolution: {integrity: sha512-2UP5hDBVYGHnnQSIYtDxMDjePmut7EDpvW5E2kVnjpZ17JgiPvRJPHwk5Dm045bC75+q8yxAlw/CMIELymTWaw==}
+  tsdown@0.15.6:
+    resolution: {integrity: sha512-W6++O3JeV9gm3JY6P/vLiC7zzTcJbZhQxXb+p3AvRMpDOPBIg82yXULyZCcwjsihY/bFG+Qw37HkezZbP7fzUg==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -5239,7 +5239,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rolldown-plugin-dts@0.16.9(oxc-resolver@11.8.4)(rolldown@1.0.0-beta.41)(typescript@5.9.2):
+  rolldown-plugin-dts@0.16.11(oxc-resolver@11.8.4)(rolldown@1.0.0-beta.41)(typescript@5.9.2):
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -5524,7 +5524,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
-  tsdown@0.15.5(oxc-resolver@11.8.4)(typescript@5.9.2):
+  tsdown@0.15.6(oxc-resolver@11.8.4)(typescript@5.9.2):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -5534,7 +5534,7 @@ snapshots:
       empathic: 2.0.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.41
-      rolldown-plugin-dts: 0.16.9(oxc-resolver@11.8.4)(rolldown@1.0.0-beta.41)(typescript@5.9.2)
+      rolldown-plugin-dts: 0.16.11(oxc-resolver@11.8.4)(rolldown@1.0.0-beta.41)(typescript@5.9.2)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
