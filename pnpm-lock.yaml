@@ -52,8 +52,8 @@ importers:
         specifier: ^5.64.2
         version: 5.64.2(@types/node@24.7.0)(typescript@5.9.3)
       tm-themes:
-        specifier: ^1.10.9
-        version: 1.10.9
+        specifier: ^1.10.10
+        version: 1.10.10
       tsdown:
         specifier: ^0.15.6
         version: 0.15.6(oxc-resolver@11.9.0)(typescript@5.9.3)
@@ -2340,8 +2340,8 @@ packages:
     resolution: {integrity: sha512-lMNHE4aSI3LlkMUMicTmAG3tkkitjOQGDTFboPJwAg2kJXKP1ryWEyqujktg5qhrFZOkk5YFzgkxg3jErE+i5w==}
     hasBin: true
 
-  tm-themes@1.10.9:
-    resolution: {integrity: sha512-2pBK8ZHXFibHOoKmi1aE2VF1ISsMpqTU+RS3+YS8LGNEm4WSkmnDqdylbtsmZIfFTxy/8KbsiBKbrmnHYVTZFw==}
+  tm-themes@1.10.10:
+    resolution: {integrity: sha512-IElrczNsyxdoVvmjvhF/rZIOoF8wrpwGhh7dAivQPthZQhP2gj/8rvHMamelDQZbItNRclZElJGK/z4LVCIkBA==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -5489,7 +5489,7 @@ snapshots:
     dependencies:
       tldts-core: 7.0.14
 
-  tm-themes@1.10.9: {}
+  tm-themes@1.10.10: {}
 
   to-regex-range@5.0.1:
     dependencies:
