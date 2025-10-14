@@ -49,8 +49,8 @@ importers:
         specifier: ^27.0.0
         version: 27.0.0(postcss@8.5.6)
       knip:
-        specifier: ^5.64.3
-        version: 5.64.3(@types/node@24.7.2)(typescript@5.9.3)
+        specifier: ^5.65.0
+        version: 5.65.0(@types/node@24.7.2)(typescript@5.9.3)
       tm-themes:
         specifier: ^1.10.11
         version: 1.10.11
@@ -538,9 +538,6 @@ packages:
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
-
-  '@napi-rs/wasm-runtime@1.0.6':
-    resolution: {integrity: sha512-DXj75ewm11LIWUk198QSKUTxjyRjsBwk09MuMk5DGK+GDUtyPhhEHOGP/Xwwj3DjQXXkivoBirmOnKrLfc0+9g==}
 
   '@napi-rs/wasm-runtime@1.0.7':
     resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
@@ -1708,8 +1705,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  knip@5.64.3:
-    resolution: {integrity: sha512-P9dZetEZfSBwNBFwj55CAnPAMdzVLTTscWx6rdB8eBmPqXPji8F3L+hhWi+Xp+u9O6Xp2ClRDq2JENSK8Z04Qg==}
+  knip@5.65.0:
+    resolution: {integrity: sha512-wMSca3O1JGs/JgEQx7uZUZYMnZvGqhNjL4b2w8LJGxFzEckNWcvyHopsCwkC7M6aeWgIASCT9vCFDXklvvey3g==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -3188,13 +3185,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@napi-rs/wasm-runtime@1.0.6':
-    dependencies:
-      '@emnapi/core': 1.5.0
-      '@emnapi/runtime': 1.5.0
-      '@tybys/wasm-util': 0.10.1
-    optional: true
-
   '@napi-rs/wasm-runtime@1.0.7':
     dependencies:
       '@emnapi/core': 1.5.0
@@ -3265,7 +3255,7 @@ snapshots:
 
   '@oxc-resolver/binding-wasm32-wasi@11.9.0':
     dependencies:
-      '@napi-rs/wasm-runtime': 1.0.6
+      '@napi-rs/wasm-runtime': 1.0.7
     optional: true
 
   '@oxc-resolver/binding-win32-arm64-msvc@11.9.0':
@@ -4410,7 +4400,7 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  knip@5.64.3(@types/node@24.7.2)(typescript@5.9.3):
+  knip@5.65.0(@types/node@24.7.2)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@types/node': 24.7.2
