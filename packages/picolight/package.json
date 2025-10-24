@@ -31,7 +31,7 @@
   "devDependencies": {
     "@raviqqe/tsconfig": "^2.0.3",
     "@types/node": "^24.9.1",
-    "@vitest/coverage-v8": "^4.0.1",
+    "@vitest/coverage-v8": "^4.0.2",
     "es-toolkit": "^1.40.0",
     "jsdom": "^27.0.1",
     "knip": "^5.66.2",
@@ -39,6 +39,6 @@
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3",
     "valibot": "^1.1.0",
-    "vitest": "^4.0.1"
+    "vitest": "^4.0.2"
   }
 }
