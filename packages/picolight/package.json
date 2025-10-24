@@ -35,7 +35,7 @@
     "es-toolkit": "^1.40.0",
     "jsdom": "^27.0.1",
     "knip": "^5.66.2",
-    "tm-themes": "^1.10.11",
+    "tm-themes": "^1.10.12",
     "tsdown": "^0.15.9",
     "typescript": "^5.9.3",
     "valibot": "^1.1.0",
