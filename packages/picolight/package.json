@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@raviqqe/tsconfig": "^2.0.3",
-    "@types/node": "^24.9.1",
+    "@types/node": "^24.9.2",
     "@vitest/coverage-v8": "^4.0.4",
     "es-toolkit": "^1.41.0",
     "jsdom": "^27.0.1",
