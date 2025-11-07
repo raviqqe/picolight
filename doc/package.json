@@ -12,7 +12,7 @@
     "picolight": "workspace:*"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^4.3.9",
+    "@astrojs/mdx": "^4.3.10",
     "astro": "^5.15.3",
     "typescript": "^5.9.3"
   }
