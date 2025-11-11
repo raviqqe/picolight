@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.10",
-    "astro": "^5.15.4",
+    "astro": "^5.15.5",
     "typescript": "^5.9.3"
   }
 }
