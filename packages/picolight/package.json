@@ -34,7 +34,7 @@
     "@vitest/coverage-v8": "^4.0.15",
     "es-toolkit": "^1.42.0",
     "jsdom": "^27.2.0",
-    "knip": "^5.71.0",
+    "knip": "^5.72.0",
     "tm-themes": "^1.10.13",
     "tsdown": "^0.17.0",
     "typescript": "^5.9.3",
