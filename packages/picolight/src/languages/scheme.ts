@@ -11,6 +11,12 @@ import {
 const joinPrefix = (prefix: string, words: string[]): string[] =>
   words.map((word) => `${prefix}${word}`);
 
+const joinSurround = (
+  prefix: string,
+  words: string[],
+  suffix: string,
+): string[] => words.map((word) => `${prefix}${word}${suffix}`);
+
 // spell-checker: disable
 const builtins = [
   "scheme",
@@ -64,9 +70,7 @@ const builtins = [
   ...joinPrefix("close-", ["input-port", "output-port", "port"]),
   "complex?",
   "cons",
-  "current-error-port",
-  "current-input-port",
-  "current-output-port",
+  ...joinSurround("current-", ["error", "input", "output"], "-port"),
   "denominator",
   "dynamic-wind",
   "eof-object",
