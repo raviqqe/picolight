@@ -8,6 +8,9 @@ import {
   surround,
 } from "../pattern.js";
 
+const joinPrefix = (prefix: string, words: string[]): string[] =>
+  words.map((word) => `${prefix}${word}`);
+
 // spell-checker: disable
 const builtins = [
   "scheme",
@@ -25,25 +28,22 @@ const builtins = [
   "abs",
   "append",
   "apply",
-  "assoc",
-  "assq",
-  "assv",
+  ...joinPrefix("ass", ["oc", "q", "v"]),
   "binary-port?",
-  "boolean=?",
-  "boolean?",
-  "bytevector",
-  "bytevector-append",
-  "bytevector-copy",
-  "bytevector-copy!",
-  "bytevector-length",
-  "bytevector-u8-ref",
-  "bytevector-u8-set!",
-  "bytevector?",
+  ...joinPrefix("boolean", ["=?", "?"]),
+  ...joinPrefix("bytevector", [
+    "",
+    "-append",
+    "-copy",
+    "-copy!",
+    "-length",
+    "-u8-ref",
+    "-u8-set!",
+    "?",
+  ]),
   "caar",
   "cadr",
-  "call-with-current-continuation",
-  "call-with-port",
-  "call-with-values",
+  ...joinPrefix("call-with-", ["current-continuation", "port", "values"]),
   "call/cc",
   "car",
   "case",
