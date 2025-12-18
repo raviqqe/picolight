@@ -56,7 +56,7 @@ const themeSchema = object({
   ),
 });
 
-const compileTheme = async (name: string): Promise<Theme> => {
+const compileLanguage = async (name: string): Promise<Theme> => {
   const { colors, tokenColors } = parse(
     themeSchema,
     (
@@ -106,7 +106,7 @@ await Promise.all(
       (match) => match?.[1]?.toUpperCase() ?? "",
     );
 
-    const language = await compileLanguage(grammar);
+    const language = await compileLanguage(name);
 
     await writeFile(
       `src/themes/${name}.ts`,
