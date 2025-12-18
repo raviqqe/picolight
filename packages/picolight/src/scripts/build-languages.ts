@@ -1,18 +1,31 @@
 import { writeFile } from "node:fs/promises";
 import { grammars } from "tm-grammars";
-import { array, object, parse, string } from "valibot";
+import { array, object, parse, record, string, union } from "valibot";
 import type { Language, Lexer } from "../language.js";
+
+const captureListSchema = record(string(), object({ name: string() }));
+
+const patternSchema = union([
+  object({
+    include: string(),
+  }),
+  object({
+    match: string(),
+    name: string(),
+  }),
+]);
 
 const grammarSchema = object({
   name: string(),
-  patterns: array(
-    object({
-      include: string(),
-    }),
-  ),
+  patterns: array(patternSchema),
   repository: array(
     object({
-      include: string(),
+      begin: string(),
+      beginCaptures: captureListSchema,
+      end: string(),
+      endCaptures: captureListSchema,
+      name: string(),
+      patterns: array(patternSchema),
     }),
   ),
 });
@@ -28,8 +41,8 @@ const compileLanguage = async (name: string): Promise<Language> => {
   );
 
   const lexers: Record<string, Lexer> = {};
-  const patterns = grammar.patterns.map(({ include }) =>
-    include.replace(/^#/, ""),
+  const patterns = grammar.patterns.flatMap((pattern) =>
+    "include" in pattern ? [pattern.include.replace(/^#/, "")] : [],
   );
   const visited = new Set<string>();
   let pattern: string | undefined;
