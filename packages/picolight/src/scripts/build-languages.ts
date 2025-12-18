@@ -24,7 +24,9 @@ const patternSchema = union([
     end: string(),
     endCaptures: captureListSchema,
     name: string(),
-    // patterns: array(patternSchema),
+    get patterns() {
+      return array(patternSchema);
+    },
   }),
   object({
     captures: optional(captureListSchema),
@@ -33,7 +35,7 @@ const patternSchema = union([
   }),
   object({
     get patterns() {
-      return array(patternSchema);
+      return optional(array(patternSchema));
     },
   }),
   array(unknown()),
