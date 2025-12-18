@@ -1,3 +1,4 @@
+import { log } from "node:console";
 import { writeFile } from "node:fs/promises";
 import { grammars } from "tm-grammars";
 import {
@@ -48,13 +49,8 @@ const grammarSchema = object({
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
-  console.log(
-    (
-      await import(`tm-grammars/grammars/${name}.json`, {
-        with: { type: "json" },
-      })
-    ).default,
-  );
+  log(`Compiling ${name}...`);
+
   const grammar = parse(
     grammarSchema,
     (
