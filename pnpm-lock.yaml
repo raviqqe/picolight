@@ -32,6 +32,10 @@ importers:
         version: 5.9.3
 
   packages/picolight:
+    dependencies:
+      tm-grammars:
+        specifier: ^1.26.0
+        version: 1.26.0
     devDependencies:
       '@raviqqe/tsconfig':
         specifier: ^2.0.3
@@ -2314,6 +2318,9 @@ packages:
   tldts@7.0.19:
     resolution: {integrity: sha512-8PWx8tvC4jDB39BQw1m4x8y5MH1BcQ5xHeL2n7UVFulMPH/3Q0uiamahFJ3lXA0zO2SUyRXuVVbWSDmstlt9YA==}
     hasBin: true
+
+  tm-grammars@1.26.0:
+    resolution: {integrity: sha512-igk4CYReS2IrWgopVJ6BmPTjvqYFnD6C5RowZQycGIL/XOGO4VwMN87f9QcpP40XeW/LgARnLCQhanXGrtzPwg==}
 
   tm-themes@1.10.13:
     resolution: {integrity: sha512-ErqacfNfLa98SME1W6CHThQIQbFnPKEkJRAAPL/sqD1jjdlv4pHH1HzoeZHkjyCjLDW47Q49uhmy1uPwL2FzRg==}
@@ -5395,6 +5402,8 @@ snapshots:
   tldts@7.0.19:
     dependencies:
       tldts-core: 7.0.19
+
+  tm-grammars@1.26.0: {}
 
   tm-themes@1.10.13: {}
 
