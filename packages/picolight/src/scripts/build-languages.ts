@@ -1,6 +1,15 @@
 import { writeFile } from "node:fs/promises";
 import { grammars } from "tm-grammars";
-import { array, object, optional, parse, record, string, union } from "valibot";
+import {
+  unknown,
+  array,
+  object,
+  optional,
+  parse,
+  record,
+  string,
+  union,
+} from "zod";
 import type { Language, Lexer } from "../language.js";
 
 const captureListSchema = record(string(), object({ name: string() }));
@@ -10,38 +19,40 @@ const patternSchema = union([
     include: string(),
   }),
   object({
-    match: string(),
+    begin: string(),
+    beginCaptures: captureListSchema,
+    end: string(),
+    endCaptures: captureListSchema,
     name: string(),
+    // patterns: array(patternSchema),
   }),
+  object({
+    captures: optional(captureListSchema),
+    match: string(),
+    name: optional(string()),
+  }),
+  object({
+    get patterns() {
+      return array(patternSchema);
+    },
+  }),
+  array(unknown()),
 ]);
 
 const grammarSchema = object({
   name: string(),
-  // patterns: array(patternSchema),
-  repository: record(
-    string(),
-    union([
-      object({
-        begin: string(),
-        beginCaptures: captureListSchema,
-        end: string(),
-        endCaptures: captureListSchema,
-        name: string(),
-        // patterns: array(patternSchema),
-      }),
-      object({
-        captures: optional(captureListSchema),
-        match: string(),
-        name: optional(string()),
-      }),
-      object({
-        patterns: array(patternSchema),
-      }),
-    ]),
-  ),
+  patterns: array(patternSchema),
+  repository: optional(record(string(), patternSchema)),
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
+  console.log(
+    (
+      await import(`tm-grammars/grammars/${name}.json`, {
+        with: { type: "json" },
+      })
+    ).default,
+  );
   const grammar = parse(
     grammarSchema,
     (
@@ -69,21 +80,19 @@ const compileLanguage = async (name: string): Promise<Language> => {
   return { lexers: Object.values(lexers) };
 };
 
-await Promise.all(
-  grammars.map(async ({ name }) => {
-    const camelName = name.replace(
-      /-./g,
-      (match) => match?.[1]?.toUpperCase() ?? "",
-    );
+for (const { name } of grammars) {
+  const camelName = name.replace(
+    /-./g,
+    (match) => match?.[1]?.toUpperCase() ?? "",
+  );
 
-    const language = await compileLanguage(name);
+  const language = await compileLanguage(name);
 
-    await writeFile(
-      `src/themes/${name}.ts`,
-      [
-        `import type { Language } from "../language.js";`,
-        `export const ${camelName}: Theme = ${JSON.stringify(language)}`,
-      ].join("\n"),
-    );
-  }),
-);
+  await writeFile(
+    `src/themes/${name}.ts`,
+    [
+      `import type { Language } from "../language.js";`,
+      `export const ${camelName}: Theme = ${JSON.stringify(language)}`,
+    ].join("\n"),
+  );
+}
