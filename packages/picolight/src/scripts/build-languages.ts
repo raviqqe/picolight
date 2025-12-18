@@ -1,66 +1,30 @@
 import { writeFile } from "node:fs/promises";
 import { omit } from "es-toolkit";
 import { grammars } from "tm-grammars";
-import {
-  array,
-  literal,
-  object,
-  optional,
-  parse,
-  pipe,
-  string,
-  transform,
-  union,
-} from "valibot";
+import { array, object, parse, string } from "valibot";
 import type { Language } from "../language.js";
 
 const filteredCharacters = [" ", ".", "*"];
 
-const themeSchema = object({
-  colors: object({
-    background: optional(string()),
-    "editor.background": optional(string()),
-    "editor.foreground": optional(string()),
-    foreground: optional(string()),
-  }),
-  tokenColors: array(
+const grammarSchema = object({
+  name: string(),
+  patterns: array(
     object({
-      scope: pipe(
-        optional(union([string(), array(string())])),
-        transform((value) =>
-          typeof value === "string" ? [value] : (value ?? []),
-        ),
-      ),
-      settings: optional(
-        object({
-          fontStyle: optional(
-            pipe(
-              string(),
-              transform((value) => value.split(" ").filter(Boolean)),
-              array(
-                union([
-                  literal("bold"),
-                  literal("italic"),
-                  literal("normal"),
-                  literal("regular"),
-                  literal("strikethrough"),
-                  literal("underline"),
-                ]),
-              ),
-            ),
-          ),
-          foreground: optional(string()),
-        }),
-      ),
+      include: string(),
+    }),
+  ),
+  repository: array(
+    object({
+      include: string(),
     }),
   ),
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
-  const { colors, tokenColors } = parse(
-    themeSchema,
+  const { patterns, repository } = parse(
+    grammarSchema,
     (
-      await import(`tm-themes/themes/${name}.json`, {
+      await import(`tm-grammars/grammars/${name}.json`, {
         with: { type: "json" },
       })
     ).default,
