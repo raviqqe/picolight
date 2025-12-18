@@ -18,7 +18,8 @@ const patternSchema = union([
 const grammarSchema = object({
   name: string(),
   patterns: array(patternSchema),
-  repository: array(
+  repository: record(
+    string(),
     object({
       begin: string(),
       beginCaptures: captureListSchema,
