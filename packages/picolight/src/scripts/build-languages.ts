@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { grammars } from "tm-grammars";
-import { array, object, parse, record, string, union } from "valibot";
+import { array, object, optional, parse, record, string, union } from "valibot";
 import type { Language, Lexer } from "../language.js";
 
 const captureListSchema = record(string(), object({ name: string() }));
@@ -20,14 +20,16 @@ const grammarSchema = object({
   patterns: array(patternSchema),
   repository: record(
     string(),
-    object({
-      begin: string(),
-      beginCaptures: captureListSchema,
-      end: string(),
-      endCaptures: captureListSchema,
-      name: string(),
-      patterns: array(patternSchema),
-    }),
+    union([
+      object({
+        begin: optional(string()),
+        beginCaptures: optional(captureListSchema),
+        end: optional(string()),
+        endCaptures: optional(captureListSchema),
+        name: optional(string()),
+        patterns: array(patternSchema),
+      }),
+    ]),
   ),
 });
 
