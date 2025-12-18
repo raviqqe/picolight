@@ -17,16 +17,19 @@ const patternSchema = union([
 
 const grammarSchema = object({
   name: string(),
-  patterns: array(patternSchema),
+  // patterns: array(patternSchema),
   repository: record(
     string(),
     union([
       object({
-        begin: optional(string()),
-        beginCaptures: optional(captureListSchema),
-        end: optional(string()),
-        endCaptures: optional(captureListSchema),
-        name: optional(string()),
+        begin: string(),
+        beginCaptures: captureListSchema,
+        end: string(),
+        endCaptures: captureListSchema,
+        name: string(),
+        // patterns: array(patternSchema),
+      }),
+      object({
         patterns: array(patternSchema),
       }),
     ]),
