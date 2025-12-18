@@ -1,10 +1,7 @@
 import { writeFile } from "node:fs/promises";
-import { omit } from "es-toolkit";
 import { grammars } from "tm-grammars";
 import { array, object, parse, string } from "valibot";
-import type { Language } from "../language.js";
-
-const filteredCharacters = [" ", ".", "*"];
+import type { Language, Lexer } from "../language.js";
 
 const grammarSchema = object({
   name: string(),
@@ -21,7 +18,7 @@ const grammarSchema = object({
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
-  const { patterns, repository } = parse(
+  const grammar = parse(
     grammarSchema,
     (
       await import(`tm-grammars/grammars/${name}.json`, {
@@ -30,35 +27,22 @@ const compileLanguage = async (name: string): Promise<Language> => {
     ).default,
   );
 
-  const tokens = Object.fromEntries(
-    tokenColors.flatMap(
-      ({ scope, settings }) =>
-        scope?.flatMap((scope): [string, [Tag, string]][] =>
-          !filteredCharacters.some((character) => scope.includes(character)) &&
-          settings?.foreground
-            ? [[scope, [null, settings.foreground]]]
-            : [],
-        ) ?? [["", [null, settings?.foreground ?? ""]]],
-    ),
+  const lexers: Record<string, Lexer> = {};
+  const patterns = grammar.patterns.map(({ include }) =>
+    include.replace(/^#/, ""),
   );
+  const visited = new Set<string>();
+  let pattern: string | undefined;
 
-  const foregroundColor =
-    tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground;
-  const backgroundColor =
-    tokens[""]?.[1] ?? colors["editor.background"] ?? colors.background;
+  while ((pattern = patterns.pop())) {
+    if (visited.has(pattern)) {
+      continue;
+    }
 
-  if (!foregroundColor || !backgroundColor) {
-    throw new Error(`Default color missing for ${name}`, {
-      cause: {
-        backgroundColor,
-        foregroundColor,
-      },
-    });
+    visited.add(pattern);
   }
 
-  return {
-    lexers: omit(tokens, [""]),
-  };
+  return { lexers: Object.values(lexers) };
 };
 
 await Promise.all(
