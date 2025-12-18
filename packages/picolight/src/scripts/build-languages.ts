@@ -30,6 +30,10 @@ const grammarSchema = object({
         // patterns: array(patternSchema),
       }),
       object({
+        captures: captureListSchema,
+        match: string(),
+      }),
+      object({
         patterns: array(patternSchema),
       }),
     ]),
