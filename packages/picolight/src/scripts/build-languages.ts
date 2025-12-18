@@ -12,7 +12,7 @@ import {
   transform,
   union,
 } from "valibot";
-import type { Tag, Theme } from "../theme.js";
+import type { Language } from "../language.js";
 
 const filteredCharacters = [" ", ".", "*"];
 
@@ -56,7 +56,7 @@ const themeSchema = object({
   ),
 });
 
-const compileLanguage = async (name: string): Promise<Theme> => {
+const compileLanguage = async (name: string): Promise<Language> => {
   const { colors, tokenColors } = parse(
     themeSchema,
     (
@@ -93,9 +93,7 @@ const compileLanguage = async (name: string): Promise<Theme> => {
   }
 
   return {
-    back: backgroundColor,
-    fore: foregroundColor,
-    tokens: omit(tokens, [""]),
+    lexers: omit(tokens, [""]),
   };
 };
 
