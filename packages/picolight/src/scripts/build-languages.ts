@@ -49,7 +49,7 @@ const grammarSchema = object({
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
-  log(`Compiling ${name}...`);
+  log(`Compiling ${name}`);
 
   const grammar = parse(
     grammarSchema,
