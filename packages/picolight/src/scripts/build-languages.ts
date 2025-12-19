@@ -68,10 +68,14 @@ const patternSchema = union([
   object({
     begin: string(),
     captures: captureMapSchema,
-    end: optional(string()),
-    name: optional(string()),
+  }),
+  object({
+    begin: string(),
+    captures: captureMapSchema,
+    end: string(),
+    name: string(),
     get patterns() {
-      return optional(array(patternSchema));
+      return array(patternSchema);
     },
   }),
   array(unknown()),
