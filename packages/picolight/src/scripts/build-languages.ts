@@ -15,6 +15,7 @@ import {
   unknown,
 } from "zod";
 import type { Language, Lexer } from "../language.js";
+import { serializeLanguage } from "../serialization.js";
 
 const directory = "src/languages/experimental";
 
@@ -133,8 +134,8 @@ for (const { name } of grammars) {
   await writeFile(
     join(directory, `${name}.ts`),
     [
-      `import type { Language } from "../../language.js";`,
-      `export const ${camelName}: Language = ${JSON.stringify(language)}`,
+      `import { deserializeLanguage, type Language } from "../../language.js";`,
+      `export const ${camelName}: Language = deserializeLanguage(${serializeLanguage(language)})`,
     ].join("\n"),
   );
 }
