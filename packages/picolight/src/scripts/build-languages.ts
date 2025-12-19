@@ -138,7 +138,7 @@ const compileLanguage = async (language: string): Promise<Language> => {
     ).default,
   );
 
-  const lexers: Record<string, Lexer | null> = {};
+  const lexers: Record<string, Lexer[]> = {};
   const names = patterns.flatMap((pattern) =>
     "include" in pattern ? [pattern.include.replace(/^#/, "")] : [],
   );
@@ -149,7 +149,7 @@ const compileLanguage = async (language: string): Promise<Language> => {
       continue;
     }
 
-    lexers[name] = null;
+    lexers[name] = [];
 
     const pattern = repository?.[name];
 
@@ -158,10 +158,14 @@ const compileLanguage = async (language: string): Promise<Language> => {
     }
 
     const patterns = Array.isArray(pattern) ? pattern : [pattern];
-    let part: Pattern | undefined;
 
-    while ((part = patterns.shift())) {
-      lexers[name] = compilePattern(part);
+    for (let part = patterns.shift(); part; part = patterns.shift()) {
+      const lexer = compilePattern(part);
+
+      if (lexer) {
+        lexers[name]?.push(lexer);
+      }
+
       names.push(...extractPatternNames(part));
 
       if ("patterns" in part) {
@@ -170,7 +174,7 @@ const compileLanguage = async (language: string): Promise<Language> => {
     }
   }
 
-  return { lexers: Object.values(lexers).filter((lexer) => !!lexer) };
+  return { lexers: Object.values(lexers).flat() };
 };
 
 for (const { name } of grammars) {
