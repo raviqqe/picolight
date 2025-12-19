@@ -2,18 +2,27 @@ import { log } from "node:console";
 import { writeFile } from "node:fs/promises";
 import { grammars } from "tm-grammars";
 import {
-  unknown,
   array,
+  lazy,
   object,
   optional,
   parse,
   record,
+  strictObject,
   string,
   union,
+  unknown,
 } from "zod";
 import type { Language, Lexer } from "../language.js";
 
-const captureListSchema = record(string(), object({ name: string() }));
+const captureMapSchema = record(
+  string(),
+  union([
+    object({ name: string() }),
+    object({ patterns: lazy(() => array(unknown())) }),
+    strictObject({}),
+  ]),
+);
 
 const patternSchema = union([
   object({
@@ -21,22 +30,22 @@ const patternSchema = union([
   }),
   object({
     begin: string(),
-    beginCaptures: captureListSchema,
+    beginCaptures: optional(captureMapSchema),
     end: string(),
-    endCaptures: captureListSchema,
-    name: string(),
+    endCaptures: optional(captureMapSchema),
+    name: optional(string()),
     get patterns() {
-      return array(patternSchema);
+      return optional(array(patternSchema));
     },
   }),
   object({
-    captures: optional(captureListSchema),
+    captures: optional(captureMapSchema),
     match: string(),
     name: optional(string()),
   }),
   object({
     get patterns() {
-      return optional(array(patternSchema));
+      return array(patternSchema);
     },
   }),
   array(unknown()),
