@@ -98,7 +98,11 @@ type Pattern = z.infer<typeof patternSchema>;
 const compilePattern = (pattern: Pattern): Lexer | null => null;
 
 const extractPatternNames = (pattern: Pattern): string[] =>
-  "include" in pattern ? [pattern.include.replace(/^#/, "")] : [];
+  "include" in pattern
+    ? [pattern.include.replace(/^#/, "")]
+    : "patterns" in pattern
+      ? (pattern.patterns?.flatMap(extractPatternNames) ?? [])
+      : [];
 
 const compileLanguage = async (language: string): Promise<Language> => {
   log(`Compiling ${language}`);
