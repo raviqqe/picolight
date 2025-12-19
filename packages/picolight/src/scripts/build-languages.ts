@@ -78,13 +78,14 @@ const patternSchema = union([
       return array(patternSchema);
     },
   }),
-  array(unknown()),
 ]);
 
 const grammarSchema = object({
   name: string(),
   patterns: array(patternSchema),
-  repository: optional(record(string(), patternSchema)),
+  repository: optional(
+    record(string(), union([patternSchema, array(patternSchema)])),
+  ),
 });
 
 const compileLanguage = async (name: string): Promise<Language> => {
