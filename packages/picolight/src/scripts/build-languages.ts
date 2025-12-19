@@ -95,7 +95,13 @@ const grammarSchema = object({
 
 type Pattern = z.infer<typeof patternSchema>;
 
-const compilePattern = (pattern: Pattern): Lexer | null => null;
+const compilePattern = (pattern: Pattern): Lexer | null => {
+  if ("match" in pattern && "name" in pattern) {
+    return [new RegExp(pattern.match), [pattern.name ?? ""]];
+  }
+
+  return null;
+};
 
 const extractPatternNames = (pattern: Pattern): string[] =>
   "include" in pattern
