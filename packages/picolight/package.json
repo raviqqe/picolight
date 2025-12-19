@@ -28,8 +28,8 @@
   },
   "scripts": {
     "build": "node --run build:languages && node --run build:themes && tsdown",
-    "build:languages": "node src/scripts/build-languages.ts",
-    "build:themes": "node src/scripts/build-themes.ts",
+    "build:languages": "tsx src/scripts/build-languages.ts",
+    "build:themes": "tsx src/scripts/build-themes.ts",
     "lint": "knip",
     "test": "vitest --coverage"
   },
@@ -43,6 +43,7 @@
     "tm-grammars": "^1.26.0",
     "tm-themes": "^1.10.13",
     "tsdown": "^0.18.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "valibot": "^1.2.0",
     "vitest": "^4.0.16",
