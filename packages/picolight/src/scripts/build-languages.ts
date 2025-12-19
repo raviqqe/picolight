@@ -1,6 +1,7 @@
 import { log, warn } from "node:console";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { toRegExp } from "oniguruma-to-es";
 import { grammars } from "tm-grammars";
 import {
   array,
@@ -98,7 +99,7 @@ type Pattern = z.infer<typeof patternSchema>;
 
 const compileRegularExpression = (source: string): RegExp | null => {
   try {
-    return new RegExp(source.replace(/\(\?[imx-]*\)/, ""), "im");
+    return toRegExp(source);
   } catch (error) {
     warn((error as Error).message);
   }
