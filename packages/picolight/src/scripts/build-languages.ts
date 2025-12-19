@@ -95,6 +95,8 @@ const grammarSchema = object({
 
 type Pattern = z.infer<typeof patternSchema>;
 
+const compilePattern = (pattern: Pattern): Lexer | null => null;
+
 const extractPatternNames = (pattern: Pattern): string[] =>
   "include" in pattern ? [pattern.include.replace(/^#/, "")] : [];
 
@@ -135,7 +137,7 @@ const compileLanguage = async (language: string): Promise<Language> => {
     }
   }
 
-  return { lexers: Object.values(lexers) };
+  return { lexers: Object.values(lexers).filter((lexer) => !!lexer) };
 };
 
 for (const { name } of grammars) {
