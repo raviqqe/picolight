@@ -1,6 +1,7 @@
-import { log } from "node:console";
+import { log, warn } from "node:console";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { toRegExp } from "oniguruma-to-es";
 import { grammars } from "tm-grammars";
 import {
   array,
@@ -13,9 +14,11 @@ import {
   string,
   union,
   unknown,
+  type z,
 } from "zod";
 import type { Language, Lexer } from "../language.js";
 import { serializeLanguage } from "../serialization.js";
+import type { Token } from "../token.js";
 
 const directory = "src/languages/experimental";
 
@@ -30,20 +33,6 @@ const captureMapSchema = record(
 );
 
 const patternSchema = union([
-  strictObject({}),
-  object({
-    include: string(),
-  }),
-  object({
-    name: string(),
-  }),
-  object({
-    packages: array(
-      object({
-        import: string(),
-      }),
-    ),
-  }),
   object({
     begin: string(),
     beginCaptures: optional(captureMapSchema),
@@ -82,6 +71,20 @@ const patternSchema = union([
       return array(patternSchema);
     },
   }),
+  object({
+    include: string(),
+  }),
+  object({
+    name: string(),
+  }),
+  object({
+    packages: array(
+      object({
+        import: string(),
+      }),
+    ),
+  }),
+  strictObject({}),
 ]);
 
 const grammarSchema = object({
@@ -92,34 +95,82 @@ const grammarSchema = object({
   ),
 });
 
-const compileLanguage = async (name: string): Promise<Language> => {
-  log(`Compiling ${name}`);
+type Pattern = z.infer<typeof patternSchema>;
 
-  const grammar = parse(
+const compileRegularExpression = (source: string): RegExp | null => {
+  try {
+    return toRegExp(source);
+  } catch (error) {
+    warn((error as Error).message);
+  }
+
+  return null;
+};
+
+const compilePattern = (pattern: Pattern): Lexer | null => {
+  if ("match" in pattern && "name" in pattern) {
+    const expression = compileRegularExpression(pattern.match);
+
+    return expression
+      ? [expression, [pattern.name?.split(".")[0] as Token]]
+      : null;
+  }
+
+  return null;
+};
+
+const extractPatternNames = (pattern: Pattern): string[] =>
+  "include" in pattern
+    ? [pattern.include.replace(/^#/, "")]
+    : "patterns" in pattern
+      ? (pattern.patterns?.flatMap(extractPatternNames) ?? [])
+      : [];
+
+const compileLanguage = async (language: string): Promise<Language> => {
+  log(`Compiling ${language}`);
+
+  const { patterns, repository = {} } = parse(
     grammarSchema,
     (
-      await import(`tm-grammars/grammars/${name}.json`, {
+      await import(`tm-grammars/grammars/${language}.json`, {
         with: { type: "json" },
       })
     ).default,
   );
 
-  const lexers: Record<string, Lexer> = {};
-  const patterns = grammar.patterns.flatMap((pattern) =>
+  const lexers: Record<string, Lexer | null> = {};
+  const names = patterns.flatMap((pattern) =>
     "include" in pattern ? [pattern.include.replace(/^#/, "")] : [],
   );
-  const visited = new Set<string>();
-  let pattern: string | undefined;
+  let name: string | undefined;
 
-  while ((pattern = patterns.pop())) {
-    if (visited.has(pattern)) {
+  while ((name = names.shift())) {
+    if (name in lexers) {
       continue;
     }
 
-    visited.add(pattern);
+    lexers[name] = null;
+
+    const pattern = repository?.[name];
+
+    if (!pattern) {
+      continue;
+    }
+
+    const patterns = Array.isArray(pattern) ? pattern : [pattern];
+    let part: Pattern | undefined;
+
+    while ((part = patterns.shift())) {
+      lexers[name] = compilePattern(part);
+      names.push(...extractPatternNames(part));
+
+      if ("patterns" in part) {
+        patterns.push(...(part.patterns ?? []));
+      }
+    }
   }
 
-  return { lexers: Object.values(lexers) };
+  return { lexers: Object.values(lexers).filter((lexer) => !!lexer) };
 };
 
 for (const { name } of grammars) {
