@@ -1,4 +1,4 @@
-import { log } from "node:console";
+import { log, warn } from "node:console";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { grammars } from "tm-grammars";
@@ -17,6 +17,7 @@ import {
 } from "zod";
 import type { Language, Lexer } from "../language.js";
 import { serializeLanguage } from "../serialization.js";
+import type { Token } from "../token.js";
 
 const directory = "src/languages/experimental";
 
@@ -31,20 +32,6 @@ const captureMapSchema = record(
 );
 
 const patternSchema = union([
-  strictObject({}),
-  object({
-    include: string(),
-  }),
-  object({
-    name: string(),
-  }),
-  object({
-    packages: array(
-      object({
-        import: string(),
-      }),
-    ),
-  }),
   object({
     begin: string(),
     beginCaptures: optional(captureMapSchema),
@@ -83,6 +70,20 @@ const patternSchema = union([
       return array(patternSchema);
     },
   }),
+  object({
+    include: string(),
+  }),
+  object({
+    name: string(),
+  }),
+  object({
+    packages: array(
+      object({
+        import: string(),
+      }),
+    ),
+  }),
+  strictObject({}),
 ]);
 
 const grammarSchema = object({
@@ -95,9 +96,23 @@ const grammarSchema = object({
 
 type Pattern = z.infer<typeof patternSchema>;
 
+const compileRegularExpression = (source: string): RegExp | null => {
+  try {
+    return new RegExp(source.replace(/\(\?[imx-]*\)/, ""), "im");
+  } catch (error) {
+    warn((error as Error).message);
+  }
+
+  return null;
+};
+
 const compilePattern = (pattern: Pattern): Lexer | null => {
   if ("match" in pattern && "name" in pattern) {
-    return [new RegExp(pattern.match), [pattern.name ?? ""]];
+    const expression = compileRegularExpression(pattern.match);
+
+    return expression
+      ? [expression, [pattern.name?.split(".")[0] as Token]]
+      : null;
   }
 
   return null;
