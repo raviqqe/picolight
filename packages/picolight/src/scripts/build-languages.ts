@@ -134,7 +134,8 @@ for (const { name } of grammars) {
   await writeFile(
     join(directory, `${name}.ts`),
     [
-      `import { deserializeLanguage, type Language } from "../../language.js";`,
+      `import type { Language } from "../../language.js";`,
+      `import { deserializeLanguage } from "../../serialization.js";`,
       `export const ${camelName}: Language = deserializeLanguage(${serializeLanguage(language)})`,
     ].join("\n"),
   );
