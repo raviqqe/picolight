@@ -133,7 +133,7 @@ for (const { name } of grammars) {
   await writeFile(
     join(directory, `${name}.ts`),
     [
-      `import type { Language } from "../language.js";`,
+      `import type { Language } from "../../language.js";`,
       `export const ${camelName}: Language = ${JSON.stringify(language)}`,
     ].join("\n"),
   );

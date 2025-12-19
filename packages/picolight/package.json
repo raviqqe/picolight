@@ -17,6 +17,10 @@
       "types": "./dist/languages/*.d.ts",
       "default": "./dist/languages/*.js"
     },
+    "./languages/experimental/*": {
+      "types": "./dist/languages/experimental/*.d.ts",
+      "default": "./dist/languages/experimental/*.js"
+    },
     "./themes/*": {
       "types": "./dist/themes/*.d.ts",
       "default": "./dist/themes/*.js"
