@@ -1,5 +1,6 @@
 import { log } from "node:console";
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { grammars } from "tm-grammars";
 import {
   array,
@@ -14,6 +15,8 @@ import {
   unknown,
 } from "zod";
 import type { Language, Lexer } from "../language.js";
+
+const directory = "tmp/languages";
 
 const captureMapSchema = record(
   string(),
@@ -126,8 +129,9 @@ for (const { name } of grammars) {
 
   const language = await compileLanguage(name);
 
+  await mkdir(directory, { recursive: true });
   await writeFile(
-    `src/themes/${name}.ts`,
+    join(directory, `${name}.ts`),
     [
       `import type { Language } from "../language.js";`,
       `export const ${camelName}: Theme = ${JSON.stringify(language)}`,
