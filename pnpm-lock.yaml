@@ -51,6 +51,9 @@ importers:
       knip:
         specifier: ^5.75.1
         version: 5.75.1(@types/node@25.0.3)(typescript@5.9.3)
+      oniguruma-to-es:
+        specifier: ^4.3.4
+        version: 4.3.4
       tm-grammars:
         specifier: ^1.26.0
         version: 1.26.0
