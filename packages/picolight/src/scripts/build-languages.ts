@@ -156,9 +156,16 @@ const compileLanguage = async (language: string): Promise<Language> => {
       continue;
     }
 
-    for (const element of Array.isArray(pattern) ? pattern : [pattern]) {
-      lexers[name] = compilePattern(element);
-      names.push(...extractPatternNames(element));
+    const patterns = Array.isArray(pattern) ? pattern : [pattern];
+    let part: Pattern | undefined;
+
+    while ((part = patterns.shift())) {
+      lexers[name] = compilePattern(part);
+      names.push(...extractPatternNames(part));
+
+      if ("patterns" in part) {
+        patterns.push(...(part.patterns ?? []));
+      }
     }
   }
 
