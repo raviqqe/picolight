@@ -3,7 +3,6 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { grammars } from "tm-grammars";
 import {
-  type z,
   array,
   lazy,
   object,
@@ -14,6 +13,7 @@ import {
   string,
   union,
   unknown,
+  type z,
 } from "zod";
 import type { Language, Lexer } from "../language.js";
 import { serializeLanguage } from "../serialization.js";
