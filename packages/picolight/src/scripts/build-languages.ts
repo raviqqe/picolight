@@ -18,14 +18,27 @@ import type { Language, Lexer } from "../language.js";
 const captureMapSchema = record(
   string(),
   union([
+    string(),
+    strictObject({}),
     object({ name: string() }),
     object({ patterns: lazy(() => array(unknown())) }),
   ]),
 );
 
 const patternSchema = union([
+  strictObject({}),
   object({
     include: string(),
+  }),
+  object({
+    name: string(),
+  }),
+  object({
+    packages: array(
+      object({
+        import: string(),
+      }),
+    ),
   }),
   object({
     begin: string(),
@@ -38,6 +51,11 @@ const patternSchema = union([
     },
   }),
   object({
+    begin: string(),
+    beginCaptures: optional(captureMapSchema),
+    while: string(),
+  }),
+  object({
     captures: optional(captureMapSchema),
     match: string(),
     name: optional(string()),
@@ -47,7 +65,15 @@ const patternSchema = union([
       return array(patternSchema);
     },
   }),
-  strictObject({}),
+  object({
+    begin: string(),
+    captures: captureMapSchema,
+    end: optional(string()),
+    name: optional(string()),
+    get patterns() {
+      return optional(array(patternSchema));
+    },
+  }),
   array(unknown()),
 ]);
 
