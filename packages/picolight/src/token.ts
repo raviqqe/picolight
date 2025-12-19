@@ -1,4 +1,4 @@
-// From Textmate
+// Imported from Textmate.
 export type Token =
   | "bold"
   | "brace"
