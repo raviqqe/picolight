@@ -16,7 +16,7 @@ import {
 } from "zod";
 import type { Language, Lexer } from "../language.js";
 
-const directory = "tmp/languages";
+const directory = "src/languages/experimental";
 
 const captureMapSchema = record(
   string(),
@@ -134,7 +134,7 @@ for (const { name } of grammars) {
     join(directory, `${name}.ts`),
     [
       `import type { Language } from "../language.js";`,
-      `export const ${camelName}: Theme = ${JSON.stringify(language)}`,
+      `export const ${camelName}: Language = ${JSON.stringify(language)}`,
     ].join("\n"),
   );
 }
