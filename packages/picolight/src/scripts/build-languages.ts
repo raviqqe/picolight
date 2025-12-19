@@ -142,9 +142,8 @@ const compileLanguage = async (language: string): Promise<Language> => {
   const names = patterns.flatMap((pattern) =>
     "include" in pattern ? [pattern.include.replace(/^#/, "")] : [],
   );
-  let name: string | undefined;
 
-  while ((name = names.shift())) {
+  for (let name = names.shift(); name; name = names.shift()) {
     if (name in lexers) {
       continue;
     }
