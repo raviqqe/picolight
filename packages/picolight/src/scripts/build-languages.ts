@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { grammars } from "tm-grammars";
 import {
+  type z,
   array,
   lazy,
   object,
@@ -92,31 +93,46 @@ const grammarSchema = object({
   ),
 });
 
-const compileLanguage = async (name: string): Promise<Language> => {
-  log(`Compiling ${name}`);
+type Pattern = z.infer<typeof patternSchema>;
 
-  const grammar = parse(
+const extractPatternNames = (pattern: Pattern): string[] =>
+  "include" in pattern ? [pattern.include.replace(/^#/, "")] : [];
+
+const compileLanguage = async (language: string): Promise<Language> => {
+  log(`Compiling ${language}`);
+
+  const { patterns, repository = {} } = parse(
     grammarSchema,
     (
-      await import(`tm-grammars/grammars/${name}.json`, {
+      await import(`tm-grammars/grammars/${language}.json`, {
         with: { type: "json" },
       })
     ).default,
   );
 
-  const lexers: Record<string, Lexer> = {};
-  const patterns = grammar.patterns.flatMap((pattern) =>
+  const lexers: Record<string, Lexer | null> = {};
+  const names = patterns.flatMap((pattern) =>
     "include" in pattern ? [pattern.include.replace(/^#/, "")] : [],
   );
-  const visited = new Set<string>();
-  let pattern: string | undefined;
+  let name: string | undefined;
 
-  while ((pattern = patterns.pop())) {
-    if (visited.has(pattern)) {
+  while ((name = names.shift())) {
+    if (name in lexers) {
       continue;
     }
 
-    visited.add(pattern);
+    lexers[name] = null;
+
+    const pattern = repository?.[name];
+
+    if (!pattern) {
+      continue;
+    }
+
+    for (const element of Array.isArray(pattern) ? pattern : [pattern]) {
+      lexers[name] = compilePattern(element);
+      names.push(...extractPatternNames(element));
+    }
   }
 
   return { lexers: Object.values(lexers) };
