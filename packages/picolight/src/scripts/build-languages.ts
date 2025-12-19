@@ -20,7 +20,6 @@ const captureMapSchema = record(
   union([
     object({ name: string() }),
     object({ patterns: lazy(() => array(unknown())) }),
-    strictObject({}),
   ]),
 );
 
@@ -48,6 +47,7 @@ const patternSchema = union([
       return array(patternSchema);
     },
   }),
+  strictObject({}),
   array(unknown()),
 ]);
 
