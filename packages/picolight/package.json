@@ -43,7 +43,7 @@
     "oniguruma-to-es": "^4.3.4",
     "tm-grammars": "^1.26.0",
     "tm-themes": "^1.10.13",
-    "tsdown": "^0.18.2",
+    "tsdown": "^0.18.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "valibot": "^1.2.0",
