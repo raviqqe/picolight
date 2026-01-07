@@ -58,8 +58,8 @@ importers:
         specifier: ^1.26.0
         version: 1.26.0
       tm-themes:
-        specifier: ^1.10.13
-        version: 1.10.13
+        specifier: ^1.10.14
+        version: 1.10.14
       tsdown:
         specifier: ^0.18.4
         version: 0.18.4(oxc-resolver@11.16.2)(synckit@0.11.11)(typescript@5.9.3)
@@ -514,18 +514,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [sunos]
-
-  '@esbuild/win32-arm64@0.25.12':
-    resolution: {integrity: sha512-rMmLrur64A7+DKlnSuwqUdRKyd3UE7oPJZmnljqEptesKM8wx9J8gx5u0+9Pq0fQQW8vqeKebwNXdfOyP+8Bsg==}
-    engines: {node: '>=18'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@esbuild/win32-arm64@0.27.2':
-    resolution: {integrity: sha512-Yaf78O/B3Kkh+nKABUF++bvJv5Ijoy9AN1ww904rOXZFLWVc5OLOfL56W+C8F9xn5JQZa3UX6m+IktJnIb1Jjg==}
-    engines: {node: '>=18'}
-    cpu: [arm64]
-    os: [win32]
 
   '@esbuild/win32-ia32@0.25.12':
     resolution: {integrity: sha512-HkqnmmBoCbCwxUKKNPBixiWDGCpQGVsrQfJoVGYLPT41XWF8lHuE5N6WhVia2n4o5QK5M4tYr21827fNhi4byQ==}
@@ -2334,8 +2322,8 @@ packages:
   tm-grammars@1.26.0:
     resolution: {integrity: sha512-igk4CYReS2IrWgopVJ6BmPTjvqYFnD6C5RowZQycGIL/XOGO4VwMN87f9QcpP40XeW/LgARnLCQhanXGrtzPwg==}
 
-  tm-themes@1.10.13:
-    resolution: {integrity: sha512-ErqacfNfLa98SME1W6CHThQIQbFnPKEkJRAAPL/sqD1jjdlv4pHH1HzoeZHkjyCjLDW47Q49uhmy1uPwL2FzRg==}
+  tm-themes@1.10.14:
+    resolution: {integrity: sha512-4oqDrkf93YaYyb2VRtboAv/XSnjRkpy4WTNPfDqYKgWYYkrHq5tGBpuA5LHJyA3bkDX3qKddSmI+EarKmFVwqw==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -3100,12 +3088,6 @@ snapshots:
     optional: true
 
   '@esbuild/sunos-x64@0.27.2':
-    optional: true
-
-  '@esbuild/win32-arm64@0.25.12':
-    optional: true
-
-  '@esbuild/win32-arm64@0.27.2':
     optional: true
 
   '@esbuild/win32-ia32@0.25.12':
@@ -4005,7 +3987,6 @@ snapshots:
       '@esbuild/openbsd-x64': 0.25.12
       '@esbuild/openharmony-arm64': 0.25.12
       '@esbuild/sunos-x64': 0.25.12
-      '@esbuild/win32-arm64': 0.25.12
       '@esbuild/win32-ia32': 0.25.12
       '@esbuild/win32-x64': 0.25.12
 
@@ -4034,7 +4015,6 @@ snapshots:
       '@esbuild/openbsd-x64': 0.27.2
       '@esbuild/openharmony-arm64': 0.27.2
       '@esbuild/sunos-x64': 0.27.2
-      '@esbuild/win32-arm64': 0.27.2
       '@esbuild/win32-ia32': 0.27.2
       '@esbuild/win32-x64': 0.27.2
 
@@ -5414,7 +5394,7 @@ snapshots:
 
   tm-grammars@1.26.0: {}
 
-  tm-themes@1.10.13: {}
+  tm-themes@1.10.14: {}
 
   to-regex-range@5.0.1:
     dependencies:
