@@ -23,10 +23,10 @@ importers:
     devDependencies:
       '@astrojs/mdx':
         specifier: ^4.3.13
-        version: 4.3.13(astro@5.16.7(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3))
+        version: 4.3.13(astro@5.16.8(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3))
       astro:
-        specifier: ^5.16.7
-        version: 5.16.7(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3)
+        specifier: ^5.16.8
+        version: 5.16.8(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -1344,8 +1344,8 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro@5.16.7:
-    resolution: {integrity: sha512-Kfv7FKisFR+THvmojXWtvJGRCvQ4D9przguE9XdeUtS464ned6hvbgmyFDvPzyaNmDtkHGNpPwAQ9tgFcVqp+Q==}
+  astro@5.16.8:
+    resolution: {integrity: sha512-gzZE+epuCrNuxOa8/F1dzkllDOFvxWhGeobQKeBRIAef5sUpUKMHZo/8clse+02rYnKJCgwXBgjW4uTu9mqUUw==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2314,8 +2314,9 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sax@1.4.3:
-    resolution: {integrity: sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==}
+  sax@1.4.4:
+    resolution: {integrity: sha512-1n3r/tGXO6b6VXMdFT54SHzT9ytu9yr7TaELowdYpMqY/Ao7EnlQGmAQ1+RatX7Tkkdm6hONI2owqNx2aZj5Sw==}
+    engines: {node: '>=11.0.0'}
 
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
@@ -2922,12 +2923,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.3.13(astro@5.16.7(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3))':
+  '@astrojs/mdx@4.3.13(astro@5.16.8(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3))':
     dependencies:
       '@astrojs/markdown-remark': 6.3.10
       '@mdx-js/mdx': 3.1.1
       acorn: 8.15.0
-      astro: 5.16.7(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3)
+      astro: 5.16.8(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3)
       es-module-lexer: 1.7.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -3833,7 +3834,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro@5.16.7(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3):
+  astro@5.16.8(@types/node@25.0.3)(jiti@2.6.1)(rollup@4.55.1)(tsx@4.21.0)(typescript@5.9.3):
     dependencies:
       '@astrojs/compiler': 2.13.0
       '@astrojs/internal-helpers': 0.7.5
@@ -5434,7 +5435,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sax@1.4.3: {}
+  sax@1.4.4: {}
 
   saxes@6.0.0:
     dependencies:
@@ -5548,7 +5549,7 @@ snapshots:
       css-what: 6.2.2
       csso: 5.0.5
       picocolors: 1.1.1
-      sax: 1.4.3
+      sax: 1.4.4
 
   symbol-tree@3.2.4: {}
 
