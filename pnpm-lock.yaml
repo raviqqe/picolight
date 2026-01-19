@@ -55,8 +55,8 @@ importers:
         specifier: ^4.3.4
         version: 4.3.4
       tm-grammars:
-        specifier: ^1.28.0
-        version: 1.28.0
+        specifier: ^1.28.1
+        version: 1.28.1
       tm-themes:
         specifier: ^1.10.15
         version: 1.10.15
@@ -2318,8 +2318,8 @@ packages:
     resolution: {integrity: sha512-8PWx8tvC4jDB39BQw1m4x8y5MH1BcQ5xHeL2n7UVFulMPH/3Q0uiamahFJ3lXA0zO2SUyRXuVVbWSDmstlt9YA==}
     hasBin: true
 
-  tm-grammars@1.28.0:
-    resolution: {integrity: sha512-UcmDa/q8iWWpWHm/2MT07OYCigHMHPTjupCPEnyYBFfUQhpahgill3QMfGLm2lQmLU/uDM8EtXxOV32XcO347Q==}
+  tm-grammars@1.28.1:
+    resolution: {integrity: sha512-cUru2wwcKtzhLzo7M60Aln4u555i9uxIBlQY2LLOjNMTTO5lnjNVmVE1ndqbHwcuPQcI/Y1qymTQPTG2S+svIg==}
 
   tm-themes@1.10.15:
     resolution: {integrity: sha512-rotDWBYblnZtlMTlmSlGt89wsqjov+noXLIpNNyqAjnit+UykNOOo1rL9qg3nkTPxE2gjOOhscvVioDuRx3qsA==}
@@ -5366,7 +5366,7 @@ snapshots:
     dependencies:
       tldts-core: 7.0.19
 
-  tm-grammars@1.28.0: {}
+  tm-grammars@1.28.1: {}
 
   tm-themes@1.10.15: {}
 
