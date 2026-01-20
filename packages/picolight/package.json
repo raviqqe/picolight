@@ -39,7 +39,7 @@
     "@vitest/coverage-v8": "^4.0.17",
     "es-toolkit": "^1.44.0",
     "jsdom": "^27.4.0",
-    "knip": "^5.82.0",
+    "knip": "^5.82.1",
     "oniguruma-to-es": "^4.3.4",
     "tm-grammars": "^1.29.0",
     "tm-themes": "^1.10.16",
