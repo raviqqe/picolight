@@ -42,7 +42,7 @@
     "knip": "^5.82.1",
     "oniguruma-to-es": "^4.3.4",
     "tm-grammars": "^1.29.1",
-    "tm-themes": "^1.10.16",
+    "tm-themes": "^1.11.0",
     "tsdown": "^0.20.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
