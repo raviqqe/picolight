@@ -75,6 +75,10 @@ const patternSchema = union([
     include: string(),
   }),
   object({
+    // biome-ignore lint/style/useNamingConvention: Ron support
+    meta_scope: string(),
+  }),
+  object({
     name: string(),
   }),
   object({
