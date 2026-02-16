@@ -58,8 +58,8 @@ importers:
         specifier: ^1.30.9
         version: 1.30.9
       tm-themes:
-        specifier: ^1.11.1
-        version: 1.11.1
+        specifier: ^1.11.2
+        version: 1.11.2
       tsdown:
         specifier: ^0.20.3
         version: 0.20.3(oxc-resolver@11.17.1)(synckit@0.11.11)(typescript@5.9.3)
@@ -2699,8 +2699,8 @@ packages:
   tm-grammars@1.30.9:
     resolution: {integrity: sha512-4oi6Ol/mQSm/vZ281Q4xr+CqgK8SIp+rYwQ0nlztJsQz71OZHv+liYxq5kA7/H04kZyGqWxFYU9en18v6Hy74A==}
 
-  tm-themes@1.11.1:
-    resolution: {integrity: sha512-lf4ULkNhbJJ0MFPGMz9o1rJ1OzpIxVi2V3r3assgpcktJBzGB+2RbDmSPpW8S2emHgT1V4u6fZlrWzGJUaGfCQ==}
+  tm-themes@1.11.2:
+    resolution: {integrity: sha512-xeW09kY4JXxkzLC4g2bB5vvUXvT1ZeNNxWuZnY9Q/BcCnnm6sZ/ITIDGoWRDQMtpqMftq0+2F3Dh2gc1tJZByw==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -5988,7 +5988,7 @@ snapshots:
 
   tm-grammars@1.30.9: {}
 
-  tm-themes@1.11.1: {}
+  tm-themes@1.11.2: {}
 
   to-regex-range@5.0.1:
     dependencies:
