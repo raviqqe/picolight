@@ -49,8 +49,8 @@ importers:
         specifier: ^28.1.0
         version: 28.1.0
       knip:
-        specifier: ^5.83.1
-        version: 5.83.1(@types/node@25.3.0)(typescript@5.9.3)
+        specifier: ^5.84.1
+        version: 5.84.1(@types/node@25.3.0)(typescript@5.9.3)
       oniguruma-to-es:
         specifier: ^4.3.4
         version: 4.3.4
@@ -2128,8 +2128,8 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
-  knip@5.83.1:
-    resolution: {integrity: sha512-av3ZG/Nui6S/BNL8Tmj12yGxYfTnwWnslouW97m40him7o8MwiMjZBY9TPvlEWUci45aVId0/HbgTwSKIDGpMw==}
+  knip@5.84.1:
+    resolution: {integrity: sha512-F1+yACEsSapAwmQLzfD4i9uPsnI82P4p5ABpNQ9pcc4fpQtjHEX34XDtNl5863I4O6SCECpymylcWDHI3ouhQQ==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -4962,7 +4962,7 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  knip@5.83.1(@types/node@25.3.0)(typescript@5.9.3):
+  knip@5.84.1(@types/node@25.3.0)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@types/node': 25.3.0
