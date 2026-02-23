@@ -23,11 +23,7 @@ import { githubDark } from "picolight/themes/github-dark";
 
 const code = document.querySelector("code");
 
-code.innerHTML = highlight(
-  `(write-string "Hello, world!\\n")`,
-  scheme,
-  githubDark,
-).outerHTML;
+code.innerHTML = highlight(`(write-string "Hello, world!\\n")`, scheme, githubDark).outerHTML;
 ```
 
 ## Supported languages
@@ -38,7 +34,7 @@ code.innerHTML = highlight(
 
 ## Supported themes
 
-We support [all TextMate themes provided by Shiki](https://shiki.matsu.io/themes).
+We support [all TextMate themes provided by Shiki](https://https://shiki.style/themes).
 
 ## License
 
