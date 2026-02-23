@@ -34,7 +34,7 @@ code.innerHTML = highlight(`(write-string "Hello, world!\\n")`, scheme, githubDa
 
 ## Supported themes
 
-We support [all TextMate themes provided by Shiki](https://https://shiki.style/themes).
+We support [all TextMate themes provided by Shiki](https://shiki.style/themes).
 
 ## License
 
