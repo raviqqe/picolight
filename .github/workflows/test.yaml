@@ -8,7 +8,7 @@ jobs:
   unit_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - uses: ./.github/actions/setup
       - run: pnpm -r build
       - run: node --run lint
@@ -16,15 +16,15 @@ jobs:
   spell_check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: streetsidesoftware/cspell-action@main
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: streetsidesoftware/cspell-action@d5d910b521ad408f1e7383c24609079f5a88bdca # v8.2.0
         with:
           files: "**/*.{md,ts}"
   readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: raviqqe/markdown-link-check@main
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: raviqqe/markdown-link-check@eaa1146b58da2062fe6a6e7a72785f57251243e6 # v1.0.2
   test:
     needs:
       - unit_test
