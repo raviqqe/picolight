@@ -41,7 +41,7 @@
     "jsdom": "^29.0.0",
     "knip": "^5.87.0",
     "oniguruma-to-es": "^4.3.5",
-    "tm-grammars": "^1.31.8",
+    "tm-grammars": "^1.31.9",
     "tm-themes": "^1.12.2",
     "tsdown": "^0.21.4",
     "tsx": "^4.21.0",
