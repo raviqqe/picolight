@@ -6,7 +6,7 @@ export const defineElement = (name: string, language: Language) => {
   window.customElements.define(
     `picolight-${name}`,
     class extends HTMLElement {
-      public async connectedCallback(): Promise<void> {
+      async connectedCallback(): Promise<void> {
         const pre = this.querySelector("pre");
         const code = this.querySelector("code");
 
