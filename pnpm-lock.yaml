@@ -49,8 +49,8 @@ importers:
         specifier: ^29.0.2
         version: 29.0.2
       knip:
-        specifier: ^6.3.1
-        version: 6.3.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)
+        specifier: ^6.4.1
+        version: 6.4.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)
       oniguruma-to-es:
         specifier: ^4.3.5
         version: 4.3.5
@@ -1929,8 +1929,8 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  knip@6.3.1:
-    resolution: {integrity: sha512-22kLJloVcOVOAudCxlFOC0ICAMme7dKsS7pVTEnrmyKGpswb8ieznvAiSKUeFVDJhb01ect6dkDc1Ha1g1sPpg==}
+  knip@6.4.1:
+    resolution: {integrity: sha512-Ry+ywmDFSZvKp/jx7LxMgsZWRTs931alV84e60lh0Stf6kSRYqSIUTkviyyDFRcSO3yY1Kpbi83OirN+4lA2Xw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -4545,7 +4545,7 @@ snapshots:
 
   jsesc@3.1.0: {}
 
-  knip@6.3.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2):
+  knip@6.4.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       fast-glob: 3.3.3
