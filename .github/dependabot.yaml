@@ -13,6 +13,10 @@ updates:
     schedule:
       interval: daily
     groups:
+      astro:
+        patterns:
+          - astro
+          - "@astrojs/*"
       vitest:
         patterns:
           - vitest
