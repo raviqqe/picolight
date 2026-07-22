@@ -1,5 +1,6 @@
 {
   "words": [
+    "astrojs",
     "codecov",
     "customrule",
     "frontmatter",
@@ -11,6 +12,7 @@
     "picolight",
     "raviqqe",
     "rslib",
-    "shiki"
+    "shiki",
+    "vitest"
   ]
 }
