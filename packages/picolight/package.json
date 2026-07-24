@@ -34,7 +34,7 @@
     "test": "vitest --coverage"
   },
   "devDependencies": {
-    "@raviqqe/tsconfig": "^3.0.1",
+    "@raviqqe/tsconfig": "^3.0.2",
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^4.1.10",
     "es-toolkit": "^1.49.0",
