@@ -37,7 +37,7 @@
     "@raviqqe/tsconfig": "^3.0.2",
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^4.1.10",
-    "es-toolkit": "^1.49.0",
+    "es-toolkit": "^1.50.0",
     "jsdom": "^29.1.1",
     "knip": "^6.29.0",
     "oniguruma-to-es": "^4.3.6",
