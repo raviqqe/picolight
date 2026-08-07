@@ -33,15 +33,20 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - run: pnpm -r build
-      - run: pnpm build --site http://localhost:4321/monza-editor
+      - run: pnpm build --site http://localhost:4321/picolight
         working-directory: doc
       - run: pnpm preview &
         working-directory: doc
-      - run: >
-          go tool muffet
-          --buffer-size 8192
-          --exclude https://www.npmjs.com/package/.*
-          http://localhost:4321/picolight/
+      - uses: raviqqe/muffy@feb9f110a1f6c6035298c3d77c2d014ea7ae1181 # v0.4.4
+        with:
+          config: muffy.local.toml
+  web_release_test:
+    needs:
+      - web_build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: raviqqe/muffy@feb9f110a1f6c6035298c3d77c2d014ea7ae1181 # v0.4.4
   document:
     needs:
       - web_build
