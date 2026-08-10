@@ -44,7 +44,7 @@
     "tm-grammars": "^1.32.3",
     "tm-themes": "^1.12.3",
     "tsdown": "^0.22.14",
-    "tsx": "^4.23.5",
+    "tsx": "^4.23.10",
     "typescript": "^7.0.2",
     "valibot": "^1.4.2",
     "vitest": "^4.1.10",
