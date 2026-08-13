@@ -12,7 +12,7 @@ import {
   transform,
   union,
 } from "valibot";
-import type { Tag, Theme } from "../theme.js";
+import type { Tag, Theme } from "../theme.ts";
 
 const filteredCharacters = [" ", ".", "*"];
 
