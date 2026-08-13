@@ -16,9 +16,9 @@ import {
   unknown,
   type z,
 } from "zod";
-import type { Language, Lexer } from "../language.js";
-import { serializeLanguage } from "../serialization.js";
-import type { Token } from "../token.js";
+import type { Language, Lexer } from "../language.ts";
+import { serializeLanguage } from "../serialization.ts";
+import type { Token } from "../token.ts";
 
 const directory = "src/languages/experimental";
 
