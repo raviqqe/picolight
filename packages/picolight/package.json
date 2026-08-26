@@ -31,6 +31,7 @@
     "build:languages": "node src/scripts/build-languages.ts",
     "build:themes": "node src/scripts/build-themes.ts",
     "lint": "knip",
+    "prepack": "cp ../../README.md .",
     "test": "vitest --coverage"
   },
   "devDependencies": {
