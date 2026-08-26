@@ -1,6 +1,6 @@
 {
   "name": "picolight",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "The tiny syntax highlighting library",
   "license": "MIT",
   "repository": "https://github.com/raviqqe/picolight",
