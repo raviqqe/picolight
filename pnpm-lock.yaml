@@ -58,8 +58,8 @@ importers:
         specifier: ^1.32.9
         version: 1.32.9
       tm-themes:
-        specifier: ^1.12.8
-        version: 1.12.8
+        specifier: ^1.12.10
+        version: 1.12.10
       tsdown:
         specifier: ^0.22.14
         version: 0.22.14(oxc-resolver@11.24.2)(tsx@4.23.11)(typescript@7.0.2)
@@ -2603,8 +2603,8 @@ packages:
   tm-grammars@1.32.9:
     resolution: {integrity: sha512-uYV9hCh9gvdjrps7GoQcloxPMwPiU6NCy4FCBCmBlo7Q5S7G/fgldenteNYHjk7DMZ0SetqqyvOeQEfweP1BDw==}
 
-  tm-themes@1.12.8:
-    resolution: {integrity: sha512-KwQP8UpYp5xXasediH7JUK/+YIpYM7ABVLFMi2QRgNxKApzmFu20/d0PXF5IURgr/LYblG2P1XYQRapWSjYesA==}
+  tm-themes@1.12.10:
+    resolution: {integrity: sha512-wX6yhuRRWSNJmOg4MMYP748578MFZz7tahnotQN2zACfETZnqqp2DjHpMohbKtm7VyFk46E9VGqotu3K3b2U2A==}
 
   tough-cookie@6.0.2:
     resolution: {integrity: sha512-exgYmnmL/sJpR3upZfXG5PoatXQii55xAiXGXzY+sROLZ/Y+SLcp9PgJNI9Vz37HpQ74WvDcLT8eqm+kV3FzrA==}
@@ -5675,7 +5675,7 @@ snapshots:
 
   tm-grammars@1.32.9: {}
 
-  tm-themes@1.12.8: {}
+  tm-themes@1.12.10: {}
 
   tough-cookie@6.0.2:
     dependencies:
