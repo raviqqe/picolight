@@ -50,6 +50,7 @@ const tokenize = (scope: string | undefined): Token | undefined =>
 
 const compileSource = (source: string): string | null => {
   try {
+    // cspell: ignore backrefs
     return toRegExp(source, { rules: { allowOrphanBackrefs: true } }).source;
   } catch (error) {
     warn((error as Error).message);

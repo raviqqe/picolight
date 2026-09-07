@@ -196,7 +196,7 @@ describe("region", () => {
     expect(lex('"foo\\" bar', lexers)).toEqual([["string"], '"foo\\" bar']);
   });
 
-  it("inlines only escapes of nested patterns", () => {
+  it("embeds only escapes of nested patterns", () => {
     const { lexers } = compileGrammar({
       patterns: [
         {
