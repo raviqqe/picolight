@@ -5,10 +5,13 @@ import { array, object, optional, record, string, union, type z } from "zod";
 import type { Language, Lexer } from "../language.ts";
 import type { Token } from "../token.ts";
 
-const captureSchema = record(
-  string(),
-  union([string(), object({ name: optional(string()) })]),
-);
+const scopeSchema = object({ name: optional(string()) });
+
+// Some grammars put arrays where capture maps or scopes are expected.
+const captureSchema = union([
+  record(string(), union([string(), scopeSchema, array(scopeSchema)])),
+  array(scopeSchema),
+]);
 
 const patternSchema = object({
   begin: optional(string()),
@@ -63,7 +66,9 @@ const captureTokens = (captures: Captures = {}): Token[] =>
   [
     ...new Set(
       Object.values(captures).flatMap((capture) =>
-        typeof capture === "string" ? [] : (tokenize(capture.name) ?? []),
+        typeof capture === "string"
+          ? []
+          : [capture].flat().flatMap((scope) => tokenize(scope.name) ?? []),
       ),
     ),
   ].filter((token) => token !== "meta");
@@ -76,7 +81,13 @@ const compileTokens = (
   const token = tokenize(name);
   const tokens = token && token !== "meta" ? [token] : captureTokens(captures);
 
-  return tokens.length > 1 ? null : tokens.length ? tokens : token ? [token] : [];
+  return tokens.length > 1
+    ? null
+    : tokens.length
+      ? tokens
+      : token
+        ? [token]
+        : [];
 };
 
 const compileSpan = (

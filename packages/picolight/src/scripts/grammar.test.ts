@@ -38,6 +38,24 @@ describe("match", () => {
     expect(lex("foobar", lexers)).toEqual([["keyword"], "foobar"]);
   });
 
+  it("uses a capture token in an array", () => {
+    const { lexers } = compileGrammar({
+      patterns: [{ captures: [{ name: "keyword.control" }], match: "foo" }],
+    });
+
+    expect(lex("foo", lexers)).toEqual([["keyword"], "foo"]);
+  });
+
+  it("uses a capture token in a scope array", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        { captures: { 0: [{ name: "keyword.control" }] }, match: "foo" },
+      ],
+    });
+
+    expect(lex("foo", lexers)).toEqual([["keyword"], "foo"]);
+  });
+
   it("prefers a name to capture tokens", () => {
     const { lexers } = compileGrammar({
       patterns: [
