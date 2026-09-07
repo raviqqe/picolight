@@ -7,7 +7,7 @@ import { compileGrammar, grammarSchema } from "../compiler/language.ts";
 import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
 
-const directory = "src/languages/experimental";
+const directory = "src/languages";
 
 const compileLanguage = async (language: string): Promise<Language> => {
   log(`Compiling ${language}`);
@@ -36,8 +36,8 @@ for (const { name } of grammars) {
   await writeFile(
     join(directory, `${name}.ts`),
     [
-      `import type { Language } from "../../language.js";`,
-      `import { deserializeLanguage } from "../../serialization.js";`,
+      `import type { Language } from "../language.js";`,
+      `import { deserializeLanguage } from "../serialization.js";`,
       `export const ${camelName}: Language = deserializeLanguage(${JSON.stringify(serializeLanguage(language))})`,
     ].join("\n"),
   );
