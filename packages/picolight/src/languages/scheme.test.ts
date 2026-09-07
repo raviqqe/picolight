@@ -14,7 +14,7 @@ describe("constant", () => {
     "#\\newline",
   ]) {
     it(`matches ${text}`, () => {
-      expect(lex(text, scheme.lexers)).toEqual([["constant"], text]);
+      expect(lex(text, scheme.lexers, 0)).toEqual([["constant"], text]);
     });
   }
 });
@@ -22,12 +22,12 @@ describe("constant", () => {
 describe("comment", () => {
   it("matches a comment", () => {
     const source = "#|||#";
-    expect(lex(source, scheme.lexers)).toEqual([["comment"], source]);
+    expect(lex(source, scheme.lexers, 0)).toEqual([["comment"], source]);
   });
 
   it("matches a multi-line comment", () => {
     const source = "#|foo\nbar\nbaz|#";
 
-    expect(lex(source, scheme.lexers)).toEqual([["comment"], source]);
+    expect(lex(source, scheme.lexers, 0)).toEqual([["comment"], source]);
   });
 });

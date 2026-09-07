@@ -42,7 +42,7 @@ export const highlight = (
 export const lex = (
   text: string,
   lexers: Lexer[],
-  index = 0,
+  index: number,
 ): [Token[], string] => {
   for (const [pattern, tokens] of lexers) {
     pattern.lastIndex = index;

@@ -3,7 +3,7 @@ import { lex } from "./highlight.js";
 import { number, parenthesis, string } from "./pattern.js";
 
 const match = (text: string, pattern: RegExp): string =>
-  lex(text, [[pattern, []]])[1];
+  lex(text, [[pattern, []]], 0)[1];
 
 describe("number", () => {
   it("matches an integer", () => {
