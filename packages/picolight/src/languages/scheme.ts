@@ -379,13 +379,13 @@ export const scheme: Language = {
     [surround(/;/, /[^\n]/, /\n/), ["comment"]],
     [surround(/#\|/, /[^|]|\|(?!#)/, /\|#/), ["comment"]],
     // spell-checker: disable-next-line
-    [/^(#f(alse)?|#t(rue)?|#\\[a-z0-9]+)/, ["constant"]],
+    [/(#f(alse)?|#t(rue)?|#\\[a-z0-9]+)/y, ["constant"]],
     [number, ["number", "constant"]],
     [string, ["string"]],
     [parenthesis, ["punctuation"]],
     [keyword(builtins, symbolLetter), ["variable"]],
     [keyword(syntaxes, symbolLetter), ["keyword"]],
     [identifier(symbolLetter, symbolLetter), []],
-    [/^('|`|,|,@|#;)/, ["punctuation"]],
+    [/('|`|,|,@|#;)/y, ["punctuation"]],
   ],
 };
