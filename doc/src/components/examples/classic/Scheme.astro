@@ -3,12 +3,12 @@ import { source } from "../../../sources/scheme.js";
 import Example from "../../Example.astro";
 ---
 
-<picolight-scheme data-source={source}>
+<picolight-classic-scheme data-source={source}>
   <Example />
-</picolight-scheme>
+</picolight-classic-scheme>
 <script>
   import { defineElement } from "../../example.js";
-  import { scheme } from "picolight/languages/scheme";
+  import { scheme } from "picolight/languages/classic/scheme";
 
-  defineElement("scheme", scheme);
+  defineElement("classic-scheme", scheme);
 </script>

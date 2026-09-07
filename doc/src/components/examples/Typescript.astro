@@ -3,12 +3,12 @@ import { source } from "../../sources/typescript.js";
 import Example from "../Example.astro";
 ---
 
-<picolight-experimental-typescript data-source={source}>
+<picolight-typescript data-source={source}>
   <Example />
-</picolight-experimental-typescript>
+</picolight-typescript>
 <script>
   import { defineElement } from "../example.js";
-  import { typescript } from "picolight/languages/experimental/typescript";
+  import { typescript } from "picolight/languages/typescript";
 
-  defineElement("experimental-typescript", typescript);
+  defineElement("typescript", typescript);
 </script>

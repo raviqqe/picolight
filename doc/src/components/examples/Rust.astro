@@ -3,12 +3,12 @@ import { source } from "../../sources/rust.js";
 import Example from "../Example.astro";
 ---
 
-<picolight-experimental-rust data-source={source}>
+<picolight-rust data-source={source}>
   <Example />
-</picolight-experimental-rust>
+</picolight-rust>
 <script>
   import { defineElement } from "../example.js";
-  import { rust } from "picolight/languages/experimental/rust";
+  import { rust } from "picolight/languages/rust";
 
-  defineElement("experimental-rust", rust);
+  defineElement("rust", rust);
 </script>
