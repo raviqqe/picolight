@@ -57,7 +57,6 @@ export const themeSchema = object({
 type TextmateTheme = InferOutput<typeof themeSchema>;
 
 export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
-  // A token color without any scope sets default colors.
   const defaults = tokenColors.find(({ scope }) => !scope)?.settings;
   const foregroundColor =
     defaults?.foreground ?? colors["editor.foreground"] ?? colors.foreground;
@@ -77,8 +76,8 @@ export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
     back: backgroundColor,
     fore: foregroundColor,
     tokens: Object.fromEntries(
-      tokenColors.flatMap(({ scope = [], settings }) =>
-        scope.flatMap((scope): [string, [Tag, string]][] =>
+      tokenColors.flatMap(({ scope, settings }) =>
+        (scope ?? []).flatMap((scope): [string, [Tag, string]][] =>
           !filteredCharacters.some((character) => scope.includes(character)) &&
           settings?.foreground
             ? [[scope, [null, settings.foreground]]]
