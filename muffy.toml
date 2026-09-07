@@ -31,7 +31,7 @@ stale_while_revalidate = "0s"
 
 [sites.main.validation.html]
 ignored_attributes = ["data-.*"]
-ignored_elements = ["picolight-scheme", "picolight-typescript"]
+ignored_elements = ["picolight-.*"]
 
 [sites.main.validation.svg]
 
