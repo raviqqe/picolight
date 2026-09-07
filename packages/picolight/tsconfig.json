@@ -1,9 +1,10 @@
 {
-  "extends": "@raviqqe/tsconfig/tsconfig.json",
+  "extends": "@raviqqe/tsconfig",
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "rootDir": "src"
+    "rootDir": "src",
+    "types": ["node"]
   },
   "include": ["src"]
 }
