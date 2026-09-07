@@ -1,13 +1,13 @@
 ---
-import { source } from "../sources/typescript.js";
-import Example from "./Example.astro";
+import { source } from "../../sources/typescript.js";
+import Example from "../Example.astro";
 ---
 
 <picolight-typescript data-source={source}>
   <Example />
 </picolight-typescript>
 <script>
-  import { defineElement } from "./example.js";
+  import { defineElement } from "../example.js";
   import { typescript } from "picolight/languages/typescript";
 
   defineElement("typescript", typescript);

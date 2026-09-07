@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { lex } from "../highlight.js";
-import { rust } from "./experimental/rust.js";
-import { scheme } from "./experimental/scheme.js";
+import { lex } from "./highlight.js";
+import { rust } from "./languages/rust.js";
+import { scheme } from "./languages/scheme.js";
 
 describe("rust", () => {
   it("matches a comment", () => {

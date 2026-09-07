@@ -3,12 +3,12 @@ import { source } from "../../sources/c.js";
 import Example from "../Example.astro";
 ---
 
-<picolight-experimental-c data-source={source}>
+<picolight-c data-source={source}>
   <Example />
-</picolight-experimental-c>
+</picolight-c>
 <script>
   import { defineElement } from "../example.js";
-  import { c } from "picolight/languages/experimental/c";
+  import { c } from "picolight/languages/c";
 
-  defineElement("experimental-c", c);
+  defineElement("c", c);
 </script>

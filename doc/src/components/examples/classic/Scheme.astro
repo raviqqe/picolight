@@ -1,0 +1,14 @@
+---
+import { source } from "../../../sources/scheme.js";
+import Example from "../../Example.astro";
+---
+
+<picolight-classic-scheme data-source={source}>
+  <Example />
+</picolight-classic-scheme>
+<script>
+  import { defineElement } from "../../example.js";
+  import { scheme } from "picolight/languages/classic/scheme";
+
+  defineElement("classic-scheme", scheme);
+</script>

@@ -1,0 +1,14 @@
+---
+import { source } from "../../sources/rust.js";
+import Example from "../Example.astro";
+---
+
+<picolight-rust data-source={source}>
+  <Example />
+</picolight-rust>
+<script>
+  import { defineElement } from "../example.js";
+  import { rust } from "picolight/languages/rust";
+
+  defineElement("rust", rust);
+</script>
