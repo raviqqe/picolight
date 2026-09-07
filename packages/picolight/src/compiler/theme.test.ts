@@ -31,6 +31,24 @@ describe("color", () => {
     ).toEqual({ back: "#000", fore: "#fff", tokens: {} });
   });
 
+  it("prefers scope-less colors to editor colors", () => {
+    expect(
+      compileTheme({
+        colors,
+        tokenColors: [{ settings: { background: "#111", foreground: "#eee" } }],
+      }),
+    ).toEqual({ back: "#111", fore: "#eee", tokens: {} });
+  });
+
+  it("uses editor colors for a scope-less token color without colors", () => {
+    expect(
+      compileTheme({
+        colors,
+        tokenColors: [{ settings: { fontStyle: ["bold"] } }],
+      }),
+    ).toEqual({ back: "#000", fore: "#fff", tokens: {} });
+  });
+
   it("throws on a missing foreground color", () => {
     expect(() =>
       compileTheme({
@@ -132,11 +150,11 @@ describe("schema", () => {
     ).toEqual(["keyword", "string"]);
   });
 
-  it("parses a missing scope", () => {
+  it("keeps a missing scope undefined", () => {
     expect(
       parse(themeSchema, { colors: {}, tokenColors: [{}] }).tokenColors[0]
         ?.scope,
-    ).toEqual([]);
+    ).toBeUndefined();
   });
 
   it("parses font styles", () => {

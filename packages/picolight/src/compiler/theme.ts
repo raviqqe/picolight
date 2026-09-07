@@ -1,4 +1,3 @@
-import { omit } from "es-toolkit";
 import {
   array,
   type InferOutput,
@@ -23,14 +22,15 @@ export const themeSchema = object({
   }),
   tokenColors: array(
     object({
-      scope: pipe(
-        optional(union([string(), array(string())])),
-        transform((value) =>
-          typeof value === "string" ? [value] : (value ?? []),
+      scope: optional(
+        pipe(
+          union([string(), array(string())]),
+          transform((value) => (typeof value === "string" ? [value] : value)),
         ),
       ),
       settings: optional(
         object({
+          background: optional(string()),
           fontStyle: optional(
             pipe(
               string(),
@@ -57,22 +57,12 @@ export const themeSchema = object({
 type TextMateTheme = InferOutput<typeof themeSchema>;
 
 export const compileTheme = ({ colors, tokenColors }: TextMateTheme): Theme => {
-  const tokens = Object.fromEntries(
-    tokenColors.flatMap(
-      ({ scope, settings }) =>
-        scope?.flatMap((scope): [string, [Tag, string]][] =>
-          !filteredCharacters.some((character) => scope.includes(character)) &&
-          settings?.foreground
-            ? [[scope, [null, settings.foreground]]]
-            : [],
-        ) ?? [["", [null, settings?.foreground ?? ""]]],
-    ),
-  );
-
+  // A token color without any scope sets default colors.
+  const defaults = tokenColors.find(({ scope }) => !scope)?.settings;
   const foregroundColor =
-    tokens[""]?.[1] ?? colors["editor.foreground"] ?? colors.foreground;
+    defaults?.foreground ?? colors["editor.foreground"] ?? colors.foreground;
   const backgroundColor =
-    tokens[""]?.[1] ?? colors["editor.background"] ?? colors.background;
+    defaults?.background ?? colors["editor.background"] ?? colors.background;
 
   if (!foregroundColor || !backgroundColor) {
     throw new Error("Default color missing", {
@@ -86,6 +76,15 @@ export const compileTheme = ({ colors, tokenColors }: TextMateTheme): Theme => {
   return {
     back: backgroundColor,
     fore: foregroundColor,
-    tokens: omit(tokens, [""]),
+    tokens: Object.fromEntries(
+      tokenColors.flatMap(({ scope = [], settings }) =>
+        scope.flatMap((scope): [string, [Tag, string]][] =>
+          !filteredCharacters.some((character) => scope.includes(character)) &&
+          settings?.foreground
+            ? [[scope, [null, settings.foreground]]]
+            : [],
+        ),
+      ),
+    ),
   };
 };
