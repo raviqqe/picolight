@@ -6,6 +6,7 @@ import { parse } from "zod";
 import { compileGrammar, grammarSchema } from "../compiler/language.ts";
 import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
+import { camelCase } from "es-toolkit";
 
 const directory = "src/languages";
 
@@ -25,11 +26,6 @@ const compileLanguage = async (language: string): Promise<Language> => {
 };
 
 for (const { name } of grammars) {
-  const camelName = name.replace(
-    /-./g,
-    (match) => match?.[1]?.toUpperCase() ?? "",
-  );
-
   const language = await compileLanguage(name);
 
   await mkdir(directory, { recursive: true });
@@ -38,7 +34,7 @@ for (const { name } of grammars) {
     [
       `import type { Language } from "../language.js";`,
       `import { deserializeLanguage } from "../serialization.js";`,
-      `export const ${camelName}: Language = deserializeLanguage(${JSON.stringify(serializeLanguage(language))})`,
+      `export const ${camelCase(name)}: Language = deserializeLanguage(${JSON.stringify(serializeLanguage(language))})`,
     ].join("\n"),
   );
 }
