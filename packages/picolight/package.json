@@ -36,18 +36,18 @@
   },
   "devDependencies": {
     "@raviqqe/tsconfig": "^3.0.2",
-    "@types/node": "^26.4.0",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@types/node": "^26.4.1",
+    "@vitest/coverage-v8": "^5.0.0",
     "es-toolkit": "^1.52.0",
     "jsdom": "^30.0.1",
     "knip": "^6.34.0",
     "oniguruma-to-es": "^4.3.6",
-    "tm-grammars": "^1.32.10",
+    "tm-grammars": "^1.32.12",
     "tm-themes": "^1.12.10",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
     "valibot": "^1.4.2",
-    "vitest": "^4.1.11",
+    "vitest": "^5.0.0",
     "zod": "^4.5.4"
   }
 }
