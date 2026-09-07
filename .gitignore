@@ -2,6 +2,5 @@
 .astro
 coverage
 dist
-docs
 node_modules
 packages/*/README.md
