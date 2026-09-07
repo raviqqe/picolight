@@ -7,6 +7,7 @@ export type Token =
   | "constant"
   | "customrule"
   | "delimiter"
+  | "emphasis"
   | "entity"
   | "header"
   | "identifier"
