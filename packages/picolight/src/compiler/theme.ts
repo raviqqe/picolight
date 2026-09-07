@@ -54,9 +54,9 @@ export const themeSchema = object({
   ),
 });
 
-type TextMateTheme = InferOutput<typeof themeSchema>;
+type TextmateTheme = InferOutput<typeof themeSchema>;
 
-export const compileTheme = ({ colors, tokenColors }: TextMateTheme): Theme => {
+export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
   // A token color without any scope sets default colors.
   const defaults = tokenColors.find(({ scope }) => !scope)?.settings;
   const foregroundColor =
