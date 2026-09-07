@@ -17,6 +17,7 @@ const patternSchema = object({
   begin: optional(string()),
   beginCaptures: optional(captureSchema),
   captures: optional(captureSchema),
+  contentName: optional(string()),
   end: optional(string()),
   endCaptures: optional(captureSchema),
   include: optional(string()),
@@ -39,12 +40,17 @@ type Pattern = z.infer<typeof patternSchema>;
 type Repository = Record<string, Pattern>;
 export type Grammar = z.infer<typeof grammarSchema>;
 
+type Level = { lexers: Lexer[]; nested: Pattern[][] };
+
+// Texts matched only by patterns too general for their nested contexts.
+const probes = ["a", " ", "\n"];
+
 const tokenize = (scope: string | undefined): Token | undefined =>
   scope?.split(".")[0] as Token | undefined;
 
 const compileSource = (source: string): string | null => {
   try {
-    return toRegExp(source).source;
+    return toRegExp(source, { rules: { allowOrphanBackrefs: true } }).source;
   } catch (error) {
     warn((error as Error).message);
   }
@@ -118,14 +124,19 @@ const resolveInclude = (
   return [rule];
 };
 
-const collectAlternatives = (
+// Only escape sequences are inlined into regions as other patterns might
+// consume their ends. Backreferences would point at wrong groups.
+const isEscape = (source: string): boolean =>
+  /^(?:\((?:\?:|\?<[^>]*>)?)*\\\\/.test(source) && !/\\[1-9]/.test(source);
+
+const collectEscapes = (
   patterns: Pattern[],
   repository: Repository,
   visited: Set<string>,
 ): string[] =>
   patterns.flatMap((pattern): string[] => {
     if (pattern.include) {
-      return collectAlternatives(
+      return collectEscapes(
         resolveInclude(pattern.include, repository, visited),
         repository,
         visited,
@@ -135,23 +146,22 @@ const collectAlternatives = (
     if (pattern.match) {
       const source = compileSource(pattern.match);
 
-      // Backreferences would point at wrong groups in a composed pattern.
-      return source && !/\\[1-9]/.test(source) ? [source] : [];
+      return source && isEscape(source) ? [source] : [];
     }
 
     return pattern.begin
       ? []
-      : collectAlternatives(pattern.patterns ?? [], repository, visited);
+      : collectEscapes(pattern.patterns ?? [], repository, visited);
   });
 
-// A region with a styled name is matched as a whole, with its nested patterns
+// A region with a styled name is matched as a whole, with its nested escapes
 // consumed but never its end.
 const compileRegion = (
   begin: string,
-  { end, name, patterns = [] }: Pattern,
+  { contentName, end, name, patterns = [] }: Pattern,
   repository: Repository,
 ): Lexer[] => {
-  const token = tokenize(name);
+  const token = tokenize(name ?? contentName);
 
   if (!token || token === "meta" || !end) {
     return [];
@@ -162,20 +172,20 @@ const compileRegion = (
 
   return beginSource && endSource
     ? createLexer(
-        `(?:${beginSource})(?:(?!${endSource})(?:${[...collectAlternatives(patterns, repository, new Set()), "[^]"].join("|")}))*(?:${endSource}|$)`,
+        `(?:${beginSource})(?:(?!${endSource})(?:${[...collectEscapes(patterns, repository, new Set()), "[^]"].join("|")}))*(?:${endSource}|$)`,
         [token],
       )
     : [];
 };
 
-const compilePatterns = (
+const compileLevel = (
   patterns: Pattern[],
   repository: Repository,
   visited: Set<string>,
-): Lexer[] =>
-  patterns.flatMap((pattern): Lexer[] => {
+): Level => {
+  const levels = patterns.map((pattern): Level => {
     if (pattern.include) {
-      return compilePatterns(
+      return compileLevel(
         resolveInclude(pattern.include, repository, visited),
         repository,
         visited,
@@ -183,40 +193,86 @@ const compilePatterns = (
     }
 
     if (pattern.match) {
-      return compileSpan(pattern.match, pattern.name, pattern.captures);
+      return {
+        lexers: compileSpan(pattern.match, pattern.name, pattern.captures),
+        nested: [],
+      };
     }
 
     if (pattern.begin) {
       const region = compileRegion(pattern.begin, pattern, repository);
 
       return region.length
-        ? region
-        : [
-            ...compileSpan(
-              pattern.begin,
-              pattern.name,
-              pattern.beginCaptures ?? pattern.captures,
-            ),
-            ...(pattern.end
-              ? compileSpan(
-                  pattern.end,
-                  pattern.name,
-                  pattern.endCaptures ?? pattern.captures,
-                )
-              : []),
-            ...compilePatterns(pattern.patterns ?? [], repository, visited),
-          ];
+        ? { lexers: region, nested: [] }
+        : {
+            lexers: [
+              ...compileSpan(
+                pattern.begin,
+                pattern.name,
+                pattern.beginCaptures ?? pattern.captures,
+              ),
+              ...(pattern.end
+                ? compileSpan(
+                    pattern.end,
+                    pattern.name,
+                    pattern.endCaptures ?? pattern.captures,
+                  )
+                : []),
+            ],
+            nested: pattern.patterns ? [pattern.patterns] : [],
+          };
     }
 
-    return compilePatterns(pattern.patterns ?? [], repository, visited);
+    return compileLevel(pattern.patterns ?? [], repository, visited);
   });
+
+  return {
+    lexers: levels.flatMap(({ lexers }) => lexers),
+    nested: levels.flatMap(({ nested }) => nested),
+  };
+};
+
+const isSpecific = ([pattern]: Lexer): boolean =>
+  !probes.some((probe) => {
+    pattern.lastIndex = 0;
+
+    return pattern.test(probe);
+  });
+
+// Patterns in outer contexts take precedence over ones in nested contexts, and
+// nested contexts drop patterns too general to go beyond them.
+const compileLevels = (
+  levels: Pattern[][],
+  repository: Repository,
+  visited: Set<string>,
+  depth = 0,
+): Lexer[] => {
+  if (!levels.length) {
+    return [];
+  }
+
+  const compiled = levels.map((patterns) =>
+    compileLevel(patterns, repository, visited),
+  );
+  const lexers = compiled.flatMap(({ lexers }) => lexers);
+
+  return [
+    ...(depth ? lexers.filter(isSpecific) : lexers),
+    ...compileLevels(
+      compiled.flatMap(({ nested }) => nested),
+      repository,
+      visited,
+      depth + 1,
+    ),
+  ];
+};
 
 export const compileGrammar = ({
   patterns,
   repository = {},
 }: Grammar): Language => ({
-  lexers: compilePatterns(
-    patterns,
+  lexers: compileLevels(
+    [patterns],
     mapValues(repository, (rule) =>
       Array.isArray(rule) ? { patterns: rule } : rule,
     ),

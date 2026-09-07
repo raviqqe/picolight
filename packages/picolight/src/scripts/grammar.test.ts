@@ -190,10 +190,41 @@ describe("region", () => {
 
   it("keeps nested patterns from consuming the end", () => {
     const { lexers } = compileGrammar({
-      patterns: [{ ...string, patterns: [{ match: "." }] }],
+      patterns: [{ ...string, patterns: [{ match: "\\\\." }] }],
     });
 
-    expect(lex('"foo" bar', lexers)).toEqual([["string"], '"foo"']);
+    expect(lex('"foo\\" bar', lexers)).toEqual([["string"], '"foo\\" bar']);
+  });
+
+  it("inlines only escapes of nested patterns", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          begin: "//",
+          end: "(?<=\\n)",
+          name: "comment.line",
+          patterns: [{ match: "\\s+" }],
+        },
+      ],
+    });
+
+    expect(lex("// foo\n\nbar", lexers)).toEqual([["comment"], "// foo\n"]);
+  });
+
+  it("matches an end referring to the begin", () => {
+    const { lexers } = compileGrammar({
+      patterns: [{ begin: "([\"'])", end: "\\1", name: "string.quoted" }],
+    });
+
+    expect(lex("'foo\"bar' baz", lexers)).toEqual([["string"], "'foo\"bar'"]);
+  });
+
+  it("names a region by its content name", () => {
+    const { lexers } = compileGrammar({
+      patterns: [{ begin: "//", contentName: "comment.line", end: "(?=$)" }],
+    });
+
+    expect(lex("// foo\nbar", lexers)).toEqual([["comment"], "// foo"]);
   });
 
   it("splits a structural region", () => {
@@ -250,6 +281,37 @@ describe("region", () => {
 
     expect(() => lex("foobar", lexers)).toThrow("No match");
     expect(lex("baz", lexers)).toEqual([["punctuation"], "baz"]);
+  });
+
+  it("prefers outer patterns to nested ones", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "foo", name: "string.quoted" }],
+        },
+        { match: "foo", name: "keyword.control" },
+      ],
+    });
+
+    expect(lex("foo", lexers)).toEqual([["keyword"], "foo"]);
+  });
+
+  it("drops general patterns in nested contexts", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "[^)]+", name: "string.unquoted" }],
+        },
+      ],
+    });
+
+    expect(() => lex("(foo)", lexers, 1)).toThrow("No match");
   });
 
   it("falls back to delimiters on an invalid end", () => {
