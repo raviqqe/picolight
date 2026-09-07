@@ -5,7 +5,7 @@ import { grammars } from "tm-grammars";
 import { parse } from "zod";
 import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
-import { compileGrammar, grammarSchema } from "./grammar.ts";
+import { compileGrammar, grammarSchema } from "../compiler/grammar.ts";
 
 const directory = "src/languages/experimental";
 
