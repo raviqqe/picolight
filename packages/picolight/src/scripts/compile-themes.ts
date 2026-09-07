@@ -1,16 +1,12 @@
 import { log } from "node:console";
 import { writeFile } from "node:fs/promises";
+import { camelCase } from "es-toolkit";
 import { themes } from "tm-themes";
 import { parse } from "valibot";
 import { compileTheme, themeSchema } from "../compiler/theme.ts";
 
 for (const { name } of themes) {
   log(`Compiling ${name}`);
-
-  const camelName = name.replace(
-    /-./g,
-    (match) => match?.[1]?.toUpperCase() ?? "",
-  );
 
   const theme = compileTheme(
     parse(
@@ -27,7 +23,7 @@ for (const { name } of themes) {
     `src/themes/${name}.ts`,
     [
       `import type { Theme } from "../theme.js";`,
-      `export const ${camelName}: Theme = ${JSON.stringify(theme)}`,
+      `export const ${camelCase(name)}: Theme = ${JSON.stringify(theme)}`,
     ].join("\n"),
   );
 }
