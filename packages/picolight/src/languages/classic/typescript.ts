@@ -1,5 +1,11 @@
-import type { Language } from "../language.js";
-import { keyword, number, parenthesis, string, surround } from "../pattern.js";
+import type { Language } from "../../language.js";
+import {
+  keyword,
+  number,
+  parenthesis,
+  string,
+  surround,
+} from "../../pattern.js";
 
 const identifierLetter = "[A-Za-z0-9_]";
 

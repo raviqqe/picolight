@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { lex } from "../highlight.js";
+import { lex } from "../../highlight.js";
 import { typescript } from "./typescript.js";
 
 describe("comment", () => {

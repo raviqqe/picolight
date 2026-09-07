@@ -1,4 +1,4 @@
-import type { Language } from "../language.js";
+import type { Language } from "../../language.js";
 import {
   identifier,
   keyword,
@@ -6,7 +6,7 @@ import {
   parenthesis,
   string,
   surround,
-} from "../pattern.js";
+} from "../../pattern.js";
 
 // spell-checker: disable
 const builtins = [
