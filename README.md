@@ -28,9 +28,7 @@ code.innerHTML = highlight(`(write-string "Hello, world!\\n")`, scheme, githubDa
 
 ## Supported languages
 
-- [Scheme](https://scheme.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- Other languages might be coming, maybe...
+We support [all TextMate grammars provided by Shiki](https://shiki.style/themes).
 
 ## Supported themes
 
