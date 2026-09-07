@@ -27,7 +27,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "node --run build:languages && node --run build:themes && tsdown",
+    "build": "node --run build:languages && node --run build:themes && tsc && tsdown",
     "build:languages": "node src/scripts/compile-languages.ts",
     "build:themes": "node src/scripts/compile-themes.ts",
     "lint": "knip",
