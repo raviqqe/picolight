@@ -6,4 +6,5 @@ export type Theme = {
   tokens: Partial<Record<Token, [tag: Tag, color: string]>>;
 };
 
+// TODO Deprecate tags?
 export type Tag = "b" | "em" | null;
