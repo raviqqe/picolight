@@ -6,7 +6,7 @@
 
 The tiny syntax highlighting library for dynamic input.
 
-Its core library has only 0.5 KB JavaScript!
+Its core library costs only 0.5 KB JavaScript!
 
 ## Install
 

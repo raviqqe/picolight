@@ -7,12 +7,13 @@ export const highlight = (
   { lexers }: Language,
   theme: Theme,
 ): HTMLElement => {
-  lexers = [...lexers, [/./s, []] satisfies Lexer];
+  lexers = [...lexers, [/./sy, []] satisfies Lexer];
   const root = document.createElement("span");
   root.style = `color:${theme.fore}`;
+  let index = 0;
 
-  while (text) {
-    const [tokens, match] = lex(text, lexers);
+  while (index < text.length) {
+    const [tokens, match] = lex(text, lexers, index);
 
     const style = tokens
       .values()
@@ -32,14 +33,19 @@ export const highlight = (
     }
 
     root.appendChild(node);
-    text = text.slice(match.length);
+    index += match.length;
   }
 
   return root;
 };
 
-export const lex = (text: string, lexers: Lexer[]): [Token[], string] => {
+export const lex = (
+  text: string,
+  lexers: Lexer[],
+  index: number,
+): [Token[], string] => {
   for (const [pattern, tokens] of lexers) {
+    pattern.lastIndex = index;
     const match = pattern.exec(text)?.[0];
 
     if (match) {
