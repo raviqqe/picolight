@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { lex } from "../highlight.ts";
-import { compileGrammar } from "./grammar.ts";
+import { compileGrammar } from "./language.ts";
 
 describe("match", () => {
   it("compiles a pattern", () => {

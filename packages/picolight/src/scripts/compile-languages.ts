@@ -3,9 +3,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { grammars } from "tm-grammars";
 import { parse } from "zod";
+import { compileGrammar, grammarSchema } from "../compiler/language.ts";
 import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
-import { compileGrammar, grammarSchema } from "./grammar.ts";
 
 const directory = "src/languages/experimental";
 
