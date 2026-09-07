@@ -1,0 +1,14 @@
+---
+import { source } from "../../sources/python.js";
+import Example from "../Example.astro";
+---
+
+<picolight-experimental-python data-source={source}>
+  <Example />
+</picolight-experimental-python>
+<script>
+  import { defineElement } from "../example.js";
+  import { python } from "picolight/languages/experimental/python";
+
+  defineElement("experimental-python", python);
+</script>

@@ -103,7 +103,9 @@ type Pattern = z.infer<typeof patternSchema>;
 
 const compileRegularExpression = (source: string): RegExp | null => {
   try {
-    return toRegExp(source);
+    const expression = toRegExp(source);
+
+    return new RegExp(`^(?:${expression.source})`, expression.flags);
   } catch (error) {
     warn((error as Error).message);
   }
@@ -194,7 +196,7 @@ for (const { name } of grammars) {
     [
       `import type { Language } from "../../language.js";`,
       `import { deserializeLanguage } from "../../serialization.js";`,
-      `export const ${camelName}: Language = deserializeLanguage(${serializeLanguage(language)})`,
+      `export const ${camelName}: Language = deserializeLanguage(${JSON.stringify(serializeLanguage(language))})`,
     ].join("\n"),
   );
 }

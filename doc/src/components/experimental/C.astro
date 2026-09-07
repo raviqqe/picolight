@@ -1,0 +1,14 @@
+---
+import { source } from "../../sources/c.js";
+import Example from "../Example.astro";
+---
+
+<picolight-experimental-c data-source={source}>
+  <Example />
+</picolight-experimental-c>
+<script>
+  import { defineElement } from "../example.js";
+  import { c } from "picolight/languages/experimental/c";
+
+  defineElement("experimental-c", c);
+</script>
