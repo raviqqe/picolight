@@ -5,17 +5,29 @@ layout: ../layouts/Default.astro
 ---
 
 import Readme from "../../../README.md";
-import ExperimentalC from "../components/experimental/C.astro";
-import ExperimentalPython from "../components/experimental/Python.astro";
-import ExperimentalRust from "../components/experimental/Rust.astro";
-import ExperimentalScheme from "../components/experimental/Scheme.astro";
-import ExperimentalTypescript from "../components/experimental/Typescript.astro";
-import Scheme from "../components/SchemeExample.astro";
-import Typescript from "../components/TypescriptExample.astro";
+import C from "../components/examples/C.astro";
+import Python from "../components/examples/Python.astro";
+import Rust from "../components/examples/Rust.astro";
+import Scheme from "../components/examples/Scheme.astro";
+import Typescript from "../components/examples/Typescript.astro";
+import ClassicScheme from "../components/examples/classic/Scheme.astro";
+import ClassicTypescript from "../components/examples/classic/Typescript.astro";
 
 <Readme />
 
 ## Examples
+
+### C
+
+<C />
+
+### Python
+
+<Python />
+
+### Rust
+
+<Rust />
 
 ### Scheme
 
@@ -25,26 +37,12 @@ import Typescript from "../components/TypescriptExample.astro";
 
 <Typescript />
 
-### Experimental
-
-The following languages are generated from [TextMate grammars provided by Shiki](https://shiki.style/languages) and available under `picolight/languages/experimental/`.
-
-#### C
-
-<ExperimentalC />
-
-#### Python
-
-<ExperimentalPython />
-
-#### Rust
-
-<ExperimentalRust />
+### Classic
 
 #### Scheme
 
-<ExperimentalScheme />
+<ClassicScheme />
 
 #### TypeScript
 
-<ExperimentalTypescript />
+<ClassicTypescript />
