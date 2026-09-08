@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { highlight, lex } from "./highlight.js";
 import { githubDark } from "./themes/github-dark.js";
 
-describe("lex", () => {
+describe(lex, () => {
   it("matches a pattern", () => {
     expect(lex("foo", [[/foo/y, ["keyword"]]], 0)).toEqual([
       [["keyword"], "foo"],
@@ -123,7 +123,7 @@ describe("lex", () => {
   });
 });
 
-describe("highlight", () => {
+describe(highlight, () => {
   it("highlights captures", () => {
     expect(
       highlight(
