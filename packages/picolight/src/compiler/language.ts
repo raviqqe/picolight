@@ -46,8 +46,10 @@ type Level = { lexers: Lexer[]; nested: Pattern[][] };
 // translation added to emulate Oniguruma.
 type Source = { hidden: number[]; source: string };
 
-// Texts matched only by patterns too general to stay in their contexts.
-const probes = ["a", " ", "\n"];
+// Texts matched only by patterns too general to stay in their contexts: a
+// letter, a space, a newline, and a control character no language gives a
+// meaning to.
+const probes = ["a", " ", "\n", "\u0001"];
 
 // Tokens of space-separated scopes, inner scopes first. Meta scopes carry
 // structure rather than style.

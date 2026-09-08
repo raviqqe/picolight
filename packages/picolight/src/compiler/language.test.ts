@@ -398,6 +398,23 @@ describe("region", () => {
     expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
+  it("prefers nested patterns to general outer ones", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        { match: "[a-z]+", name: "variable.other" },
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "foo", name: "keyword.control" }],
+        },
+      ],
+    });
+
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
+    expect(lex("bar", lexers, 0)).toEqual([[["variable"], "bar"]]);
+  });
+
   it("drops general patterns in nested contexts", () => {
     const { lexers } = compileGrammar({
       patterns: [
@@ -411,6 +428,21 @@ describe("region", () => {
     });
 
     expect(() => lex("(foo)", lexers, 1)).toThrow("No match");
+  });
+
+  it("drops patterns of arbitrary characters in nested contexts", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "[^\\w\\s)]+", name: "invalid.illegal" }],
+        },
+      ],
+    });
+
+    expect(() => lex("(!)", lexers, 1)).toThrow("No match");
   });
 
   it("falls back to delimiters on an invalid end", () => {
