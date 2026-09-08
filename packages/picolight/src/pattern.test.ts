@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { lex } from "./highlight.js";
-import { number, parenthesis, string } from "./pattern.js";
+import { number, parenthesis, string, surround } from "./pattern.js";
 
 const match = (text: string, pattern: RegExp): string =>
   lex(text, [[pattern, []]], 0)
@@ -65,4 +65,32 @@ describe("parenthesis", () => {
       expect(match(text, parenthesis)).toBe(text);
     });
   }
+});
+
+describe("surround", () => {
+  const comment = surround(/\/\*/, /[^*]|\*(?!\/)/, /\*\//);
+
+  it("matches a comment", () => {
+    const text = "/* foo */";
+
+    expect(match(text, comment)).toBe(text);
+  });
+
+  it("matches an empty comment", () => {
+    const text = "/**/";
+
+    expect(match(text, comment)).toBe(text);
+  });
+
+  it("matches a comment to the end", () => {
+    const text = "/* foo";
+
+    expect(match(text, comment)).toBe(text);
+  });
+
+  it("matches a multi-line comment to the end", () => {
+    const text = "/* foo\nbar";
+
+    expect(match(text, comment)).toBe(text);
+  });
 });
