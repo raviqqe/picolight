@@ -26,6 +26,12 @@ describe("comment", () => {
     expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
   });
 
+  it("matches a comment to the end", () => {
+    const source = "; foo";
+
+    expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
+  });
+
   it("matches a block comment", () => {
     const source = "#|||#";
 
@@ -34,6 +40,12 @@ describe("comment", () => {
 
   it("matches a multi-line block comment", () => {
     const source = "#|foo\nbar\nbaz|#";
+
+    expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
+  });
+
+  it("matches a block comment to the end", () => {
+    const source = "#| foo";
 
     expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
   });

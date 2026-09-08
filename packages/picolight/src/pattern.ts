@@ -14,4 +14,4 @@ export const identifier = (head: string, tail: string) =>
   new RegExp(`${head}${tail}*`, "y");
 
 export const surround = (start: RegExp, middle: RegExp, end: RegExp): RegExp =>
-  new RegExp(`${start.source}(${middle.source})*${end.source}`, "y");
+  new RegExp(`${start.source}(${middle.source})*(?:${end.source}|$)`, "y");
