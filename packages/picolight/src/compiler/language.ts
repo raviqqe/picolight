@@ -103,11 +103,11 @@ const createLexer = (
 };
 
 const captureTokens = (
-  captures: Captures = {},
+  captures: Captures | undefined,
   hidden: number[],
 ): Record<number, Token[]> =>
   Object.fromEntries(
-    Object.entries(captures).flatMap(([group, scopes]) => {
+    Object.entries(captures ?? {}).flatMap(([group, scopes]) => {
       const tokens =
         typeof scopes === "string"
           ? []
