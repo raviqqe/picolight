@@ -73,7 +73,7 @@ const split = (
   const bounds = [
     ...new Set([start, end, ...ranges.flatMap(([range]) => range)]),
   ]
-    .filter((bound) => bound >= start && bound <= end)
+    .filter((bound) => start <= bound && bound <= end)
     .toSorted((one, other) => one - other);
 
   return bounds.slice(1).map((end, index) => {
