@@ -9,7 +9,7 @@ import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
 
 const directory = "src/languages";
-const handWrittenLanguages = new Set(["scheme"]);
+const handWrittenLanguages = new Set(["javascript", "scheme", "typescript"]);
 
 const compileLanguage = async (language: string): Promise<Language> => {
   log(`Compiling ${language}`);
