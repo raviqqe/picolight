@@ -8,7 +8,7 @@ describe("match", () => {
       patterns: [{ match: "foo", name: "keyword.control" }],
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("matches at a given position", () => {
@@ -16,7 +16,7 @@ describe("match", () => {
       patterns: [{ match: "foo", name: "keyword.control" }],
     });
 
-    expect(lex("x foo", lexers, 2)).toEqual([["keyword"], "foo"]);
+    expect(lex("x foo", lexers, 2)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("matches with a lookbehind", () => {
@@ -24,18 +24,50 @@ describe("match", () => {
       patterns: [{ match: "(?<=\\()foo", name: "keyword.control" }],
     });
 
-    expect(lex("(foo", lexers, 1)).toEqual([["keyword"], "foo"]);
+    expect(lex("(foo", lexers, 1)).toEqual([[["keyword"], "foo"]]);
     expect(() => lex("foo", lexers, 0)).toThrow("No match");
   });
 
-  it("uses a capture token", () => {
+  it("splits a match by a capture", () => {
     const { lexers } = compileGrammar({
       patterns: [
         { captures: { 1: { name: "keyword.control" } }, match: "(foo)bar" },
       ],
     });
 
-    expect(lex("foobar", lexers, 0)).toEqual([["keyword"], "foobar"]);
+    expect(lex("foobar", lexers, 0)).toEqual([
+      [["keyword"], "foo"],
+      [[], "bar"],
+    ]);
+  });
+
+  it("splits a match by captures", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          captures: {
+            1: { name: "keyword.control" },
+            2: { name: "string.quoted" },
+          },
+          match: "(foo)(bar)",
+        },
+      ],
+    });
+
+    expect(lex("foobar", lexers, 0)).toEqual([
+      [["keyword"], "foo"],
+      [["string"], "bar"],
+    ]);
+  });
+
+  it("uses a capture token of a whole match", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        { captures: { 0: { name: "keyword.control" } }, match: "foo" },
+      ],
+    });
+
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("uses a capture token in an array", () => {
@@ -43,7 +75,7 @@ describe("match", () => {
       patterns: [{ captures: [{ name: "keyword.control" }], match: "foo" }],
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("uses a capture token in a scope array", () => {
@@ -53,7 +85,45 @@ describe("match", () => {
       ],
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
+  });
+
+  it("layers nested captures inner first", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          captures: {
+            1: { name: "string.quoted" },
+            2: { name: "keyword.control" },
+          },
+          match: "((foo)bar)",
+        },
+      ],
+    });
+
+    expect(lex("foobar", lexers, 0)).toEqual([
+      [["keyword", "string"], "foo"],
+      [["string"], "bar"],
+    ]);
+  });
+
+  it("numbers captures without hidden groups", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          captures: {
+            1: { name: "keyword.control" },
+            2: { name: "string.quoted" },
+          },
+          match: "(a*+)(b)",
+        },
+      ],
+    });
+
+    expect(lex("aab", lexers, 0)).toEqual([
+      [["keyword"], "aa"],
+      [["string"], "b"],
+    ]);
   });
 
   it("prefers a name to capture tokens", () => {
@@ -67,23 +137,43 @@ describe("match", () => {
       ],
     });
 
-    expect(lex("foobar", lexers, 0)).toEqual([["string"], "foobar"]);
+    expect(lex("foobar", lexers, 0)).toEqual([[["string"], "foobar"]]);
   });
 
-  it("skips a pattern whose captures need different tokens", () => {
+  it("uses tokens of scopes inner first", () => {
+    const { lexers } = compileGrammar({
+      patterns: [{ match: "foo", name: "string.quoted keyword.control" }],
+    });
+
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword", "string"], "foo"]]);
+  });
+
+  it("ignores meta scopes", () => {
     const { lexers } = compileGrammar({
       patterns: [
         {
-          captures: {
-            1: { name: "keyword.control" },
-            2: { name: "string.quoted" },
-          },
-          match: "(foo)(bar)",
+          captures: { 1: { name: "meta.name" } },
+          match: "(foo)bar",
+          name: "meta.expression entity.name",
         },
       ],
     });
 
-    expect(lexers).toEqual([]);
+    expect(lex("foobar", lexers, 0)).toEqual([[["entity"], "foobar"]]);
+  });
+
+  it("adds an indices flag only for captures", () => {
+    expect(
+      compileGrammar({
+        patterns: [
+          { match: "foo", name: "keyword.control" },
+          { captures: { 1: { name: "keyword.control" } }, match: "(foo)" },
+        ],
+      }).lexers,
+    ).toEqual([
+      [/foo/vy, ["keyword"]],
+      [/(foo)/dvy, [], { 1: ["keyword"] }],
+    ]);
   });
 
   it("skips an invalid pattern", () => {
@@ -102,7 +192,7 @@ describe("include", () => {
       repository: { foo: { match: "foo", name: "keyword.control" } },
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("resolves a rule of patterns", () => {
@@ -111,7 +201,7 @@ describe("include", () => {
       repository: { foo: [{ match: "foo", name: "keyword.control" }] },
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
   });
 
   it("resolves a rule once", () => {
@@ -151,17 +241,17 @@ describe("region", () => {
   const { lexers } = compileGrammar({ patterns: [string] });
 
   it("matches a region", () => {
-    expect(lex('"foo" bar', lexers, 0)).toEqual([["string"], '"foo"']);
+    expect(lex('"foo" bar', lexers, 0)).toEqual([[["string"], '"foo"']]);
   });
 
   it("matches a multi-line region", () => {
     const source = '"foo\nbar"';
 
-    expect(lex(source, lexers, 0)).toEqual([["string"], source]);
+    expect(lex(source, lexers, 0)).toEqual([[["string"], source]]);
   });
 
   it("matches a region to the end of text", () => {
-    expect(lex('"foo', lexers, 0)).toEqual([["string"], '"foo']);
+    expect(lex('"foo', lexers, 0)).toEqual([[["string"], '"foo']]);
   });
 
   it("consumes nested patterns", () => {
@@ -175,7 +265,7 @@ describe("region", () => {
     });
     const source = '"foo\\"bar"';
 
-    expect(lex(source, lexers, 0)).toEqual([["string"], source]);
+    expect(lex(source, lexers, 0)).toEqual([[["string"], source]]);
   });
 
   it("consumes nested patterns in a repository", () => {
@@ -185,7 +275,7 @@ describe("region", () => {
     });
     const source = '"foo\\"bar"';
 
-    expect(lex(source, lexers, 0)).toEqual([["string"], source]);
+    expect(lex(source, lexers, 0)).toEqual([[["string"], source]]);
   });
 
   it("keeps nested patterns from consuming the end", () => {
@@ -193,7 +283,9 @@ describe("region", () => {
       patterns: [{ ...string, patterns: [{ match: "\\\\." }] }],
     });
 
-    expect(lex('"foo\\" bar', lexers, 0)).toEqual([["string"], '"foo\\" bar']);
+    expect(lex('"foo\\" bar', lexers, 0)).toEqual([
+      [["string"], '"foo\\" bar'],
+    ]);
   });
 
   it("embeds only escapes of nested patterns", () => {
@@ -208,7 +300,9 @@ describe("region", () => {
       ],
     });
 
-    expect(lex("// foo\n\nbar", lexers, 0)).toEqual([["comment"], "// foo\n"]);
+    expect(lex("// foo\n\nbar", lexers, 0)).toEqual([
+      [["comment"], "// foo\n"],
+    ]);
   });
 
   it("matches an end referring to the begin", () => {
@@ -217,8 +311,7 @@ describe("region", () => {
     });
 
     expect(lex("'foo\"bar' baz", lexers, 0)).toEqual([
-      ["string"],
-      "'foo\"bar'",
+      [["string"], "'foo\"bar'"],
     ]);
   });
 
@@ -227,7 +320,7 @@ describe("region", () => {
       patterns: [{ begin: "//", contentName: "comment.line", end: "(?=$)" }],
     });
 
-    expect(lex("// foo\nbar", lexers, 0)).toEqual([["comment"], "// foo"]);
+    expect(lex("// foo\nbar", lexers, 0)).toEqual([[["comment"], "// foo"]]);
   });
 
   it("splits a structural region", () => {
@@ -245,9 +338,9 @@ describe("region", () => {
     });
     const source = "(foo)";
 
-    expect(lex(source, lexers, 0)).toEqual([["punctuation"], "("]);
-    expect(lex(source, lexers, 1)).toEqual([["keyword"], "foo"]);
-    expect(lex(source, lexers, 4)).toEqual([["punctuation"], ")"]);
+    expect(lex(source, lexers, 0)).toEqual([[["punctuation"], "("]]);
+    expect(lex(source, lexers, 1)).toEqual([[["keyword"], "foo"]]);
+    expect(lex(source, lexers, 4)).toEqual([[["punctuation"], ")"]]);
   });
 
   it("splits a region without a name", () => {
@@ -262,11 +355,11 @@ describe("region", () => {
     });
     const source = "()";
 
-    expect(lex(source, lexers, 0)).toEqual([["punctuation"], "("]);
-    expect(lex(source, lexers, 1)).toEqual([["punctuation"], ")"]);
+    expect(lex(source, lexers, 0)).toEqual([[["punctuation"], "("]]);
+    expect(lex(source, lexers, 1)).toEqual([[["punctuation"], ")"]]);
   });
 
-  it("skips a delimiter whose captures need different tokens", () => {
+  it("splits a delimiter by captures", () => {
     const { lexers } = compileGrammar({
       patterns: [
         {
@@ -282,8 +375,11 @@ describe("region", () => {
       ],
     });
 
-    expect(() => lex("foobar", lexers, 0)).toThrow("No match");
-    expect(lex("baz", lexers, 0)).toEqual([["punctuation"], "baz"]);
+    expect(lex("foobar", lexers, 0)).toEqual([
+      [["keyword"], "foo"],
+      [["string"], "bar"],
+    ]);
+    expect(lex("baz", lexers, 0)).toEqual([[["punctuation"], "baz"]]);
   });
 
   it("prefers outer patterns to nested ones", () => {
@@ -299,7 +395,24 @@ describe("region", () => {
       ],
     });
 
-    expect(lex("foo", lexers, 0)).toEqual([["keyword"], "foo"]);
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
+  });
+
+  it("prefers nested patterns to general outer ones", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        { match: "[a-z]+", name: "variable.other" },
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "foo", name: "keyword.control" }],
+        },
+      ],
+    });
+
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
+    expect(lex("bar", lexers, 0)).toEqual([[["variable"], "bar"]]);
   });
 
   it("drops general patterns in nested contexts", () => {
@@ -317,11 +430,26 @@ describe("region", () => {
     expect(() => lex("(foo)", lexers, 1)).toThrow("No match");
   });
 
+  it("drops patterns of arbitrary characters in nested contexts", () => {
+    const { lexers } = compileGrammar({
+      patterns: [
+        {
+          begin: "\\(",
+          end: "\\)",
+          name: "meta.expression",
+          patterns: [{ match: "[^\\w\\s)]+", name: "invalid.illegal" }],
+        },
+      ],
+    });
+
+    expect(() => lex("(!)", lexers, 1)).toThrow("No match");
+  });
+
   it("falls back to delimiters on an invalid end", () => {
     const { lexers } = compileGrammar({
       patterns: [{ ...string, end: "(" }],
     });
 
-    expect(lex('"foo"', lexers, 0)).toEqual([["string"], '"']);
+    expect(lex('"foo"', lexers, 0)).toEqual([[["string"], '"']]);
   });
 });

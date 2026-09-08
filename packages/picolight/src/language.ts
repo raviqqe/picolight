@@ -1,6 +1,9 @@
 import type { Token } from "./token.js";
 
-// Patterns must be sticky to match only at given positions in text.
-export type Lexer = [RegExp, Token[]];
+export type Lexer = [
+  pattern: RegExp,
+  tokens: Token[],
+  captures?: Record<number, Token[]>,
+];
 
 export type Language = { lexers: Lexer[] };

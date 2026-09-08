@@ -5,12 +5,12 @@ import { typescript } from "./typescript.js";
 describe("comment", () => {
   it("matches a comment", () => {
     const source = "/***/";
-    expect(lex(source, typescript.lexers, 0)).toEqual([["comment"], source]);
+    expect(lex(source, typescript.lexers, 0)).toEqual([[["comment"], source]]);
   });
 
   it("matches a multi-line comment", () => {
     const source = "/*foo\nbar\nbaz*/";
 
-    expect(lex(source, typescript.lexers, 0)).toEqual([["comment"], source]);
+    expect(lex(source, typescript.lexers, 0)).toEqual([[["comment"], source]]);
   });
 });
