@@ -66,14 +66,14 @@ const split = (
   const start = match.index;
   const end = start + match[0].length;
   const ranges = Object.entries(captures)
-    .flatMap(([group, tokens]): [number, number, Token[]][] => {
+    .flatMap(([group, tokens]): [[number, number], Token[]][] => {
       const range = match.indices?.[Number(group)];
 
-      return range && range[0] < range[1] ? [[...range, tokens]] : [];
+      return range && range[0] < range[1] ? [[range, tokens]] : [];
     })
     .toReversed();
   const bounds = [
-    ...new Set([start, end, ...ranges.flatMap(([start, end]) => [start, end])]),
+    ...new Set([start, end, ...ranges.flatMap(([range]) => range)]),
   ]
     .filter((bound) => bound >= start && bound <= end)
     .toSorted((one, other) => one - other);
@@ -84,8 +84,8 @@ const split = (
     return [
       [
         ...ranges
-          .filter(([first, last]) => first <= start && end <= last)
-          .flatMap(([, , tokens]) => tokens),
+          .filter(([[first, last]]) => first <= start && end <= last)
+          .flatMap(([, tokens]) => tokens),
         ...tokens,
       ],
       match.input.slice(start, end),
