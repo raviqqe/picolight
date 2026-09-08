@@ -19,7 +19,6 @@ fn fibonacci(x: u64) -> u64 {
 
 fn main() {
     println!("Hello, world!");
-
     println!("\\n\\r\\t\\"\\\\");
 }
 `.trim();

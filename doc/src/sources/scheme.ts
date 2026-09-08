@@ -19,6 +19,5 @@ This is a block comment.
       (fibonacci (- x 2)))))
 
 (write-string "Hello, World!")
-
 (write-string "\\n\\r\\t\\"\\\\")
 `.trim();

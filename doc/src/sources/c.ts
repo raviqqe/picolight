@@ -19,7 +19,6 @@ int fibonacci(int x) {
 
 int main(void) {
   printf("Hello, world!\\n");
-
   printf("\\n\\r\\t\\"\\\\");
 
   return 0;

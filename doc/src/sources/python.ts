@@ -18,6 +18,5 @@ def fibonacci(x: int) -> int:
 
 
 print("Hello, world!")
-
 print("\\n\\r\\t\\"\\\\")
 `.trim();
