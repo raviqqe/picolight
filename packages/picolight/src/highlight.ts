@@ -7,7 +7,7 @@ export const highlight = (
   { lexers }: Language,
   theme: Theme,
 ): HTMLElement => {
-  lexers = [...lexers, [/./sy, []] satisfies Lexer];
+  lexers = [...lexers, [/./sy, []]];
   const root = document.createElement("span");
   root.style = `color:${theme.fore}`;
   let index = 0;
