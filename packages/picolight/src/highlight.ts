@@ -44,12 +44,12 @@ export const lex = (
   lexers: Lexer[],
   index: number,
 ): [Token[], string][] => {
-  for (const [pattern, tokens, captures = {}] of lexers) {
+  for (const [pattern, tokens, captures] of lexers) {
     pattern.lastIndex = index;
     const match = pattern.exec(text);
 
     if (match?.[0]) {
-      return split(match, tokens, captures);
+      return split(match, tokens, captures ?? {});
     }
   }
 
