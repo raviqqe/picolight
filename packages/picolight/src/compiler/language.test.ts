@@ -4,7 +4,7 @@ import { compileGrammar } from "./language.ts";
 
 describe("match", () => {
   it("compiles a pattern", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ match: "foo", name: "keyword.control" }],
     });
 
@@ -12,7 +12,7 @@ describe("match", () => {
   });
 
   it("matches at a given position", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ match: "foo", name: "keyword.control" }],
     });
 
@@ -20,7 +20,7 @@ describe("match", () => {
   });
 
   it("matches with a lookbehind", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ match: "(?<=\\()foo", name: "keyword.control" }],
     });
 
@@ -29,7 +29,7 @@ describe("match", () => {
   });
 
   it("splits a match by a capture", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         { captures: { 1: { name: "keyword.control" } }, match: "(foo)bar" },
       ],
@@ -42,7 +42,7 @@ describe("match", () => {
   });
 
   it("splits a match by captures", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           captures: {
@@ -61,7 +61,7 @@ describe("match", () => {
   });
 
   it("uses a capture token of a whole match", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         { captures: { 0: { name: "keyword.control" } }, match: "foo" },
       ],
@@ -71,7 +71,7 @@ describe("match", () => {
   });
 
   it("uses a capture token in an array", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ captures: [{ name: "keyword.control" }], match: "foo" }],
     });
 
@@ -79,7 +79,7 @@ describe("match", () => {
   });
 
   it("uses a capture token in a scope array", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         { captures: { 0: [{ name: "keyword.control" }] }, match: "foo" },
       ],
@@ -89,7 +89,7 @@ describe("match", () => {
   });
 
   it("layers nested captures inner first", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           captures: {
@@ -108,7 +108,7 @@ describe("match", () => {
   });
 
   it("numbers captures without hidden groups", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           captures: {
@@ -127,7 +127,7 @@ describe("match", () => {
   });
 
   it("prefers a name to capture tokens", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           captures: { 1: { name: "keyword.control" } },
@@ -141,7 +141,7 @@ describe("match", () => {
   });
 
   it("uses tokens of scopes inner first", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ match: "foo", name: "string.quoted keyword.control" }],
     });
 
@@ -149,7 +149,7 @@ describe("match", () => {
   });
 
   it("ignores meta scopes", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           captures: { 1: { name: "meta.name" } },
@@ -169,7 +169,7 @@ describe("match", () => {
           { match: "foo", name: "keyword.control" },
           { captures: { 1: { name: "keyword.control" } }, match: "(foo)" },
         ],
-      }).lexers,
+      }),
     ).toEqual([
       [/foo/vy, ["keyword"]],
       [/(foo)/dvy, [], { 1: ["keyword"] }],
@@ -177,7 +177,7 @@ describe("match", () => {
   });
 
   it("skips an invalid pattern", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ match: "(foo", name: "keyword.control" }],
     });
 
@@ -187,7 +187,7 @@ describe("match", () => {
 
 describe("include", () => {
   it("resolves a rule", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ include: "#foo" }],
       repository: { foo: { match: "foo", name: "keyword.control" } },
     });
@@ -196,7 +196,7 @@ describe("include", () => {
   });
 
   it("resolves a rule of patterns", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ include: "#foo" }],
       repository: { foo: [{ match: "foo", name: "keyword.control" }] },
     });
@@ -205,7 +205,7 @@ describe("include", () => {
   });
 
   it("resolves a rule once", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ include: "#foo" }, { include: "#foo" }],
       repository: { foo: { match: "foo", name: "keyword.control" } },
     });
@@ -214,7 +214,7 @@ describe("include", () => {
   });
 
   it("resolves a recursive rule", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ include: "#foo" }],
       repository: {
         foo: {
@@ -230,7 +230,7 @@ describe("include", () => {
   });
 
   it("ignores an unknown rule", () => {
-    const { lexers } = compileGrammar({ patterns: [{ include: "$self" }] });
+    const lexers = compileGrammar({ patterns: [{ include: "$self" }] });
 
     expect(lexers).toEqual([]);
   });
@@ -238,7 +238,7 @@ describe("include", () => {
 
 describe("region", () => {
   const string = { begin: '"', end: '"', name: "string.quoted" };
-  const { lexers } = compileGrammar({ patterns: [string] });
+  const lexers = compileGrammar({ patterns: [string] });
 
   it("matches a region", () => {
     expect(lex('"foo" bar', lexers, 0)).toEqual([[["string"], '"foo"']]);
@@ -255,7 +255,7 @@ describe("region", () => {
   });
 
   it("consumes nested patterns", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           ...string,
@@ -269,7 +269,7 @@ describe("region", () => {
   });
 
   it("consumes nested patterns in a repository", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ ...string, patterns: [{ include: "#escape" }] }],
       repository: { escape: { match: "\\\\." } },
     });
@@ -279,7 +279,7 @@ describe("region", () => {
   });
 
   it("keeps nested patterns from consuming the end", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ ...string, patterns: [{ match: "\\\\." }] }],
     });
 
@@ -289,7 +289,7 @@ describe("region", () => {
   });
 
   it("embeds only escapes of nested patterns", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "//",
@@ -306,7 +306,7 @@ describe("region", () => {
   });
 
   it("matches an end referring to the begin", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ begin: "([\"'])", end: "\\1", name: "string.quoted" }],
     });
 
@@ -316,7 +316,7 @@ describe("region", () => {
   });
 
   it("names a region by its content name", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ begin: "//", contentName: "comment.line", end: "(?=$)" }],
     });
 
@@ -324,7 +324,7 @@ describe("region", () => {
   });
 
   it("splits a structural region", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "\\(",
@@ -344,7 +344,7 @@ describe("region", () => {
   });
 
   it("splits a region without a name", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "\\(",
@@ -360,7 +360,7 @@ describe("region", () => {
   });
 
   it("splits a delimiter by captures", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "(foo)(bar)",
@@ -383,7 +383,7 @@ describe("region", () => {
   });
 
   it("prefers outer patterns to nested ones", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "\\(",
@@ -399,7 +399,7 @@ describe("region", () => {
   });
 
   it("prefers nested patterns to general outer ones", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         { match: "[a-z]+", name: "variable.other" },
         {
@@ -416,7 +416,7 @@ describe("region", () => {
   });
 
   it("drops general patterns in nested contexts", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "\\(",
@@ -431,7 +431,7 @@ describe("region", () => {
   });
 
   it("drops patterns of arbitrary characters in nested contexts", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [
         {
           begin: "\\(",
@@ -446,7 +446,7 @@ describe("region", () => {
   });
 
   it("falls back to delimiters on an invalid end", () => {
-    const { lexers } = compileGrammar({
+    const lexers = compileGrammar({
       patterns: [{ ...string, end: "(" }],
     });
 

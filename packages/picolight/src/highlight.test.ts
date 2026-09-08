@@ -130,7 +130,7 @@ describe(highlight, () => {
     expect(
       highlight(
         "foobar",
-        { lexers: [[/(foo)(bar)/dy, [], { 1: ["keyword"], 2: ["string"] }]] },
+        [[/(foo)(bar)/dy, [], { 1: ["keyword"], 2: ["string"] }]],
         githubDark,
       ).outerHTML,
     ).toMatchSnapshot();
