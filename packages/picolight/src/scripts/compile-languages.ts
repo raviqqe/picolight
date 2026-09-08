@@ -9,6 +9,7 @@ import type { Language } from "../language.ts";
 import { serializeLanguage } from "../serialization.ts";
 
 const directory = "src/languages";
+const handWrittenLanguages = new Set(["scheme"]);
 
 const compileLanguage = async (language: string): Promise<Language> => {
   log(`Compiling ${language}`);
@@ -25,7 +26,9 @@ const compileLanguage = async (language: string): Promise<Language> => {
   );
 };
 
-for (const { name } of grammars) {
+for (const { name } of grammars.filter(
+  ({ name }) => !handWrittenLanguages.has(name),
+)) {
   const language = await compileLanguage(name);
 
   await mkdir(directory, { recursive: true });
