@@ -1,6 +1,6 @@
 import { warn } from "node:console";
-import { mapValues } from "es-toolkit";
-import { toRegExp } from "oniguruma-to-es";
+import { mapValues, partition, range, uniq } from "es-toolkit";
+import { toRegExpDetails } from "oniguruma-to-es";
 import { array, object, optional, record, string, union, type z } from "zod";
 import type { Language, Lexer } from "../language.ts";
 import type { Token } from "../token.ts";
@@ -42,16 +42,35 @@ export type Grammar = z.infer<typeof grammarSchema>;
 
 type Level = { lexers: Lexer[]; nested: Pattern[][] };
 
-// Texts matched only by patterns too general for their nested contexts.
+// A pattern source translated into JavaScript, with the capture groups the
+// translation added to emulate Oniguruma.
+type Source = { hidden: number[]; source: string };
+
+// Texts matched only by patterns too general to stay in their contexts.
 const probes = ["a", " ", "\n"];
 
-const tokenize = (scope: string | undefined): Token | undefined =>
-  scope?.split(".")[0] as Token | undefined;
+// Tokens of space-separated scopes, inner scopes first. Meta scopes carry
+// structure rather than style.
+const tokenize = (scopes = ""): Token[] =>
+  uniq(
+    scopes
+      .split(/\s+/)
+      .flatMap((scope) => {
+        const token = scope.split(".")[0];
 
-const compileSource = (source: string): string | null => {
+        return token && token !== "meta" ? [token] : [];
+      })
+      .toReversed(),
+  ) as Token[];
+
+const compileSource = (source: string): Source | null => {
   try {
-    // cspell: ignore backrefs
-    return toRegExp(source, { rules: { allowOrphanBackrefs: true } }).source;
+    const { options, pattern } = toRegExpDetails(source, {
+      // cspell: ignore backrefs
+      rules: { allowOrphanBackrefs: true, captureGroup: true },
+    });
+
+    return { hidden: options?.hiddenCaptures ?? [], source: pattern };
   } catch (error) {
     warn((error as Error).message);
   }
@@ -59,9 +78,23 @@ const compileSource = (source: string): string | null => {
   return null;
 };
 
-const createLexer = (source: string, tokens: Token[]): Lexer[] => {
+// Grammars number capture groups without the hidden ones.
+const translateGroup = (group: number, hidden: number[]): number =>
+  range(1, group + hidden.length + 1).filter(
+    (candidate) => !hidden.includes(candidate),
+  )[group - 1] ?? 0;
+
+const createLexer = (
+  source: string,
+  tokens: Token[],
+  captures: Record<number, Token[]> = {},
+): Lexer[] => {
   try {
-    return [[new RegExp(source, "vy"), tokens]];
+    return [
+      Object.keys(captures).length
+        ? [new RegExp(source, "dvy"), tokens, captures]
+        : [new RegExp(source, "vy"), tokens],
+    ];
   } catch (error) {
     warn((error as Error).message);
   }
@@ -69,43 +102,43 @@ const createLexer = (source: string, tokens: Token[]): Lexer[] => {
   return [];
 };
 
-const captureTokens = (captures: Captures = {}): Token[] =>
-  [
-    ...new Set(
-      Object.values(captures).flatMap((capture) =>
-        typeof capture === "string"
+const captureTokens = (
+  captures: Captures = {},
+  hidden: number[],
+): Record<number, Token[]> =>
+  Object.fromEntries(
+    Object.entries(captures).flatMap(([group, scopes]) => {
+      const tokens =
+        typeof scopes === "string"
           ? []
-          : [capture].flat().flatMap((scope) => tokenize(scope.name) ?? []),
-      ),
-    ),
-  ].filter((token) => token !== "meta");
+          : uniq([scopes].flat().flatMap((scope) => tokenize(scope.name)));
 
-// Tokens of a span, or null if its captures need different tokens.
-const compileTokens = (
-  name: string | undefined,
-  captures: Captures | undefined,
-): Token[] | null => {
-  const token = tokenize(name);
-  const tokens = token && token !== "meta" ? [token] : captureTokens(captures);
-
-  return tokens.length > 1
-    ? null
-    : tokens.length
-      ? tokens
-      : token
-        ? [token]
+      return tokens.length
+        ? [[translateGroup(Number(group), hidden), tokens]]
         : [];
-};
+    }),
+  );
 
+// A styled name colors a whole span, and captures color its pieces otherwise.
 const compileSpan = (
   source: string,
   name: string | undefined,
   captures: Captures | undefined,
 ): Lexer[] => {
-  const tokens = compileTokens(name, captures);
-  const compiled = tokens && compileSource(source);
+  const compiled = compileSource(source);
+  const tokens = tokenize(name);
 
-  return tokens && compiled ? createLexer(compiled, tokens) : [];
+  if (!compiled) {
+    return [];
+  }
+
+  if (tokens.length) {
+    return createLexer(compiled.source, tokens);
+  }
+
+  const { 0: whole = [], ...groups } = captureTokens(captures, compiled.hidden);
+
+  return createLexer(compiled.source, whole, groups);
 };
 
 const resolveInclude = (
@@ -145,9 +178,9 @@ const collectEscapes = (
     }
 
     if (pattern.match) {
-      const source = compileSource(pattern.match);
+      const compiled = compileSource(pattern.match);
 
-      return source && isEscape(source) ? [source] : [];
+      return compiled && isEscape(compiled.source) ? [compiled.source] : [];
     }
 
     return pattern.begin
@@ -162,19 +195,19 @@ const compileRegion = (
   { contentName, end, name, patterns = [] }: Pattern,
   repository: Repository,
 ): Lexer[] => {
-  const token = tokenize(name ?? contentName);
+  const tokens = tokenize(name ?? contentName);
 
-  if (!token || token === "meta" || !end) {
+  if (!tokens.length || !end) {
     return [];
   }
 
-  const beginSource = compileSource(begin);
-  const endSource = compileSource(end);
+  const compiledBegin = compileSource(begin);
+  const compiledEnd = compileSource(end);
 
-  return beginSource && endSource
+  return compiledBegin && compiledEnd
     ? createLexer(
-        `(?:${beginSource})(?:(?!${endSource})(?:${[...collectEscapes(patterns, repository, new Set()), "[^]"].join("|")}))*(?:${endSource}|$)`,
-        [token],
+        `(?:${compiledBegin.source})(?:(?!${compiledEnd.source})(?:${[...collectEscapes(patterns, repository, new Set()), "[^]"].join("|")}))*(?:${compiledEnd.source}|$)`,
+        tokens,
       )
     : [];
 };
@@ -240,8 +273,9 @@ const isSpecific = ([pattern]: Lexer): boolean =>
     return pattern.test(probe);
   });
 
-// Patterns in outer contexts take precedence over ones in nested contexts, and
-// nested contexts drop patterns too general to go beyond them.
+// Patterns in outer contexts take precedence over ones in nested contexts.
+// Patterns too general to stay in their contexts come last in the top-level
+// context and are dropped in nested ones.
 const compileLevels = (
   levels: Pattern[][],
   repository: Repository,
@@ -255,16 +289,20 @@ const compileLevels = (
   const compiled = levels.map((patterns) =>
     compileLevel(patterns, repository, visited),
   );
-  const lexers = compiled.flatMap(({ lexers }) => lexers);
+  const [specific, general] = partition(
+    compiled.flatMap(({ lexers }) => lexers),
+    isSpecific,
+  );
 
   return [
-    ...(depth ? lexers.filter(isSpecific) : lexers),
+    ...specific,
     ...compileLevels(
       compiled.flatMap(({ nested }) => nested),
       repository,
       visited,
       depth + 1,
     ),
+    ...(depth ? [] : general),
   ];
 };
 
