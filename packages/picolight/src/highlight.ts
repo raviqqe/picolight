@@ -82,7 +82,7 @@ const split = (
     return [
       [
         ...ranges
-          .filter(([[first, last]]) => first <= start && end <= last)
+          .filter(([range]) => range[0] <= start && end <= range[1])
           .flatMap(([, tokens]) => tokens),
         ...tokens,
       ],
