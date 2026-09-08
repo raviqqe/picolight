@@ -1,3 +1,7 @@
 /*.ts
+!/javascript.ts
+!/javascript.test.ts
 !/scheme.ts
 !/scheme.test.ts
+!/typescript.ts
+!/typescript.test.ts
