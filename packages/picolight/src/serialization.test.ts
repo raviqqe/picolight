@@ -11,9 +11,7 @@ for (const language of [scheme, typescript]) {
 }
 
 it("serializes and deserializes a lexer with captures", () => {
-  const language: Language = {
-    lexers: [[/(foo)/dvy, [], { 1: ["keyword"] }]],
-  };
+  const language: Language = [[/(foo)/dvy, [], { 1: ["keyword"] }]];
 
   expect(deserializeLanguage(serializeLanguage(language))).toEqual(language);
 });

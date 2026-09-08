@@ -6,4 +6,4 @@ export type Lexer = [
   captures?: Record<number, Token[]>,
 ];
 
-export type Language = { lexers: Lexer[] };
+export type Language = Lexer[];

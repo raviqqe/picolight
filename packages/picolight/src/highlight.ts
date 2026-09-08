@@ -4,7 +4,7 @@ import type { Token } from "./token.js";
 
 export const highlight = (
   text: string,
-  { lexers }: Language,
+  lexers: Language,
   theme: Theme,
 ): HTMLElement => {
   lexers = [...lexers, [/./sy, []]];

@@ -311,12 +311,11 @@ const compileLevels = (
 export const compileGrammar = ({
   patterns,
   repository = {},
-}: Grammar): Language => ({
-  lexers: compileLevels(
+}: Grammar): Language =>
+  compileLevels(
     [patterns],
     mapValues(repository, (rule) =>
       Array.isArray(rule) ? { patterns: rule } : rule,
     ),
     new Set(),
-  ),
-});
+  );
