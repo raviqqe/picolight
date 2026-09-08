@@ -14,10 +14,6 @@
       "types": "./dist/languages/*.d.ts",
       "default": "./dist/languages/*.js"
     },
-    "./languages/classic/*": {
-      "types": "./dist/languages/classic/*.d.ts",
-      "default": "./dist/languages/classic/*.js"
-    },
     "./themes/*": {
       "types": "./dist/themes/*.d.ts",
       "default": "./dist/themes/*.js"

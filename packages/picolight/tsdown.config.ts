@@ -4,7 +4,6 @@ export default defineConfig({
   entry: [
     "src/index.ts",
     "src/languages/*.ts",
-    "src/languages/classic/*.ts",
     "src/themes/*.ts",
     "!src/**/*.test.ts",
   ],

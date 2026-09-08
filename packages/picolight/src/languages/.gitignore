@@ -1,1 +1,3 @@
 /*.ts
+!/scheme.ts
+!/scheme.test.ts
