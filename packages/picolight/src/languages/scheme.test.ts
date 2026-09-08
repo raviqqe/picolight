@@ -29,7 +29,7 @@ describe("comment", () => {
   it("matches a comment to the end", () => {
     const source = "; foo";
 
-    expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
+    expect(lex(source, scheme, 0)).toEqual([[["comment"], source]]);
   });
 
   it("matches a block comment", () => {
@@ -47,7 +47,7 @@ describe("comment", () => {
   it("matches a block comment to the end", () => {
     const source = "#| foo";
 
-    expect(lex(source, scheme.lexers, 0)).toEqual([[["comment"], source]]);
+    expect(lex(source, scheme, 0)).toEqual([[["comment"], source]]);
   });
 });
 
