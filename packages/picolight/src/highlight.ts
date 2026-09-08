@@ -56,8 +56,6 @@ export const lex = (
   throw new Error("No match");
 };
 
-// Pieces of a match where captures layer their tokens over the tokens of the
-// whole match, inner captures first.
 const split = (
   match: RegExpExecArray,
   tokens: Token[],
