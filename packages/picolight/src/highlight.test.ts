@@ -54,6 +54,7 @@ describe(lex, () => {
 
   it("layers capture tokens over match tokens", () => {
     expect(
+      // cspell: disable-next-line
       lex("afoob", [[/a(foo)b/dy, ["string"], { 1: ["keyword"] }]], 0),
     ).toEqual([
       [["string"], "a"],
@@ -103,6 +104,7 @@ describe(lex, () => {
   it("ignores captures outside a match", () => {
     expect(
       lex(
+        // cspell: disable-next-line
         "foobarbaz",
         [
           [
