@@ -34,7 +34,7 @@ for (const { name } of grammars) {
     [
       `import type { Language } from "../language.js";`,
       `import { deserializeLanguage } from "../serialization.js";`,
-      `export const ${camelCase(name)}: Language = deserializeLanguage(${JSON.stringify(serializeLanguage(language))})`,
+      `export const ${camelCase(name)}: Language = deserializeLanguage(JSON.stringify(${serializeLanguage(language)}));`,
     ].join("\n"),
   );
 }
