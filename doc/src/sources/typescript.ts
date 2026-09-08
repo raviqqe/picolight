@@ -21,6 +21,5 @@ const foo = (url: URL): Promise<string> =>
   (await fetch(url)).text();
 
 console.log("Hello, world!");
-
 console.log("\\n\\r\\t\\"\\\\");
 `.trim();
