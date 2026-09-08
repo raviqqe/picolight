@@ -64,8 +64,8 @@ const split = (
   const start = match.index;
   const end = start + match[0].length;
   const ranges = Object.entries(captures)
-    .flatMap(([group, tokens]): [[number, number], Token[]][] => {
-      const range = match.indices?.[Number(group)];
+    .flatMap(([index, tokens]): [[number, number], Token[]][] => {
+      const range = match.indices?.[Number(index)];
 
       return range && range[0] < range[1] ? [[range, tokens]] : [];
     })
