@@ -1,6 +1,7 @@
 import {
   array,
   type InferOutput,
+  is,
   object,
   optional,
   pipe,
@@ -9,8 +10,7 @@ import {
   union,
 } from "valibot";
 import type { Theme } from "../theme.ts";
-import type { Token } from "../token.ts";
-import { isToken } from "./token.ts";
+import { type Token, tokenSchema } from "../token.ts";
 
 export const themeSchema = object({
   colors: object({
@@ -61,7 +61,7 @@ export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
     tokens: Object.fromEntries(
       tokenColors.flatMap(({ scope, settings }) =>
         (scope ?? []).flatMap((scope): [Token, string][] =>
-          isToken(scope) && settings?.foreground
+          is(tokenSchema, scope) && settings?.foreground
             ? [[scope, settings.foreground]]
             : [],
         ),

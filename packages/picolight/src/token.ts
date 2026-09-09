@@ -1,5 +1,8 @@
+// cspell: ignore picklist
+import { type InferOutput, picklist } from "valibot";
+
 // Imported from Textmate.
-export const tokens = [
+export const tokenSchema = picklist([
   "bold",
   "brace",
   "carriage-return",
@@ -34,6 +37,6 @@ export const tokens = [
   "support",
   "text",
   "variable",
-] as const;
+]);
 
-export type Token = (typeof tokens)[number];
+export type Token = InferOutput<typeof tokenSchema>;

@@ -1,10 +1,10 @@
 import { warn } from "node:console";
 import { mapValues, partition, range, uniq } from "es-toolkit";
 import { toRegExpDetails } from "oniguruma-to-es";
+import { is } from "valibot";
 import { array, object, optional, record, string, union, type z } from "zod";
 import type { Language, Lexer } from "../language.ts";
-import type { Token } from "../token.ts";
-import { isToken } from "./token.ts";
+import { type Token, tokenSchema } from "../token.ts";
 
 const scopeSchema = object({ name: optional(string()) });
 
@@ -61,7 +61,7 @@ const tokenize = (scopes = ""): Token[] =>
       .flatMap((scope) => {
         const [token = ""] = scope.split(".");
 
-        return isToken(token) && token !== "meta" ? [token] : [];
+        return is(tokenSchema, token) && token !== "meta" ? [token] : [];
       })
       .toReversed(),
   );
