@@ -74,7 +74,11 @@ const compileSource = (source: string): Source | null => {
 
     return { hidden: options?.hiddenCaptures ?? [], source: pattern };
   } catch (error) {
-    warn((error as Error).message);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+
+    warn(error.message);
   }
 
   return null;
@@ -98,7 +102,11 @@ const createLexer = (
         : [new RegExp(source, "vy"), tokens],
     ];
   } catch (error) {
-    warn((error as Error).message);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+
+    warn(error.message);
   }
 
   return [];
