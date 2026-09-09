@@ -14,19 +14,15 @@ export const highlight = (
 
   while (index < text.length) {
     for (const [tokens, match] of lex(text, lexers, index)) {
-      const style = tokens
+      const color = tokens
         .values()
         .map((token) => theme.tokens[token])
         .find(Boolean);
       let node: Node = document.createTextNode(match);
 
-      if (style) {
-        const element = document.createElement(style[0] ?? "span");
-
-        if (style[1]) {
-          element.style = `color:${style[1]}`;
-        }
-
+      if (color) {
+        const element = document.createElement("span");
+        element.style = `color:${color}`;
         element.appendChild(node);
         node = element;
       }
