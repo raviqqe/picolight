@@ -44,7 +44,7 @@ describe("color", () => {
     expect(
       compileTheme({
         colors,
-        tokenColors: [{ settings: { fontStyle: ["bold"] } }],
+        tokenColors: [{ settings: {} }],
       }),
     ).toEqual({ back: "#000", fore: "#fff", tokens: {} });
   });
@@ -75,7 +75,7 @@ describe("token", () => {
         colors,
         tokenColors: [{ scope: ["keyword"], settings: { foreground: "#f00" } }],
       }).tokens,
-    ).toEqual({ keyword: [null, "#f00"] });
+    ).toEqual({ keyword: "#f00" });
   });
 
   it("compiles scopes", () => {
@@ -86,7 +86,7 @@ describe("token", () => {
           { scope: ["keyword", "string"], settings: { foreground: "#f00" } },
         ],
       }).tokens,
-    ).toEqual({ keyword: [null, "#f00"], string: [null, "#f00"] });
+    ).toEqual({ keyword: "#f00", string: "#f00" });
   });
 
   it("prefers a later scope", () => {
@@ -98,16 +98,14 @@ describe("token", () => {
           { scope: ["keyword"], settings: { foreground: "#0f0" } },
         ],
       }).tokens,
-    ).toEqual({ keyword: [null, "#0f0"] });
+    ).toEqual({ keyword: "#0f0" });
   });
 
   it("skips a scope without a foreground color", () => {
     expect(
       compileTheme({
         colors,
-        tokenColors: [
-          { scope: ["keyword"], settings: { fontStyle: ["bold"] } },
-        ],
+        tokenColors: [{ scope: ["keyword"], settings: { background: "#111" } }],
       }).tokens,
     ).toEqual({});
   });
@@ -155,23 +153,5 @@ describe("schema", () => {
       parse(themeSchema, { colors: {}, tokenColors: [{}] }).tokenColors[0]
         ?.scope,
     ).toBeUndefined();
-  });
-
-  it("parses font styles", () => {
-    expect(
-      parse(themeSchema, {
-        colors: {},
-        tokenColors: [{ settings: { fontStyle: "bold italic" } }],
-      }).tokenColors[0]?.settings?.fontStyle,
-    ).toEqual(["bold", "italic"]);
-  });
-
-  it("rejects an unknown font style", () => {
-    expect(() =>
-      parse(themeSchema, {
-        colors: {},
-        tokenColors: [{ settings: { fontStyle: "foo" } }],
-      }),
-    ).toThrow();
   });
 });

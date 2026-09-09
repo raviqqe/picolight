@@ -1,7 +1,6 @@
 import {
   array,
   type InferOutput,
-  literal,
   object,
   optional,
   pipe,
@@ -9,7 +8,7 @@ import {
   transform,
   union,
 } from "valibot";
-import type { Tag, Theme } from "../theme.ts";
+import type { Theme } from "../theme.ts";
 
 const filteredCharacters = [" ", ".", "*"];
 
@@ -31,22 +30,6 @@ export const themeSchema = object({
       settings: optional(
         object({
           background: optional(string()),
-          fontStyle: optional(
-            pipe(
-              string(),
-              transform((value) => value.split(" ").filter(Boolean)),
-              array(
-                union([
-                  literal("bold"),
-                  literal("italic"),
-                  literal("normal"),
-                  literal("regular"),
-                  literal("strikethrough"),
-                  literal("underline"),
-                ]),
-              ),
-            ),
-          ),
           foreground: optional(string()),
         }),
       ),
@@ -77,10 +60,10 @@ export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
     fore: foregroundColor,
     tokens: Object.fromEntries(
       tokenColors.flatMap(({ scope, settings }) =>
-        (scope ?? []).flatMap((scope): [string, [Tag, string]][] =>
+        (scope ?? []).flatMap((scope): [string, string][] =>
           !filteredCharacters.some((character) => scope.includes(character)) &&
           settings?.foreground
-            ? [[scope, [null, settings.foreground]]]
+            ? [[scope, settings.foreground]]
             : [],
         ),
       ),
