@@ -4,6 +4,7 @@ import { toRegExpDetails } from "oniguruma-to-es";
 import { array, object, optional, record, string, union, type z } from "zod";
 import type { Language, Lexer } from "../language.ts";
 import type { Token } from "../token.ts";
+import { isToken } from "./token.ts";
 
 const scopeSchema = object({ name: optional(string()) });
 
@@ -51,19 +52,19 @@ type Source = { hidden: number[]; source: string };
 // meaning to.
 const probes = ["a", " ", "\n", "\u0001"];
 
-// Tokens of space-separated scopes, inner scopes first. Meta scopes carry
-// structure rather than style.
+// Tokens of space-separated scopes, inner scopes first. Only scopes themes
+// style become tokens; meta scopes carry structure rather than style.
 const tokenize = (scopes = ""): Token[] =>
   uniq(
     scopes
       .split(/\s+/)
       .flatMap((scope) => {
-        const token = scope.split(".")[0];
+        const [token = ""] = scope.split(".");
 
-        return token && token !== "meta" ? [token] : [];
+        return isToken(token) && token !== "meta" ? [token] : [];
       })
       .toReversed(),
-  ) as Token[];
+  );
 
 const compileSource = (source: string): Source | null => {
   try {

@@ -9,8 +9,8 @@ import {
   union,
 } from "valibot";
 import type { Theme } from "../theme.ts";
-
-const filteredCharacters = [" ", ".", "*"];
+import type { Token } from "../token.ts";
+import { isToken } from "./token.ts";
 
 export const themeSchema = object({
   colors: object({
@@ -60,9 +60,8 @@ export const compileTheme = ({ colors, tokenColors }: TextmateTheme): Theme => {
     fore: foregroundColor,
     tokens: Object.fromEntries(
       tokenColors.flatMap(({ scope, settings }) =>
-        (scope ?? []).flatMap((scope): [string, string][] =>
-          !filteredCharacters.some((character) => scope.includes(character)) &&
-          settings?.foreground
+        (scope ?? []).flatMap((scope): [Token, string][] =>
+          isToken(scope) && settings?.foreground
             ? [[scope, settings.foreground]]
             : [],
         ),

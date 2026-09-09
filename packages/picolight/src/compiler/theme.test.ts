@@ -129,6 +129,15 @@ describe("token", () => {
       }).tokens,
     ).toEqual({});
   });
+
+  it("skips an unknown scope", () => {
+    expect(
+      compileTheme({
+        colors,
+        tokenColors: [{ scope: ["foo"], settings: { foreground: "#f00" } }],
+      }).tokens,
+    ).toEqual({});
+  });
 });
 
 describe("schema", () => {
