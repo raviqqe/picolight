@@ -162,6 +162,22 @@ describe("match", () => {
     expect(lex("foobar", lexers, 0)).toEqual([[["entity"], "foobar"]]);
   });
 
+  it("ignores unknown scopes", () => {
+    const lexers = compileGrammar({
+      patterns: [{ match: "foo", name: "foo.bar keyword.control" }],
+    });
+
+    expect(lex("foo", lexers, 0)).toEqual([[["keyword"], "foo"]]);
+  });
+
+  it("ignores a capture of unknown scopes", () => {
+    expect(
+      compileGrammar({
+        patterns: [{ captures: { 1: { name: "foo.bar" } }, match: "(foo)bar" }],
+      }),
+    ).toEqual([[/(foo)bar/vy, []]]);
+  });
+
   it("adds an indices flag only for captures", () => {
     expect(
       compileGrammar({
