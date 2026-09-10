@@ -59,7 +59,7 @@ const tokenize = (scopes = ""): Token[] =>
     scopes
       .split(/\s+/)
       .flatMap((scope) => {
-        const [token = ""] = scope.split(".");
+        const token = scope.split(".")[0] ?? "";
 
         return is(tokenSchema, token) && token !== "meta" ? [token] : [];
       })
