@@ -42,7 +42,7 @@
     "tm-themes": "^1.12.11",
     "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
-    "valibot": "^1.4.2",
+    "valibot": "^1.5.0",
     "vitest": "^5.0.0",
     "zod": "^4.6.2"
   }
