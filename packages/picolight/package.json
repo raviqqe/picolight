@@ -39,7 +39,7 @@
     "knip": "^6.37.0",
     "oniguruma-to-es": "^4.3.6",
     "tm-grammars": "^1.32.22",
-    "tm-themes": "^1.12.11",
+    "tm-themes": "^1.12.12",
     "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
     "valibot": "^1.5.0",
