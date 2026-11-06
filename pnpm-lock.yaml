@@ -192,8 +192,8 @@ importers:
   packages/picolight:
     devDependencies:
       '@raviqqe/tsconfig':
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -1142,9 +1142,9 @@ packages:
     peerDependencies:
       '@biomejs/biome': ^2.6.3
 
-  '@raviqqe/tsconfig@3.0.2':
-    resolution: {integrity: sha512-san+p1rO62JSKwb7F2hbjoY3EtPhC4qiQM9DNpE+pAIguQRlNurfVpm6KNlIuc+WY0e2cS3X7H2EMJ+PZaRtZw==}
-    engines: {node: '>=25.8.0'}
+  '@raviqqe/tsconfig@3.0.4':
+    resolution: {integrity: sha512-XPKqUek8v+1cNBrYG0vi7vB7DnILdqvds9u2rRR46krVozuHIJO7KbAcH3+qI2ih730zsjYg0QkoBjn99ZRYQw==}
+    engines: {node: ^26.12.1}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     resolution: {integrity: sha512-ia3DwAs0OsMGS7+IConptSiyk9pEXkOx/AbJ2n/lAGxH3QkWQus1t8d7gnAT38FCU2sQu8lUbeR6AiZFv4JxaA==}
@@ -3197,7 +3197,7 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.6.4
 
-  '@raviqqe/tsconfig@3.0.2':
+  '@raviqqe/tsconfig@3.0.4':
     dependencies:
       typescript: 7.0.2
 
